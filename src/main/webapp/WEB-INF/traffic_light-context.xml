@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p = "http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="AdapterTrafficLightSetting" class="com.avectis.transportcontrol.control.traffic_light.TrafficLightAdapterCOM"
+          p:baudRate="9600"
+          p:dataBits="8"
+          p:stopBits="1"
+          p:parity="0">
+    </bean>
+
+    <bean id="TL1Adapter"  parent="AdapterTrafficLightSetting">
+        <constructor-arg value="COM1" index="0"/>
+
+    </bean>
+    <bean id="TL2Adapter" parent="AdapterTrafficLightSetting">
+        <constructor-arg value="COM2" index="0"/>
+    </bean>
+
+    <bean id="TL1" class="com.avectis.transportcontrol.control.traffic_light.TrafficLight">
+        <constructor-arg index="0" value="traffic_light1"/>
+        <constructor-arg index="1" ref="TL1Adapter"/>
+    </bean>
+    <bean id="TL2" class="com.avectis.transportcontrol.control.traffic_light.TrafficLight">
+        <constructor-arg index="0" value="traffic_light2"/>
+        <constructor-arg index="1" ref="TL2Adapter"/>
+    </bean>
+
+
+    <bean id="trafficLightCollection" class="com.avectis.transportcontrol.facade.TrafficLightFacade">
+        <property name="trafficLightsCollection">
+            <list>
+                <ref bean="TL1"/>
+                <ref bean="TL2"/>
+            </list>
+
+        </property>
+    </bean>
+
+</beans>

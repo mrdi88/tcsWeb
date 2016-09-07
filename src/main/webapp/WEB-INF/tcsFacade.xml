@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+">
+    <bean id="baseHibernateDAO" class="com.avectis.transportcontrol.DAO.BaseHibernateDAO" abstract="true">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="carDAO" class="com.avectis.transportcontrol.DAO.CarHibernateDAO" parent="baseHibernateDAO">
+    </bean>
+    <bean id="cardDAO" class="com.avectis.transportcontrol.DAO.CardHibernateDAO" parent="baseHibernateDAO">
+    </bean>
+    <bean id="queueDAO" class="com.avectis.transportcontrol.DAO.QueueHibernateDAO" parent="baseHibernateDAO">
+    </bean>
+    
+    <bean id="carFacade" class="com.avectis.transportcontrol.facade.CarFacade">
+        <property name="carDAO" ref="carDAO" />
+    </bean>
+    <bean id="cardFacade" class="com.avectis.transportcontrol.facade.CardFacade">
+        <property name="carDAO" ref="carDAO" />
+        <property name="cardDAO" ref="cardDAO" />
+        <property name="queueDAO" ref="queueDAO" />
+        <property name="carFacade" ref="carFacade" />
+    </bean>
+    <bean id="queueFacade" class="com.avectis.transportcontrol.facade.QueueFacade">
+        <property name="queueDAO" ref="queueDAO" />
+        <property name="cardDAO" ref="cardDAO" />
+        <property name="cardFacade" ref="cardFacade" />
+    </bean>
+</beans>

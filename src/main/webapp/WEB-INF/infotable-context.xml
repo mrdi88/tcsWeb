@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p = "http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="AdapterInfoTableSetting" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterCOM"
+          p:baudRate="9600"
+          p:dataBits="8"
+          p:stopBits="1"
+          p:parity="0">
+    </bean>
+
+    <bean id="SB1Adapter"  parent="AdapterInfoTableSetting">
+        <constructor-arg value="COM1" index="0"/>
+
+    </bean>
+    <bean id="SB2Adapter" parent="AdapterInfoTableSetting">
+        <constructor-arg value="COM2" index="0"/>
+    </bean>
+
+    <bean id="SB1" class="com.avectis.transportcontrol.control.infotable.InfoTable">
+        <constructor-arg index="0" value="InfoTable1"/>
+        <constructor-arg index="1" value='1'/>
+        <constructor-arg index="2" ref="SB1Adapter"/>
+    </bean>
+    <bean id="SB2" class="com.avectis.transportcontrol.control.infotable.InfoTable">
+        <constructor-arg index="0" value="InfoTable2"/>
+        <constructor-arg index="1" value='5'/>
+        <constructor-arg index="2" ref="SB2Adapter"/>
+    </bean>
+
+
+    <bean id="infoTableFacade" class="com.avectis.transportcontrol.facade.InfoTableFacade">
+        <property name="infoTableCollection">
+            <list>
+                <ref bean="SB1"/>
+                <ref bean="SB2"/>
+            </list>
+
+        </property>
+    </bean>
+</beans>

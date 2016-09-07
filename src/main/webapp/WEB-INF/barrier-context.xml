@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:util="http://www.springframework.org/schema/util"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p = "http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+
+    <bean id="AdapterBarrierSetting" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterCOM"
+          p:baudRate="9600"
+          p:dataBits="8"
+          p:stopBits="1"
+          p:parity="0">
+    </bean>
+        <bean id="B1Adapter"  parent="AdapterBarrierSetting">
+            <constructor-arg value="COM1" index="0"/>
+        </bean>
+    <bean id="B2Adapter" parent="AdapterBarrierSetting">
+        <constructor-arg value="COM2" index="0"/>
+    </bean>
+
+    <bean id="B1" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <constructor-arg index="0" value="barrier1"/>
+        <constructor-arg index="1" ref="B1Adapter"/>
+    </bean>
+    <bean id="B2" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <constructor-arg index="0" value="barrier2"/>
+        <constructor-arg index="1" ref="B2Adapter"/>
+    </bean>
+
+
+    <bean id="barrierFacade" class="com.avectis.transportcontrol.facade.BarrierFacade">
+        <property name="barrierCollection">
+            <list>
+               <ref bean="B1"/>
+               <ref bean="B2"/>
+            </list>
+
+        </property>
+    </bean>
+
+
+
+</beans>
