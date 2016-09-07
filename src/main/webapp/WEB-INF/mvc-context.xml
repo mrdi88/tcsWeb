@@ -25,6 +25,6 @@
     </bean>
     
     <bean id="carController" class="com.avectis.transportcontrol.web.controller.CarController">
-        <property name="carFacade" ref="carFacade" />
+        <!--<property name="carFacade" ref="carFacade" />-->
     </bean>
 </beans>
