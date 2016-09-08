@@ -23,7 +23,7 @@ public class TrafficLightAdapterCOM implements TrafficLightAdapter {
             this.serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN | SerialPort.FLOWCONTROL_RTSCTS_OUT);
         }
         catch (SerialPortException e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

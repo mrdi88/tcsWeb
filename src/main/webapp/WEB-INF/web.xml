@@ -15,10 +15,10 @@
                     <param-value>
                         /WEB-INF/classes/tcsDataBase.xml,
                         /WEB-INF/classes/tcsFacade.xml,
-                        <!--/WEB-INF/classes/barrier-context.xml,
+                        /WEB-INF/classes/barrier-context.xml,
                         /WEB-INF/classes/traffic_light-context.xml,
                         /WEB-INF/classes/infotable-context.xml,
-                        /WEB-INF/classes/scanner-context.xml, -->
+                        /WEB-INF/classes/scanner-context.xml, 
                         /WEB-INF/classes/mvc-context.xml
                     </param-value>
         </init-param>
