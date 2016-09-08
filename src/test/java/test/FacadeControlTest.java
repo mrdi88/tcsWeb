@@ -14,7 +14,7 @@ import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-@ContextConfiguration(locations = {"/tcsDataBase.xml", "/tcsFacade.xml","/traffic_light-context.xml",
+@ContextConfiguration(locations = {"/traffic_light-context.xml",
     "/barrier-context.xml","/infotable-context.xml","/scanner-context.xml"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 //@TransactionConfiguration(transactionManager = "transactionManager")
