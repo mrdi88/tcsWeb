@@ -13,9 +13,9 @@
           p:stopBits="1"
           p:parity="0">
     </bean>
-        <bean id="B1Adapter"  parent="AdapterBarrierSetting">
-            <constructor-arg value="COM1" index="0"/>
-        </bean>
+    <bean id="B1Adapter"  parent="AdapterBarrierSetting">
+        <constructor-arg value="COM1" index="0"/>
+    </bean>
     <bean id="B2Adapter" parent="AdapterBarrierSetting">
         <constructor-arg value="COM2" index="0"/>
     </bean>

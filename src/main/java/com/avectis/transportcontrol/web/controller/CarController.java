@@ -1,8 +1,14 @@
 package com.avectis.transportcontrol.web.controller;
 
 import com.avectis.transportcontrol.facade.CarFacade;
+import com.avectis.transportcontrol.view.CarView;
+import com.avectis.transportcontrol.view.CargoView;
+import com.avectis.transportcontrol.view.DriverView;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +28,9 @@ public class CarController extends AbstractController {
     }
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-        Map<String,String> m=new HashMap<>();
-        return new ModelAndView("car/currentCars", m);
+        List<CarView> carList = carFacade.getList(null, null);
+        Map<String,List<CarView>>  data = new HashMap<>();
+        data.put("carList", carList);
+        return new ModelAndView("car/currentCars", data);
     }
 }

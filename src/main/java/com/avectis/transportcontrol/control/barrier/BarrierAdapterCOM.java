@@ -22,7 +22,7 @@ public class BarrierAdapterCOM implements BarrierAdapter {
             this.serialPort.setParams(9600, 8, 1, 0);
             this.serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN | SerialPort.FLOWCONTROL_RTSCTS_OUT);
         }
-        catch (SerialPortException e){
+        catch (Exception e){
             //e.printStackTrace();
         }
     }

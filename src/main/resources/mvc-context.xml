@@ -8,6 +8,7 @@
         <property name="mappings">
             <props>
                 <prop key="/car.std">carController</prop>
+                <prop key="/card.std">cardController</prop>
             </props>
         </property>
     </bean>
@@ -25,6 +26,10 @@
     </bean>
     
     <bean id="carController" class="com.avectis.transportcontrol.web.controller.CarController">
-        <!--<property name="carFacade" ref="carFacade" />-->
+        <property name="carFacade" ref="carFacade" />
+    </bean>
+    <bean id="cardController" class="com.avectis.transportcontrol.web.controller.CardController">
+        <property name="carFacade" ref="carFacade" />
+        <property name="cardFacade" ref="cardFacade" />
     </bean>
 </beans>
