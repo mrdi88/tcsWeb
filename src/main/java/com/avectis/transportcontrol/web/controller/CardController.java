@@ -1,7 +1,9 @@
 package com.avectis.transportcontrol.web.controller;
 
+import com.avectis.transportcontrol.control.scanner.CardScannerListener;
 import com.avectis.transportcontrol.facade.CarFacade;
 import com.avectis.transportcontrol.facade.CardFacade;
+import com.avectis.transportcontrol.facade.ScannerFacade;
 import com.avectis.transportcontrol.view.CarView;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
@@ -11,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +29,7 @@ public class CardController extends AbstractController {
 
     private CarFacade carFacade;
     private CardFacade cardFacade;
+    private ScannerFacade scannerFacade;
 
     public void setCarFacade(CarFacade carFacade) {
         this.carFacade = carFacade;
@@ -32,6 +37,10 @@ public class CardController extends AbstractController {
 
     public void setCardFacade(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
+    }
+
+    public void setScannerFacade(ScannerFacade scannerFacade) {
+        this.scannerFacade = scannerFacade;
     }
     
     @Override
@@ -48,6 +57,11 @@ public class CardController extends AbstractController {
                     }
                     arg1.sendRedirect("card.std");
                     break;
+                case "getCardNumber":
+                    CardNumberClass cn = getCardNumber();//new CardNumberClass("0");
+                    Map<String,String>  data = new HashMap<>();
+                    data.put("cardNumber", cn.getCardNumber());
+                    return new ModelAndView("card/cardNumber", data);
             }
         }
         if (arg0.getParameter("view")!=null){
@@ -92,8 +106,36 @@ public class CardController extends AbstractController {
                 car=carFacade.get(card.getCar().getId());
             cardFacade.delete(card);
             if (car!=null){
-                carFacade.delete(car);
+                //carFacade.delete(car);
             }
         }
+    }
+    private CardNumberClass getCardNumber(){
+        CardNumberClass cardNumber= new CardNumberClass("0");
+        synchronized(cardNumber){
+            CardScannerListener cardListener=new CardScannerListener(){
+                CardNumberClass cardNumber;
+                public CardScannerListener setCardNumber(CardNumberClass cardNumber) {
+                    this.cardNumber=cardNumber;
+                    return this;
+                }
+                @Override
+                public void onCardLogined(String CardNumberHEX,String CardNumberDEC){
+                    synchronized(cardNumber){
+                        cardNumber.setCardNumber(CardNumberDEC);
+                        cardNumber.notifyAll();
+                    }
+                }
+                @Override
+                public void onCardRemoved(){}
+            }.setCardNumber(cardNumber);
+            scannerFacade.getElementById("scanner1").addListener(cardListener);
+            try {
+                cardNumber.wait(30000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return cardNumber;
     }
 }

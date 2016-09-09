@@ -32,29 +32,6 @@ public class FacadeControlTest extends AbstractJUnit4SpringContextTests {//Abstr
     @Test
     //@Rollback(false)
     public void firstTest() {
-        barrierFacade.Open("barrier1");
-        barrierFacade.Close("barrier1");
-        barrierFacade.GetState("barrier1");
-
-        barrierFacade.Open("barrier2");
-        barrierFacade.Close("barrier2");
-        barrierFacade.GetState("barrier2");
-
-        scannerFacade.GetData("scanner1");
-        scannerFacade.GetData("scanner2");
-
-        trafficLightFacade.TurnOn("traffic_light1");
-        trafficLightFacade.TurnOff("traffic_light1");
-        trafficLightFacade.GetState("traffic_light1");
-
-        trafficLightFacade.TurnOn("traffic_light2");
-        trafficLightFacade.TurnOff("traffic_light2");
-        trafficLightFacade.GetState("traffic_light2");
-
-        infoTableFacade.SendData(new String[]{"hello", "world"}, "InfoTable1");
-        infoTableFacade.getDateLastUpdate("InfoTable1");
-
-        infoTableFacade.SendData(new String[]{"hello", "world"}, "InfoTable2");
-        infoTableFacade.getDateLastUpdate("InfoTable2");
+       
     }
 }
