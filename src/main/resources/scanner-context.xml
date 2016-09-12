@@ -4,17 +4,17 @@
        xmlns:p = "http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
         
-        <bean id="cardAdapterScanner" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterCOM" init-method="init" destroy-method="destroy">
+        <bean id="cardScannerAdapter1" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterCOM" init-method="init" destroy-method="destroy">
             <property name="portName" value="COM6"> </property>
         </bean>
-        <bean id="CardScanner1" class="com.avectis.transportcontrol.control.scanner.CardScanner">
-            <constructor-arg index="0" value="scanner1"/>
-            <constructor-arg index="1" ref="cardAdapterScanner"/>
+        <bean id="cardScanner1" class="com.avectis.transportcontrol.control.scanner.CardScanner">
+            <property name="name" value="scanner1"> </property>
+            <property name="scannerAdapter" ref="cardScannerAdapter1"> </property>
         </bean>
         <bean id="scannerFacade" class="com.avectis.transportcontrol.facade.ScannerFacade">
             <property name="scannerCollection">
                 <list>
-                    <ref bean="CardScanner1"/>
+                    <ref bean="cardScanner1"/>
                 </list>
             </property>
         </bean>

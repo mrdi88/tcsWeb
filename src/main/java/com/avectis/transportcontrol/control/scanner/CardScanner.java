@@ -13,16 +13,10 @@ public class CardScanner {
     
     private String name;
     private CardScannerAdapter scannerAdapter;
-    private CardScannerPortListener adapterListener;
-    private ArrayList<CardScannerListener> listeners;
+    private CardScannerPortListener adapterListener=new CardScannerPortListener();
+    private ArrayList<CardScannerListener> listeners=new ArrayList();
     
-    public CardScanner(String scannerName, CardScannerAdapter adapter) {
-        this.name = scannerName;
-        this.scannerAdapter = adapter;
-        this.adapterListener = new CardScannerPortListener();
-        this.scannerAdapter.addPortListener(this.adapterListener);
-        this.listeners = new ArrayList();
-    }
+    public CardScanner() { }
 
     public String getName() {
         return name;
@@ -35,7 +29,9 @@ public class CardScanner {
         return scannerAdapter;
     }
     public void setScannerAdapter(CardScannerAdapter scannerAdapter) {
-        this.scannerAdapter.removePortListener();
+        if (this.scannerAdapter!=null){
+            this.scannerAdapter.removePortListener();
+        }
         this.scannerAdapter = scannerAdapter;
         this.scannerAdapter.addPortListener(this.adapterListener);
     }

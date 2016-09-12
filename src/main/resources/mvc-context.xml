@@ -32,5 +32,6 @@
         <property name="carFacade" ref="carFacade" />
         <property name="cardFacade" ref="cardFacade" />
         <property name="scannerFacade" ref="scannerFacade" />
+        <property name="newCardScannerName" value="scanner1" />
     </bean>
 </beans>

@@ -30,6 +30,15 @@ public class CardController extends AbstractController {
     private CarFacade carFacade;
     private CardFacade cardFacade;
     private ScannerFacade scannerFacade;
+    private String newCardScannerName;
+
+    public String getNewCardScannerName() {
+        return newCardScannerName;
+    }
+
+    public void setNewCardScannerName(String newCardScannerName) {
+        this.newCardScannerName = newCardScannerName;
+    }
 
     public void setCarFacade(CarFacade carFacade) {
         this.carFacade = carFacade;
@@ -123,12 +132,12 @@ public class CardController extends AbstractController {
                 public void onCardLogined(String CardNumberHEX,String CardNumberDEC){
                     synchronized(cardNumber){
                         cardNumber.setCardNumber(CardNumberHEX);
-                        scannerFacade.getElementById("scanner1").removeListener(this);
+                        scannerFacade.getElementById(newCardScannerName).removeListener(this);
                         cardNumber.notifyAll();
                     }
                 }
             }.setCardNumber(cardNumber);
-            scannerFacade.getElementById("scanner1").addListener(cardListener);
+            scannerFacade.getElementById(newCardScannerName).addListener(cardListener);
             try {
                 cardNumber.wait(60000);
             } catch (InterruptedException ex) {
