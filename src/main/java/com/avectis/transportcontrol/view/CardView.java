@@ -17,7 +17,7 @@ public class CardView {
 
     private long id;
     private CarView car;
-    private long cardNumber;
+    private String cardNumber;
     private int state;
     private int accessLevel;
     private Date createDate;
@@ -43,10 +43,10 @@ public class CardView {
     public void setState(int state) {
         this.state = state;
     }
-    public long getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
-    public void setCardNumber(long cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
     public CarView getCar() {

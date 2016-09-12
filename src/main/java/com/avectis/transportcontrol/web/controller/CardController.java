@@ -58,7 +58,7 @@ public class CardController extends AbstractController {
                     arg1.sendRedirect("card.std");
                     break;
                 case "getCardNumber":
-                    CardNumberClass cn = getCardNumber();//new CardNumberClass("0");
+                    CardNumberClass cn = getCardNumber();
                     Map<String,String>  data = new HashMap<>();
                     data.put("cardNumber", cn.getCardNumber());
                     return new ModelAndView("card/cardNumber", data);
@@ -91,7 +91,7 @@ public class CardController extends AbstractController {
         carv.setId(carFacade.add(carv));
         CardView card=new CardView();
         card.setCar(carv);
-        card.setCardNumber(Integer.decode(arg0.getParameter("cardNumber")));
+        card.setCardNumber(arg0.getParameter("cardNumber"));
         card.setState(0);
         card.setAccessLevel(1);
         card.setCreateDate(new Date());
@@ -122,16 +122,15 @@ public class CardController extends AbstractController {
                 @Override
                 public void onCardLogined(String CardNumberHEX,String CardNumberDEC){
                     synchronized(cardNumber){
-                        cardNumber.setCardNumber(CardNumberDEC);
+                        cardNumber.setCardNumber(CardNumberHEX);
+                        scannerFacade.getElementById("scanner1").removeListener(this);
                         cardNumber.notifyAll();
                     }
                 }
-                @Override
-                public void onCardRemoved(){}
             }.setCardNumber(cardNumber);
             scannerFacade.getElementById("scanner1").addListener(cardListener);
             try {
-                cardNumber.wait(30000);
+                cardNumber.wait(60000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
             }

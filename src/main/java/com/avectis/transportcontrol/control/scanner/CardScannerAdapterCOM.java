@@ -23,7 +23,7 @@ public class CardScannerAdapterCOM implements CardScannerAdapter {
     public CardScannerAdapterCOM(){
     }
     private void init(){
-        System.out.println("CardScannerAdapterCOM INIT");
+        //System.out.println("CardScannerAdapterCOM INIT");
         this.serialPort = new SerialPort(portName);
         this.baudRate = 9600; 
         this.bitCount = 8;

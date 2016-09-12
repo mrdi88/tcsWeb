@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 
-@ContextConfiguration(locations = {"/tcsDataBase.xml", "/tcsFacade.xml", "/mvc-context.xml"})
+@ContextConfiguration(locations = {"/tcsDataBase.xml", "/tcsFacade.xml","/scanner-context.xml", "/mvc-context.xml"})
 @TransactionConfiguration(transactionManager = "transactionManager")
 public class CarControllerTest extends AbstractTransactionalJUnit4SpringContextTests {
 

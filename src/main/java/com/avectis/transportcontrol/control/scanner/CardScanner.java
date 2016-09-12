@@ -41,50 +41,45 @@ public class CardScanner {
     }
     
     public void addListener(CardScannerListener listener) {
-      this.listeners.add(listener);
+      synchronized(this.listeners){
+        this.listeners.add(listener);
+      }
     }
     public void removeListener(CardScannerListener listener) {
-      this.listeners.remove(listener);
-    }
-    private void notifyListeners(String cardNHex, String cardNDec) {
-        for(CardScannerListener listener : listeners){
-            listener.onCardLogined(cardNHex, cardNDec);
+        synchronized(this.listeners){
+            this.listeners.remove(listener);
         }
     }
-    private void notifyListeners() {
-        for(CardScannerListener listener : listeners){
-            listener.onCardRemoved();
+    private void notifyListeners(String cardNHex, String cardNDec) {
+        ArrayList<CardScannerListener> tempListeners=new ArrayList();
+        synchronized(this.listeners){
+            for(CardScannerListener listener : listeners){
+                tempListeners.add(listener);
+            }
+        }
+        //System.out.println("notify "+tempListeners.size()+" listeners");
+        for(CardScannerListener listener : tempListeners){
+                listener.onCardLogined(cardNHex, cardNDec);
         }
     }
     
     public class CardScannerPortListener implements SerialPortEventListener {
     @Override 
     public void serialEvent(SerialPortEvent eventData) {
-        System.out.println("Data received");
+        //System.out.println("Data received");
         if(eventData.getEventValue() > 2)
         {
             String tempStr = scannerAdapter.getReceivedData();
-            System.out.println(tempStr +"  "+ tempStr.length());
+            //System.out.println(tempStr +"  "+ tempStr.length());
             if(tempStr.length() >= 39)
             {
                 String tempNumberHEX = tempStr.substring(7, 15);
                 String tempNumberDEC = tempStr.substring(30, 39);
-                System.out.println("Listeners notifyed");
+                //System.out.println("Listeners notifyed");
                 notifyListeners(tempNumberHEX, tempNumberDEC);
-
             }
-            else if(tempStr.contains("No Card "))
-            {
-                notifyListeners();
-            }
-            else
-            {
-                
-            }
-            
         }    
         scannerAdapter.ClearBuffers();
         }
     }
-    
 }

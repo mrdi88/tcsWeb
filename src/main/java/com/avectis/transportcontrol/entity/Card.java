@@ -32,7 +32,7 @@ public class Card {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carId")
     private Car car;
-    private long cardNumber;
+    private String cardNumber;
     private int state;
     private int accessLevel;
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,10 +59,10 @@ public class Card {
     public void setState(int state) {
         this.state = state;
     }
-    public long getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
-    public void setCardNumber(long cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
     public Car getCar() {
@@ -81,7 +81,7 @@ public class Card {
         
     }
 
-    public Card(Car car, long cardNumber, int state, int accessLevel) {
+    public Card(Car car, String cardNumber, int state, int accessLevel) {
         this.car = car;
         this.cardNumber = cardNumber;
         this.state = state;

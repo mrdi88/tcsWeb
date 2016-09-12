@@ -6,5 +6,4 @@ package com.avectis.transportcontrol.control.scanner;
  */
 public interface CardScannerListener {
     public void onCardLogined(String CardNumberHEX,String CardNumberDEC);
-    public void onCardRemoved();
 }

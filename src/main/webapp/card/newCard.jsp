@@ -11,10 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Applicant List</title>
+        <script src="javascript/jquery-1.11.3.js"></script>	
     </head>
     <body>
         <form action="card.std?cmd=add" method="post">
-            card number: <br><input type="text" name="cardNumber" value="0"><br><br>
+            card number: <br><input id="cardNumber" type="text" name="cardNumber" value="" readonly><br><br>
             driver<br>
             name <br><input type="text" name="name" value="Dima"><br>
             organization <br><input type="text" name="organization" value="Avectis"><br>
@@ -26,5 +27,18 @@
         </form>
     </body>
 </html>
+<script>
+    $(window).load( function(){
+	$.get("card.std?cmd=getCardNumber",{ "_": $.now() }, function(data) {setdata(data);});
+    });
+    function setdata(data) { 
+	var cardNumber= data.cardNumber;
+        if (cardNumber!=null && cardNumber!=0){
+            $( "#cardNumber" ).val( cardNumber );
+            //alert("fail");
+        }
+	$.get("card.std?cmd=getCardNumber",{ "_": $.now() }, function(data) {setdata(data);});
+    }	
+</script>
 
     
