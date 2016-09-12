@@ -57,6 +57,32 @@ public class QueueFacade {
         return qvList;
     }
     @Transactional
+    public void moveCard(CardView cardv, QueueView from, QueueView to){
+        Card card;
+        if (cardv.getId() != null && cardv.getId() > 0) {
+            card=cardDAO.getCard(cardv.getId());
+        } else {
+            return;
+        }
+        Queue f;
+        if (from.getId() != null && from.getId() > 0) {
+            f=queueDAO.getQueue(from.getId());
+        } else {
+            return;
+        }
+        Queue t;
+        if (to.getId() != null && to.getId() > 0) {
+            t=queueDAO.getQueue(to.getId());
+        } else {
+            return;
+        }
+        //remove
+        f.getCards().remove(card);
+        t.getCards().add(card);
+        queueDAO.update(f);
+        queueDAO.update(t);
+    }
+    @Transactional
     public void update(QueueView queueView){
         queueDAO.update(queueFromView(queueView));
     }

@@ -3,6 +3,7 @@ package com.avectis.transportcontrol.web.controller;
 import com.avectis.transportcontrol.control.scanner.CardScannerListener;
 import com.avectis.transportcontrol.facade.CarFacade;
 import com.avectis.transportcontrol.facade.CardFacade;
+import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.facade.ScannerFacade;
 import com.avectis.transportcontrol.view.CarView;
 import com.avectis.transportcontrol.view.CardView;
@@ -29,8 +30,13 @@ public class CardController extends AbstractController {
 
     private CarFacade carFacade;
     private CardFacade cardFacade;
+    private QueueFacade queueFacade;
     private ScannerFacade scannerFacade;
     private String newCardScannerName;
+
+    public void setQueueFacade(QueueFacade queueFacade) {
+        this.queueFacade = queueFacade;
+    }
 
     public String getNewCardScannerName() {
         return newCardScannerName;
@@ -110,13 +116,8 @@ public class CardController extends AbstractController {
         CardView card;
         card=cardFacade.getCard(id);
         if (card!=null){
-            CarView car=null;
-            if (card.getCar()!=null)
-                car=carFacade.get(card.getCar().getId());
+            queueFacade.deleteCardFromQueues(card);
             cardFacade.delete(card);
-            if (car!=null){
-                //carFacade.delete(car);
-            }
         }
     }
     private CardNumberClass getCardNumber(){

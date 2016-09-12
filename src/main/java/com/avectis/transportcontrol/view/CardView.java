@@ -100,7 +100,7 @@ public class CardView {
         if (!Objects.equals(this.car, other.car)) {
             return false;
         }
-        if (this.cardNumber != other.cardNumber) {
+        if (!Objects.equals(this.cardNumber, other.cardNumber)) {
             return false;
         }
         if (this.state != other.state) {

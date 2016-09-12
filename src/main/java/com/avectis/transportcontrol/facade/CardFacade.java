@@ -40,6 +40,15 @@ public class CardFacade {
         return new CardView(cardDAO.getCard(id));
     }
     @Transactional(readOnly = true)
+    public CardView getCardByNumber(String number){
+        List<CardView> cardList = getList();
+        for (CardView cv:cardList){
+            if (cv.getCardNumber().equals(number))
+                return cv;
+        }
+        return null;
+    }
+    @Transactional(readOnly = true)
     public List<CardView> getList(){
         List<Card> cards=cardDAO.getCards();
         List<CardView> cardsView= new ArrayList<>();

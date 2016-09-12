@@ -9,6 +9,7 @@
             <props>
                 <prop key="/car.std">carController</prop>
                 <prop key="/card.std">cardController</prop>
+                <prop key="/queue.std">queueController</prop>
             </props>
         </property>
     </bean>
@@ -31,7 +32,12 @@
     <bean id="cardController" class="com.avectis.transportcontrol.web.controller.CardController">
         <property name="carFacade" ref="carFacade" />
         <property name="cardFacade" ref="cardFacade" />
+        <property name="queueFacade" ref="queueFacade" />
         <property name="scannerFacade" ref="scannerFacade" />
         <property name="newCardScannerName" value="scanner1" />
+    </bean>
+    <bean id="queueController" class="com.avectis.transportcontrol.web.controller.QueueController">
+        <property name="cardFacade" ref="cardFacade" />
+        <property name="queueFacade" ref="queueFacade" />
     </bean>
 </beans>
