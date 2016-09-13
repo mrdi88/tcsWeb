@@ -118,7 +118,7 @@ public class Card {
         } else{
             if (other.getCar()!=null) return false;
         }
-        if (this.getCardNumber() != other.getCardNumber()) {
+        if (!Objects.equals(this.getCardNumber(),other.getCardNumber())) {
             return false;
         }
         if (this.getState() != other.getState()) {
