@@ -69,12 +69,12 @@ public class CardScanner {
         {
             String tempStr = scannerAdapter.getReceivedData();
             //System.out.println(tempStr +"  "+ tempStr.length());
-            if(tempStr != null && tempStr.length() > 1)
+            if(tempStr != null )
             {                 
-                String tempNumberHEX = new String();
-                String tempNumberDEC = new String();
+                String tempNumberHEX = null;
+                String tempNumberDEC = null;
                 
-                Pattern p = Pattern.compile("\\[[A-Z0-9]{8}\\]"); 
+                Pattern p = Pattern.compile("\\[[A-F0-9]\\]"); 
                 Matcher m = p.matcher(tempStr);
                 if(m.find()){
                     tempNumberHEX = m.group(0).substring(1, m.group(0).length() - 1);      
@@ -86,7 +86,8 @@ public class CardScanner {
                     tempNumberDEC = m.group(0);      
                 }                
                 //System.out.println("Listeners notifyed");
-                notifyListeners(tempNumberHEX, tempNumberDEC);
+                if(tempNumberHEX != null && tempNumberDEC != null)
+                    notifyListeners(tempNumberHEX, tempNumberDEC);
             }
         }    
         scannerAdapter.ClearBuffers();
