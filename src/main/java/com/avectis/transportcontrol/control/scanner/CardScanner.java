@@ -3,6 +3,8 @@ package com.avectis.transportcontrol.control.scanner;
 import java.util.ArrayList;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
+import java.util.regex.Matcher;  
+import java.util.regex.Pattern; 
 
 
 /**
@@ -67,10 +69,22 @@ public class CardScanner {
         {
             String tempStr = scannerAdapter.getReceivedData();
             //System.out.println(tempStr +"  "+ tempStr.length());
-            if(tempStr.length() >= 39)
-            {
-                String tempNumberHEX = tempStr.substring(7, 15);
-                String tempNumberDEC = tempStr.substring(30, 39);
+            if(tempStr != null && tempStr.length() > 1)
+            {                 
+                String tempNumberHEX = new String();
+                String tempNumberDEC = new String();
+                
+                Pattern p = Pattern.compile("\\[[A-Z0-9]{8}\\]"); 
+                Matcher m = p.matcher(tempStr);
+                if(m.find()){
+                    tempNumberHEX = m.group(0).substring(1, m.group(0).length() - 1);      
+                } 
+                
+                p = Pattern.compile("[0-9]{3}\\,[0-9]{5}"); 
+                m = p.matcher(tempStr);
+                if(m.find()){
+                    tempNumberDEC = m.group(0);      
+                }                
                 //System.out.println("Listeners notifyed");
                 notifyListeners(tempNumberHEX, tempNumberDEC);
             }
