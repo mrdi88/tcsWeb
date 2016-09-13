@@ -132,7 +132,7 @@ public class CardController extends AbstractController {
                 @Override
                 public void onCardLogined(String CardNumberHEX,String CardNumberDEC){
                     synchronized(cardNumber){
-                        cardNumber.setCardNumber(CardNumberHEX);
+                        cardNumber.setCardNumber(CardNumberDEC);
                         scannerFacade.getElementById(newCardScannerName).removeListener(this);
                         cardNumber.notifyAll();
                     }

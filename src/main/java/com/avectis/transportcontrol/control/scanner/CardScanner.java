@@ -1,6 +1,8 @@
 package com.avectis.transportcontrol.control.scanner;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import java.util.regex.Matcher;  
@@ -58,6 +60,7 @@ public class CardScanner {
         //System.out.println("notify "+tempListeners.size()+" listeners");
         for(CardScannerListener listener : tempListeners){
                 listener.onCardLogined(cardNHex, cardNDec);
+                System.out.println("notify "+cardNHex+" "+cardNDec);
         }
     }
     
@@ -67,30 +70,38 @@ public class CardScanner {
         //System.out.println("Data received");
         if(eventData.getEventValue() > 2)
         {
-            String tempStr = scannerAdapter.getReceivedData();
-            //System.out.println(tempStr +"  "+ tempStr.length());
-            if(tempStr != null )
-            {                 
-                String tempNumberHEX = null;
-                String tempNumberDEC = null;
-                
-                Pattern p = Pattern.compile("\\[[A-F0-9]\\]"); 
-                Matcher m = p.matcher(tempStr);
-                if(m.find()){
-                    tempNumberHEX = m.group(0).substring(1, m.group(0).length() - 1);      
-                } 
-                
-                p = Pattern.compile("[0-9]{3}\\,[0-9]{5}"); 
-                m = p.matcher(tempStr);
-                if(m.find()){
-                    tempNumberDEC = m.group(0);      
-                }                
-                //System.out.println("Listeners notifyed");
-                if(tempNumberHEX != null && tempNumberDEC != null)
-                    notifyListeners(tempNumberHEX, tempNumberDEC);
+            try {
+                Thread.sleep(10);
+                String tempStr = scannerAdapter.getReceivedData();
+                //System.out.println(tempStr +"  "+ tempStr.length());
+                System.out.println(tempStr);
+                if(tempStr != null )
+                {
+                    String tempNumberHEX = null;
+                    String tempNumberDEC = null;
+                    String p1="\\[[A-F0-9]{1,}\\]";
+                    String p2="[0-9]{3}\\,[0-9]{5}";
+                    Pattern p = Pattern.compile(p1);
+                    Matcher m = p.matcher(tempStr);
+                    if(m.find()){
+                        tempNumberHEX = m.group(0).substring(1, m.group(0).length() - 1);
+                    }
+                    
+                    p = Pattern.compile(p2);
+                    m = p.matcher(tempStr);
+                    if(m.find()){
+                        tempNumberDEC = m.group(0);
+                    }
+                    //System.out.println("Listeners notifyed");
+                    if(tempNumberHEX != null && tempNumberDEC != null)
+                        notifyListeners(tempNumberHEX, tempNumberDEC);
+                }
+            }
+            //scannerAdapter.ClearBuffers();
+            catch (InterruptedException ex) {
+                Logger.getLogger(CardScanner.class.getName()).log(Level.SEVERE, null, ex);
             }
         }    
-        scannerAdapter.ClearBuffers();
         }
     }
 }
