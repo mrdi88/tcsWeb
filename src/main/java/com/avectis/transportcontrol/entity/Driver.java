@@ -67,10 +67,10 @@ public class Driver {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 71 * hash + Objects.hashCode(this.name);
-        hash = 71 * hash + Objects.hashCode(this.mobileNumber);
-        hash = 71 * hash + Objects.hashCode(this.organization);
+        hash = 71 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 71 * hash + Objects.hashCode(this.getName());
+        hash = 71 * hash + Objects.hashCode(this.getMobileNumber());
+        hash = 71 * hash + Objects.hashCode(this.getOrganization());
         return hash;
     }
 

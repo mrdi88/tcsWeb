@@ -7,9 +7,13 @@ package com.avectis.transportcontrol.entity;
 
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +30,9 @@ public class Cargo {
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment",strategy="increment")
     private long id;
-    private int quality;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "sampleId")
+    private Sample sample;
     private int weightIn;
     private int weightOut;
     private String dischargingPlace;
@@ -78,12 +84,15 @@ public class Cargo {
     public void setWeightIn(int weightIn) {
         this.weightIn = weightIn;
     }
-    public int getQuality() {
-        return quality;
+
+    public Sample getSample() {
+        return sample;
     }
-    public void setQuality(int quality) {
-        this.quality = quality;
+
+    public void setSample(Sample sample) {
+        this.sample = sample;
     }
+
     public long getId() {
         return id;
     }
@@ -94,38 +103,22 @@ public class Cargo {
     public Cargo() {
     }
 
-    public Cargo(int quality, int weightIn, int weightOut, String dischargingPlace, Date dischargeDate, String loadingPlace, Date loadingDate) {
-        this.quality = quality;
-        this.weightIn = weightIn;
-        this.weightOut = weightOut;
-        this.dischargingPlace = dischargingPlace;
-        if (dischargeDate!=null){
-            dischargeDate.setTime(dischargeDate.getTime()-dischargeDate.getTime()%1000);
-        }
-        this.dischargeDate = dischargeDate;
-        this.loadingPlace = loadingPlace;
-        if (loadingDate!=null){
-            loadingDate.setTime(loadingDate.getTime()-loadingDate.getTime()%1000);
-        }
-        this.loadingDate = loadingDate;
-    }
-
     @Override
     public String toString() {
-        return "Cargo{" + "cargoId=" + id + ", quality=" + quality + ", weightIn=" + weightIn + ", weightOut=" + weightOut + ", dischargingPlace=" + dischargingPlace + ", dischargeDate=" + dischargeDate + ", loadingPlace=" + loadingPlace + ", loadingDate=" + loadingDate + '}';
+        return "Cargo{" + "id=" + id + ", sample=" + this.getSample() + ", weightIn=" + weightIn + ", weightOut=" + weightOut + ", dischargingPlace=" + dischargingPlace + ", dischargeDate=" + dischargeDate + ", loadingPlace=" + loadingPlace + ", loadingDate=" + loadingDate + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 37 * hash + this.quality;
-        hash = 37 * hash + this.weightIn;
-        hash = 37 * hash + this.weightOut;
-        hash = 37 * hash + Objects.hashCode(this.dischargingPlace);
-        hash = 37 * hash + Objects.hashCode(this.dischargeDate);
-        hash = 37 * hash + Objects.hashCode(this.loadingPlace);
-        hash = 37 * hash + Objects.hashCode(this.loadingDate);
+        hash = 37 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.getSample());
+        hash = 37 * hash + this.getWeightIn();
+        hash = 37 * hash + this.getWeightOut();
+        hash = 37 * hash + Objects.hashCode(this.getDischargingPlace());
+        hash = 37 * hash + Objects.hashCode(this.getDischargeDate());
+        hash = 37 * hash + Objects.hashCode(this.getLoadingPlace());
+        hash = 37 * hash + Objects.hashCode(this.getLoadingDate());
         return hash;
     }
 
@@ -141,8 +134,12 @@ public class Cargo {
         if (this.getId() != other.getId()) {
             return false;
         }
-        if (this.getQuality() != other.getQuality()) {
-            return false;
+        if (this.getSample()!=null){
+            if (!this.getSample().equals(other.getSample())) {
+                return false;
+            }
+        } else{
+            if (other.getSample()!=null) return false;
         }
         if (this.getWeightIn() != other.getWeightIn()) {
             return false;
@@ -151,6 +148,15 @@ public class Cargo {
             return false;
         }
         if (!Objects.equals(this.getDischargingPlace(), other.getDischargingPlace())) {
+            return false;
+        }
+        if (!Objects.equals(this.getLoadingPlace(), other.getLoadingPlace())) {
+            return false;
+        }
+        if (!Objects.equals(this.getDischargeDate(), other.getDischargeDate())) {
+            return false;
+        }
+        if (!Objects.equals(this.getLoadingDate(), other.getLoadingDate())) {
             return false;
         }
         return true;

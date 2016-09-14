@@ -21,6 +21,7 @@
               <value>com.avectis.transportcontrol.entity.Card</value>
               <value>com.avectis.transportcontrol.entity.Car</value>
               <value>com.avectis.transportcontrol.entity.Queue</value>
+              <value>com.avectis.transportcontrol.entity.Sample</value>
             </list>
         </property>
         <property name="hibernateProperties">

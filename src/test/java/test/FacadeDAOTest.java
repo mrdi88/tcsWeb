@@ -97,6 +97,7 @@ public class FacadeDAOTest extends AbstractJUnit4SpringContextTests {//AbstractT
         CardView card = new CardView();
         card.setCar(car);
         card.setCreateDate(new Date());
+        card.setCardNumber("6565");
         card.setId(cardFacade.add(card));
         CardView saved_card=cardFacade.getCard(card.getId());
         card.getCar().getDriver().setId(saved_card.getCar().getDriver().getId());
@@ -120,6 +121,7 @@ public class FacadeDAOTest extends AbstractJUnit4SpringContextTests {//AbstractT
             card.getCar().setId(0);
             card.getCar().setId(carFacade.add(card.getCar()));
             card.setCreateDate(new Date());
+            card.setCardNumber("6565");
             cardFacade.add(card);
         }
         Long endTime=new Date().getTime();
@@ -209,6 +211,7 @@ public class FacadeDAOTest extends AbstractJUnit4SpringContextTests {//AbstractT
         CarView car= createCar();
         car.setId(carFacade.add(car));
         CardView card = new CardView();
+        card.setCardNumber("4565");
         card.setCar(car);
         card.setCreateDate(new Date());
         card.setId(cardFacade.add(card));

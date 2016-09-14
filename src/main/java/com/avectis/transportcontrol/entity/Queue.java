@@ -66,6 +66,9 @@ public class Queue {
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 17 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 17 * hash + Objects.hashCode(this.getName());
+        hash = 17 * hash + Objects.hashCode(this.getCards());
         return hash;
     }
 

@@ -133,7 +133,6 @@ public class CardController extends AbstractController {
                 public void onCardLogined(String CardNumberHEX,String CardNumberDEC){
                     synchronized(cardNumber){
                         cardNumber.setCardNumber(CardNumberDEC);
-                        scannerFacade.getElementById(newCardScannerName).removeListener(this);
                         cardNumber.notifyAll();
                     }
                 }
@@ -141,6 +140,7 @@ public class CardController extends AbstractController {
             scannerFacade.getElementById(newCardScannerName).addListener(cardListener);
             try {
                 cardNumber.wait(60000);
+                scannerFacade.getElementById(newCardScannerName).removeListener(cardListener);
             } catch (InterruptedException ex) {
                 Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
             }

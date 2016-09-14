@@ -98,7 +98,13 @@ public class Card {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 3;
+        hash = 13 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 13 * hash + Objects.hashCode(this.getCar());
+        hash = 13 * hash + Objects.hashCode(this.getCardNumber());
+        hash = 13 * hash + this.getState();
+        hash = 13 * hash + this.getAccessLevel();
+        hash = 13 * hash + Objects.hashCode(this.getCreateDate());
         return hash;
     }
 

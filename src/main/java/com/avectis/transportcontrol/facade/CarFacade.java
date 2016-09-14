@@ -9,7 +9,9 @@ import com.avectis.transportcontrol.DAO.CarDAO;
 import com.avectis.transportcontrol.entity.Car;
 import com.avectis.transportcontrol.entity.Cargo;
 import com.avectis.transportcontrol.entity.Driver;
+import com.avectis.transportcontrol.entity.Sample;
 import com.avectis.transportcontrol.view.CarView;
+import com.avectis.transportcontrol.view.SampleView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -86,7 +88,7 @@ public class CarFacade {
             cargo.setDischargingPlace(carv.getCargo().getLoadingPlace());
             cargo.setLoadingDate(carv.getCargo().getLoadingDate());
             cargo.setLoadingPlace(carv.getCargo().getLoadingPlace());
-            cargo.setQuality(carv.getCargo().getQuality());
+            cargo.setSample(sampleFromView(carv.getCargo().getSample()));
             cargo.setWeightIn(carv.getCargo().getWeightIn());
             cargo.setWeightOut(carv.getCargo().getWeightOut());
         }
@@ -106,6 +108,17 @@ public class CarFacade {
         car.setDriver(driver);
 
         return car;
+    }
+    private Sample sampleFromView(SampleView samplev){
+        Sample sample=null;
+        if (samplev!=null){
+            sample=new Sample();
+            sample.setId(samplev.getId());
+            sample.setWeediness(samplev.getWeediness());
+            sample.setGluten(samplev.getGluten());
+            sample.setHumidity(samplev.getHumidity());
+        }
+        return sample;
     }
 }
 

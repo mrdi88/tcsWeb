@@ -16,7 +16,7 @@ import java.util.Objects;
 public class CargoView {
 
     private long id;
-    private int quality;
+    private SampleView sample;
     private int weightIn;
     private int weightOut;
     private String dischargingPlace;
@@ -66,12 +66,15 @@ public class CargoView {
     public void setWeightIn(int weightIn) {
         this.weightIn = weightIn;
     }
-    public int getQuality() {
-        return quality;
+
+    public SampleView getSample() {
+        return sample;
     }
-    public void setQuality(int quality) {
-        this.quality = quality;
+
+    public void setSample(SampleView sample) {
+        this.sample = sample;
     }
+
     public long getId() {
         return id;
     }
@@ -81,7 +84,6 @@ public class CargoView {
     
     public CargoView() {
     }
-    
 
     public CargoView(Cargo cargo) {
         this.dischargeDate=cargo.getDischargeDate();
@@ -89,21 +91,25 @@ public class CargoView {
         this.id=cargo.getId();
         this.loadingDate=cargo.getLoadingDate();
         this.loadingPlace=cargo.getLoadingPlace();
-        this.quality=cargo.getQuality();
+        if (cargo.getSample()!=null){
+            this.sample=new SampleView(cargo.getSample());
+        } else{
+            this.sample=null;
+        }
         this.weightIn=cargo.getWeightIn();
         this.weightOut=cargo.getWeightOut();
     }
 
     @Override
     public String toString() {
-        return "Cargo{" + "cargoId=" + id + ", quality=" + quality + ", weightIn=" + weightIn + ", weightOut=" + weightOut + ", dischargingPlace=" + dischargingPlace + ", dischargeDate=" + dischargeDate + ", loadingPlace=" + loadingPlace + ", loadingDate=" + loadingDate + '}';
+        return "CargoView{" + "id=" + id + ", sample=" + sample + ", weightIn=" + weightIn + ", weightOut=" + weightOut + ", dischargingPlace=" + dischargingPlace + ", dischargeDate=" + dischargeDate + ", loadingPlace=" + loadingPlace + ", loadingDate=" + loadingDate + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 37 * hash + this.quality;
+        hash = 37 * hash + Objects.hashCode(this.getSample());
         hash = 37 * hash + this.weightIn;
         hash = 37 * hash + this.weightOut;
         hash = 37 * hash + Objects.hashCode(this.dischargingPlace);
@@ -115,6 +121,9 @@ public class CargoView {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -125,18 +134,28 @@ public class CargoView {
         if (this.id != other.id) {
             return false;
         }
-        if (this.quality != other.quality) {
-            return false;
-        }
         if (this.weightIn != other.weightIn) {
             return false;
         }
         if (this.weightOut != other.weightOut) {
             return false;
         }
+        if (!Objects.equals(this.getSample(), other.getSample())) {
+            return false;
+        }
         if (!Objects.equals(this.dischargingPlace, other.dischargingPlace)) {
+            return false;
+        }
+        if (!Objects.equals(this.loadingPlace, other.loadingPlace)) {
+            return false;
+        }
+        if (!Objects.equals(this.dischargeDate, other.dischargeDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.loadingDate, other.loadingDate)) {
             return false;
         }
         return true;
     }
+
 }

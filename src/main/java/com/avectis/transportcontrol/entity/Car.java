@@ -122,14 +122,14 @@ public class Car {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 67 * hash + Objects.hashCode(this.cargo);
-        hash = 67 * hash + Objects.hashCode(this.driver);
-        hash = 67 * hash + Objects.hashCode(this.destination);
-        hash = 67 * hash + Objects.hashCode(this.firstNumber);
-        hash = 67 * hash + Objects.hashCode(this.secondNumber);
-        hash = 67 * hash + Objects.hashCode(this.createDate);
-        hash = 67 * hash + Objects.hashCode(this.leaveDate);
+        hash = 67 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 67 * hash + Objects.hashCode(this.getCargo());
+        hash = 67 * hash + Objects.hashCode(this.getDriver());
+        hash = 67 * hash + Objects.hashCode(this.getDestination());
+        hash = 67 * hash + Objects.hashCode(this.getFirstNumber());
+        hash = 67 * hash + Objects.hashCode(this.getSecondNumber());
+        hash = 67 * hash + Objects.hashCode(this.getCreateDate());
+        hash = 67 * hash + Objects.hashCode(this.getLeaveDate());
         return hash;
     }
 

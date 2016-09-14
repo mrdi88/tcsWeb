@@ -1,0 +1,105 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.avectis.transportcontrol.view;
+
+import com.avectis.transportcontrol.entity.Sample;
+
+/**
+ *
+ * @author DPoplauski
+ */
+
+public class SampleView {
+
+    private long id;
+    private float weediness;
+    private float gluten;
+    private float humidity;
+    
+    public SampleView() {
+    }
+    public SampleView(Sample sample) {
+        if (sample!=null){
+            this.id=sample.getId();
+            this.weediness=sample.getWeediness();
+            this.gluten=sample.getGluten();
+            this.humidity=sample.getHumidity();
+        }
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public float getWeediness() {
+        return weediness;
+    }
+
+    public void setWeediness(float weediness) {
+        this.weediness = weediness;
+    }
+
+    public float getGluten() {
+        return gluten;
+    }
+
+    public void setGluten(float gluten) {
+        this.gluten = gluten;
+    }
+
+    public float getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(float humidity) {
+        this.humidity = humidity;
+    }
+
+    @Override
+    public String toString() {
+        return "Sample{" + "id=" + id + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 47 * hash + Float.floatToIntBits(this.getWeediness());
+        hash = 47 * hash + Float.floatToIntBits(this.getGluten());
+        hash = 47 * hash + Float.floatToIntBits(this.getHumidity());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SampleView other = (SampleView) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.weediness) != Float.floatToIntBits(other.weediness)) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.gluten) != Float.floatToIntBits(other.gluten)) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.humidity) != Float.floatToIntBits(other.humidity)) {
+            return false;
+        }
+        return true;
+    }
+}
