@@ -2,13 +2,9 @@ package com.avectis.transportcontrol.web.controller;
 
 import com.avectis.transportcontrol.facade.CarFacade;
 import com.avectis.transportcontrol.view.CarView;
-import com.avectis.transportcontrol.view.CargoView;
-import com.avectis.transportcontrol.view.DriverView;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;

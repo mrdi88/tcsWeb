@@ -27,7 +27,6 @@
                     <td>${car.driver.organization}</td>
                     <td>cargo</td>
                     <td>${car.cargo.id}</td>
-                    <td>${car.cargo.quality}</td>
                     <td>${car.cargo.weightIn}</td>
                     <td>${car.cargo.weightOut}</td>
                     <td>${car.cargo.dischargingPlace}</td>

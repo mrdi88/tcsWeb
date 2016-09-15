@@ -74,7 +74,7 @@ public class CardScanner {
                 Thread.sleep(10);
                 String tempStr = scannerAdapter.getReceivedData();
                 //System.out.println(tempStr +"  "+ tempStr.length());
-                //System.out.println(tempStr);
+                System.out.println(tempStr);
                 if(tempStr != null )
                 {
                     String tempNumberHEX = null;
