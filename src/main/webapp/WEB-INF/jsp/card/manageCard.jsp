@@ -36,7 +36,7 @@
                 <div style="float:left;">
                     Номер карты:<br><input class="cardNumber" type="text" name="" value="" readonly><br><br>
                     Водитель<br>
-                    Имя<br><input class="name" type="text" name="name" value=""><br>
+                    Имя<br><input class="name" type="text" name="name" value="" readonly><br>
                     Организация<br><input class="organization" type="text" name="organization" value="" readonly><br>
                     Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br><br>
                     Машина<br>
@@ -51,6 +51,7 @@
                     Место разгрузки<br><input class="dischargingPlace" type="text" name="dischargingPlace" value="" readonly><br>
                     Время разгрузки<br><input class="dischargeDate" type="text" name="dischargeDate" value="" readonly><br><br>
                     Проба<br>
+                    Имя пробы<br><input class="sampleName" type="text" name="sampleName" value="" readonly><br>
                     Засоренность, %<br><input class="weediness" type="text" name="weediness" value="" readonly><br>
                     Клейковина, %<br><input class="gluten" type="text" name="gluten" value="" readonly><br>
                     Влажность, %<br><input class="humidity" type="text" name="humidity" value="" readonly><br><br>
@@ -128,6 +129,7 @@
                     $( "#deleteForm .weightOut").val( "" );
                     $( "#deleteForm .dischargingPlace").val( "" );
                     $( "#deleteForm .dischargeDate").val( "" );
+                    $( "#deleteForm .sampleName").val( "" );
                     $( "#deleteForm .weediness").val( "" );
                     $( "#deleteForm .gluten").val( "" );
                     $( "#deleteForm .humidity").val( "" );
@@ -155,20 +157,31 @@
             $( "#deleteForm .mobileNumber").val( card.car.driver.mobileNumber );
             $( "#deleteForm .firstNumber").val( card.car.firstNumber );
             $( "#deleteForm .secondNumber").val( card.car.secondNumber );
-            $( "#deleteForm .createDate").val( card.car.createDate );
+            var createDate = new Date(card.car.createDate).toLocaleString("ru-ru", dateOptions);
+            $( "#deleteForm .createDate").val(createDate);
             $( "#deleteForm .weightIn").val( card.car.cargo.weightIn );
             $( "#deleteForm .weightOut").val( card.car.cargo.weightOut );
             $( "#deleteForm .dischargingPlace").val( card.car.cargo.dischargingPlace );
             $( "#deleteForm .dischargeDate").val( card.car.cargo.dischargeDate );
             if (card.car.cargo.sample!=null){
+                $( "#deleteForm .sampleName").val( card.car.cargo.sample.name );
                 $( "#deleteForm .weediness").val( card.car.cargo.sample.weediness );
                 $( "#deleteForm .gluten").val( card.car.cargo.sample.gluten );
                 $( "#deleteForm .humidity").val( card.car.cargo.sample.humidity );
+            }else{
+                $( "#deleteForm .sampleName").val( "" );
+                $( "#deleteForm .weediness").val( "" );
+                $( "#deleteForm .gluten").val( "" );
+                $( "#deleteForm .humidity").val( "" );
             }
             $( "#deleteForm .cardId").val( card.id );
         } 
 	$.get("${pageContext.request.contextPath}/card?cmd=getExistCardData",{ "_": $.now() }, function(data) {setCardData(data);});
     }	
+    var dateOptions = {
+		weekday: "short", year: "numeric", month: "short",
+		day: "numeric", hour: "2-digit", minute: "2-digit"
+            };
 </script>
 
     

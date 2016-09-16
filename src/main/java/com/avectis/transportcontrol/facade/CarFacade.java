@@ -114,6 +114,7 @@ public class CarFacade {
         if (samplev!=null){
             sample=new Sample();
             sample.setId(samplev.getId());
+            sample.setName(samplev.getName());
             sample.setWeediness(samplev.getWeediness());
             sample.setGluten(samplev.getGluten());
             sample.setHumidity(samplev.getHumidity());

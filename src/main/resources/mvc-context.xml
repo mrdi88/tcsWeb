@@ -11,6 +11,9 @@
                 <prop key="/card">cardController</prop>
                 <prop key="/card/list">listCardController</prop>
                 <prop key="/card/manage">manageCardController</prop>
+                <prop key="/laboratory">laboratoryController</prop>
+                <prop key="/laboratory/assign">assignSampleController</prop>
+                <prop key="/laboratory/manage">manageSamplesController</prop>
                 <prop key="/queue">queueController</prop>
             </props>
         </property>
@@ -36,7 +39,7 @@
         <property name="cardFacade" ref="cardFacade" />
         <property name="queueFacade" ref="queueFacade" />
         <property name="scannerFacade" ref="scannerFacade" />
-        <property name="CardScannerName" value="scanner1" />
+        <property name="cardScannerName" value="scanner1" />
     </bean>
     <bean id="listCardController" class="com.avectis.transportcontrol.web.controller.card.ListCardController">
         <property name="cardFacade" ref="cardFacade" />
@@ -46,5 +49,16 @@
     <bean id="queueController" class="com.avectis.transportcontrol.web.controller.QueueController">
         <property name="cardFacade" ref="cardFacade" />
         <property name="queueFacade" ref="queueFacade" />
+    </bean>
+    <bean id="laboratoryController" class="com.avectis.transportcontrol.web.controller.laboratory.LaboratoryController">
+        <property name="cardFacade" ref="cardFacade" />
+        <property name="queueFacade" ref="queueFacade" />
+        <property name="scannerFacade" ref="scannerFacade" />
+        <property name="cardScannerName" value="scanner1" />
+    </bean>
+    <bean id="assignSampleController" class="com.avectis.transportcontrol.web.controller.laboratory.AssignSampleController">
+    </bean>
+    <bean id="manageSamplesController" class="com.avectis.transportcontrol.web.controller.laboratory.ManageSamplesController">
+        <property name="cardFacade" ref="cardFacade" />
     </bean>
 </beans>

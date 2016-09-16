@@ -30,18 +30,18 @@ public class CardController extends AbstractController {
     private CardFacade cardFacade;
     private QueueFacade queueFacade;
     private ScannerFacade scannerFacade;
-    private String CardScannerName;
+    private String cardScannerName;
 
     public void setQueueFacade(QueueFacade queueFacade) {
         this.queueFacade = queueFacade;
     }
 
     public String getCardScannerName() {
-        return CardScannerName;
+        return cardScannerName;
     }
 
     public void setCardScannerName(String newCardScannerName) {
-        this.CardScannerName = newCardScannerName;
+        this.cardScannerName = newCardScannerName;
     }
 
     public void setCarFacade(CarFacade carFacade) {
@@ -174,10 +174,10 @@ public class CardController extends AbstractController {
                     }
                 }
             }.setCardNumber(cardNumber);
-            scannerFacade.getElementById(CardScannerName).addListener(cardListener);
+            scannerFacade.getElementById(cardScannerName).addListener(cardListener);
             try {
                 cardNumber.wait(60000);
-                scannerFacade.getElementById(CardScannerName).removeListener(cardListener);
+                scannerFacade.getElementById(cardScannerName).removeListener(cardListener);
             } catch (InterruptedException ex) {
                 Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
             }

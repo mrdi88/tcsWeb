@@ -40,12 +40,6 @@
                 </tr>
             </c:forEach>
         </table>
-        <a href="card.std?view=newCard"> add new card </a>
-        <br><br>
-        <form action="card.std?cmd=delete" method="post">
-            card id <br><input type="text" name="cardId" value="0"><br><br>
-            <input type="submit" value="Delete">
-        </form>
     </body>
 </html>
 

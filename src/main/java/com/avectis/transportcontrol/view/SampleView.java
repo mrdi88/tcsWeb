@@ -6,6 +6,7 @@
 package com.avectis.transportcontrol.view;
 
 import com.avectis.transportcontrol.entity.Sample;
+import java.util.Objects;
 
 /**
  *
@@ -15,6 +16,7 @@ import com.avectis.transportcontrol.entity.Sample;
 public class SampleView {
 
     private long id;
+    private String name;
     private float weediness;
     private float gluten;
     private float humidity;
@@ -24,6 +26,7 @@ public class SampleView {
     public SampleView(Sample sample) {
         if (sample!=null){
             this.id=sample.getId();
+            this.name=sample.getName();
             this.weediness=sample.getWeediness();
             this.gluten=sample.getGluten();
             this.humidity=sample.getHumidity();
@@ -35,6 +38,14 @@ public class SampleView {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getWeediness() {
@@ -63,13 +74,14 @@ public class SampleView {
 
     @Override
     public String toString() {
-        return "Sample{" + "id=" + id + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + '}';
+        return "SampleView{" + "id=" + id + ", name=" + name + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 47 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.getName());
         hash = 47 * hash + Float.floatToIntBits(this.getWeediness());
         hash = 47 * hash + Float.floatToIntBits(this.getGluten());
         hash = 47 * hash + Float.floatToIntBits(this.getHumidity());
@@ -89,6 +101,9 @@ public class SampleView {
         }
         final SampleView other = (SampleView) obj;
         if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
         if (Float.floatToIntBits(this.weediness) != Float.floatToIntBits(other.weediness)) {

@@ -68,6 +68,7 @@ public class test1 extends AbstractJUnit4SpringContextTests {//AbstractTransacti
         DriverView driver = new DriverView("Dima777","+375292051312","avectis");
         CargoView cargo = new CargoView();
         SampleView sv=new SampleView();
+        sv.setName("f323");
         sv.setGluten(Float.parseFloat("5.6"));
         sv.setHumidity(Float.parseFloat("3.60"));
         sv.setWeediness(Float.parseFloat("1.69"));

@@ -5,6 +5,7 @@
  */
 package com.avectis.transportcontrol.entity;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ public class Sample {
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment",strategy="increment")
     private long id;
+    private String name;
     private float weediness;
     private float gluten;
     private float humidity;
@@ -35,6 +37,14 @@ public class Sample {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getWeediness() {
@@ -63,13 +73,14 @@ public class Sample {
 
     @Override
     public String toString() {
-        return "Sample{" + "id=" + id + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + '}';
+        return "Sample{" + "id=" + id + ", name=" + name + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 47 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.getName());
         hash = 47 * hash + Float.floatToIntBits(this.getWeediness());
         hash = 47 * hash + Float.floatToIntBits(this.getGluten());
         hash = 47 * hash + Float.floatToIntBits(this.getHumidity());
@@ -86,6 +97,9 @@ public class Sample {
         }
         final Sample other = (Sample) obj;
         if (this.getId() != other.getId()) {
+            return false;
+        }
+        if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
         if (Float.floatToIntBits(this.getWeediness()) != Float.floatToIntBits(other.getWeediness())) {
