@@ -9,6 +9,7 @@ import com.avectis.transportcontrol.view.CarView;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
 import com.avectis.transportcontrol.view.DriverView;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.json.simple.JSONObject;
 /**
  *
  * @author ASaburov
@@ -62,7 +62,7 @@ public class CardController extends AbstractController {
             switch (arg0.getParameter("cmd")){
                 case "add":
                     Map<String,String>  addData = new HashMap<>();
-                    if (true){ //check parameters
+                    if (validNewCardData(arg0)){ //check parameters
                         addNewCard(arg0);
                         addData.put("result", "true");
                     } else {
@@ -78,7 +78,7 @@ public class CardController extends AbstractController {
                         deleteData.put("result", "false");
                     }
                     return new ModelAndView("card/resultJSON", deleteData);
-                case "getNewCardNumber":
+                case "getNewCardNumber": //by scanner
                     CardNumberClass ncn = getCardNumber();
                     if (cardFacade.getCardByNumber(ncn.getCardNumber())!=null){
                         ncn.setCardNumber("0");
@@ -86,12 +86,14 @@ public class CardController extends AbstractController {
                     Map<String,String>  data = new HashMap<>();
                     data.put("cardNumber", ncn.getCardNumber());
                     return new ModelAndView("card/newCardNumberJSON", data);
-                case "getExistCardData":
+                case "getExistCardData": //by scanner
+                    Map<String,String>  edata = new HashMap<>();
                     CardNumberClass ecn = getCardNumber();
                     CardView card = cardFacade.getCardByNumber(ecn.getCardNumber());
-                    JSONObject json = new JSONObject();
-                    json.put("card", card);
-                    return new ModelAndView("card/existCardDataJSON", json);
+                    ObjectMapper mapper = new ObjectMapper();
+                    String cardJson = mapper.writeValueAsString(card);
+                    edata.put("card", cardJson);
+                    return new ModelAndView("card/existCardDataJSON", edata);
                 default:
                     Map<String,String>  defData = new HashMap<>();
                     defData.put("result", "cmd not found");
@@ -122,6 +124,30 @@ public class CardController extends AbstractController {
         card.setAccessLevel(1);
         card.setCreateDate(new Date());
         cardFacade.add(card);
+    }
+    private boolean validNewCardData(HttpServletRequest arg0){
+        if (arg0.getParameter("cardNumber")==null || arg0.getParameter("cardNumber").length()<1){
+            return false;
+        }
+        if (cardFacade.getCardByNumber(arg0.getParameter("cardNumber"))!=null){
+            return false;
+        }
+        if (arg0.getParameter("mobileNumber")==null ){
+            return false;
+        }
+        if (arg0.getParameter("name")==null || arg0.getParameter("name").length()<1){
+            return false;
+        }
+        if (arg0.getParameter("organization")==null ){
+            return false;
+        }
+        if (arg0.getParameter("firstNumber")==null || arg0.getParameter("firstNumber").length()<1){
+            return false;
+        }
+        if (arg0.getParameter("secondNumber")==null ){
+            return false;
+        }
+        return true;
     }
     private void deleteCard(Long id){
         CardView card;

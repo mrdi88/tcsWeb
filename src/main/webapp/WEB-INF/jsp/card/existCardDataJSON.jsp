@@ -4,7 +4,7 @@
     Author     : Dima
 --%>
 <%-- Set the content type header with the JSP directive --%>
-<%@ page contentType="application/json" %>
+<%@ page contentType="application/json; charset=UTF-8" %>
 <%@taglib uri="/WEB-INF/tld/c.tld" prefix="c" %>
 
-{"card":"${card}"}
+{"card":${card}}

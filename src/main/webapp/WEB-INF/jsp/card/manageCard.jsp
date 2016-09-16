@@ -11,33 +11,54 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manage card</title>
-        <script src="${pageContext.request.contextPath}/javascript/jquery-1.11.3.js"></script>	
+        <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>	
     </head>
     <body>
         <div style="float:left">
             <form id="addForm" action="${pageContext.request.contextPath}/card?cmd=add" method="post">
-                card number: <br><input id="cardNumber" type="text" name="cardNumber" value="" readonly><br><br>
-                driver<br>
-                name <br><input type="text" name="name" value="Dima"><br>
-                organization <br><input type="text" name="organization" value="Avectis"><br>
-                mobileNumber <br><input type="text" name="mobileNumber" value="+375292224444"><br><br>
-                car <br>
-                firstNumber <br><input type="text" name="firstNumber" value="4700-EM1"><br>
-                secondNumber <br><input type="text" name="secondNumber" value="4700-EM2"><br><br>
-                <input type="submit" value="Add">
+                <div>
+                Номер карты:<br><input class="cardNumber" type="text" name="cardNumber" value="" readonly><br><br>
+                Водитель<br>
+                Имя<br><input class="name" type="text" name="name" value=""><br>
+                Организация<br><input class="organization" type="text" name="organization" value=""><br>
+                Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value=""><br><br>
+                Машина<br>
+                Номер машины<br><input class="firstNumber" type="text" name="firstNumber" value=""><br>
+                Номер прицепа<br><input class="secondNumber" type="text" name="secondNumber" value=""><br><br>
+                </div>
+                <div style="float: right;">
+                <input type="submit" value="Добавить">
+                </div>
             </form>
         </div>
-        <div style="float:left">
+        <div style="float:left; padding-left: 50px;">
             <form id="deleteForm" action="${pageContext.request.contextPath}/card?cmd=delete" method="post">
-                card number: <br><input id="cardNumber2" type="text" name="" value="" readonly><br><br>
-                driver<br>
-                name <br><input type="text" name="name" value=""><br>
-                organization <br><input type="text" name="organization" value=""><br>
-                mobileNumber <br><input type="text" name="mobileNumber" value=""><br><br>
-                car <br>
-                firstNumber <br><input type="text" name="firstNumber" value=""><br>
-                secondNumber <br><input type="text" name="secondNumber" value=""><br><br>
-                <input type="submit" value="Delete">
+                <div style="float:left;">
+                    Номер карты:<br><input class="cardNumber" type="text" name="" value="" readonly><br><br>
+                    Водитель<br>
+                    Имя<br><input class="name" type="text" name="name" value=""><br>
+                    Организация<br><input class="organization" type="text" name="organization" value="" readonly><br>
+                    Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br><br>
+                    Машина<br>
+                    Номер машины<br><input class="firstNumber" type="text" name="firstNumber" value="" readonly><br>
+                    Номер прицепа<br><input class="secondNumber" type="text" name="secondNumber" value="" readonly><br>
+                    Время въезда<br><input class="createDate" type="text" name="createDate" value="" readonly><br><br>
+                </div>
+                <div style="float: left; padding-left: 20px; padding-top: 18px;">
+                    Груз<br>
+                    Вес при въезде, кг<br><input class="weightIn" type="text" name="weightIn" value="" readonly><br>
+                    Вес при выезде, кг<br><input class="weightOut" type="text" name="weightOut" value="" readonly><br>
+                    Место разгрузки<br><input class="dischargingPlace" type="text" name="dischargingPlace" value="" readonly><br>
+                    Время разгрузки<br><input class="dischargeDate" type="text" name="dischargeDate" value="" readonly><br><br>
+                    Проба<br>
+                    Засоренность, %<br><input class="weediness" type="text" name="weediness" value="" readonly><br>
+                    Клейковина, %<br><input class="gluten" type="text" name="gluten" value="" readonly><br>
+                    Влажность, %<br><input class="humidity" type="text" name="humidity" value="" readonly><br><br>
+                    <input class="cardId" type="hidden" name="cardId" value="" readonly>
+                </div>
+                <div >
+                    <input style="float: right;" type="submit" value="Удалить">
+                </div>
             </form>
         </div>
     </body>
@@ -47,16 +68,104 @@
 	$.get("${pageContext.request.contextPath}/card?cmd=getNewCardNumber",{ "_": $.now() }, function(data) {setNewCardNumber(data);});
         $.get("${pageContext.request.contextPath}/card?cmd=getExistCardData",{ "_": $.now() }, function(data) {setCardData(data);});
     });
+    $( "#addForm" ).submit(function( event ) {
+        event.preventDefault();
+        if ($( "#addForm .cardNumber").val()==""){
+            alert("Поднесите непривязанную карту к считывателю");
+            return;
+        }
+        if ($( "#addForm .name").val()==""){
+            alert("Введите имя водителя");
+            return;
+        }
+        if ($( "#addForm .firstNumber").val()==""){
+            alert("Введите номер автомобиля");
+            return;
+        }
+        console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
+        $.ajax({
+            type     : "POST",
+            cache    : false,
+            url      : $(this).attr('action'),
+            data     : $(this).serialize(),
+            success  : function(data) {
+                if (data.result=="true"){
+                    $( "#addForm .cardNumber").val( "" );
+                    $( "#addForm .name").val( "" );
+                    $( "#addForm .organization").val( "" );
+                    $( "#addForm .mobileNumber").val( "" );
+                    $( "#addForm .firstNumber").val( "" );
+                    $( "#addForm .secondNumber").val( "" );
+                }
+                else{
+                    alert("Ошибка создания карты");
+                }
+            }
+        });
+    });
+    $( "#deleteForm" ).submit(function( event ) {
+        event.preventDefault();
+        if ($( "#deleteForm .cardId").val()==""){
+            alert("Поднесите карту к считывателю");
+            return;
+        }
+        console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
+        $.ajax({
+            type     : "POST",
+            cache    : false,
+            url      : $(this).attr('action'),
+            data     : $(this).serialize(),
+            success  : function(data) {
+                if (data.result=="true"){
+                    $( "#deleteForm .cardNumber").val("");
+                    $( "#deleteForm .name").val( "" );
+                    $( "#deleteForm .organization").val( "" );
+                    $( "#deleteForm .mobileNumber").val( "" );
+                    $( "#deleteForm .firstNumber").val( "" );
+                    $( "#deleteForm .secondNumber").val( "" );
+                    $( "#deleteForm .createDate").val( "" );
+                    $( "#deleteForm .weightIn").val( "" );
+                    $( "#deleteForm .weightOut").val( "" );
+                    $( "#deleteForm .dischargingPlace").val( "" );
+                    $( "#deleteForm .dischargeDate").val( "" );
+                    $( "#deleteForm .weediness").val( "" );
+                    $( "#deleteForm .gluten").val( "" );
+                    $( "#deleteForm .humidity").val( "" );
+                    $( "#deleteForm .cardId").val( "" ); 
+                }
+                else{
+                    alert("ошибка удаления карты");
+                }
+            }
+        });
+    });
     function setNewCardNumber(data) { 
 	var cardNumber= data.cardNumber;
         if (cardNumber!=null && cardNumber!=0){
-            $( "#cardNumber" ).val( cardNumber );
+            $( "#addForm .cardNumber" ).val( cardNumber );
         }
 	$.get("${pageContext.request.contextPath}/card?cmd=getNewCardNumber",{ "_": $.now() }, function(data) {setNewCardNumber(data);});
     }
     function setCardData(data) { 
-	if (data.card!=null && data.card!=""){
-            $( "#cardNumber2").val( data.cardNumber );
+        var card=data.card;
+	if (card!=null && card!=""){
+            $( "#deleteForm .cardNumber").val( card.cardNumber );
+            $( "#deleteForm .name").val( card.car.driver.name );
+            $( "#deleteForm .organization").val( card.car.driver.organization );
+            $( "#deleteForm .mobileNumber").val( card.car.driver.mobileNumber );
+            $( "#deleteForm .firstNumber").val( card.car.firstNumber );
+            $( "#deleteForm .secondNumber").val( card.car.secondNumber );
+            $( "#deleteForm .createDate").val( card.car.createDate );
+            $( "#deleteForm .weightIn").val( card.car.cargo.weightIn );
+            $( "#deleteForm .weightOut").val( card.car.cargo.weightOut );
+            $( "#deleteForm .dischargingPlace").val( card.car.cargo.dischargingPlace );
+            $( "#deleteForm .dischargeDate").val( card.car.cargo.dischargeDate );
+            if (card.car.cargo.sample!=null){
+                $( "#deleteForm .weediness").val( card.car.cargo.sample.weediness );
+                $( "#deleteForm .gluten").val( card.car.cargo.sample.gluten );
+                $( "#deleteForm .humidity").val( card.car.cargo.sample.humidity );
+            }
+            $( "#deleteForm .cardId").val( card.id );
         } 
 	$.get("${pageContext.request.contextPath}/card?cmd=getExistCardData",{ "_": $.now() }, function(data) {setCardData(data);});
     }	
