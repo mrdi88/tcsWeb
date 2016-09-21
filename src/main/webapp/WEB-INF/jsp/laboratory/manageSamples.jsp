@@ -20,6 +20,7 @@
                 <th class="cards_header">№</th>
                 <th class="cards_header">Имя пробы</th>
                 <th class="cards_header">Номер авто</th>
+                <th class="cards_header">Напр-ление</th>
                 <th class="cards_header">Засор-ть,%</th>
                 <th class="cards_header">Клейк-на,%</th>
                 <th class="cards_header">Влаж-ть,%</th>
@@ -42,7 +43,7 @@
                 Направление<br>
                 <select size="1" class="queueId" name="queueId">
                     <option disabled>Выберите направление</option>
-                    <option selected value="">не назначено</option>
+                    <option value="0">не назначено</option>
                     <c:forEach var="queueName" items="${queueList}">
                         <option value=${queueName.id}>${queueName.name}</option>
                     </c:forEach>       
@@ -58,11 +59,12 @@
     var selectedId=0;
     var cardList;
     $(window).load( function(){
+        $( "#paramForm .queueId").val(-1); 
 	$.get("${pageContext.request.contextPath}/laboratory/manage?cmd=getAssignedCards",{ "_": $.now() }, function(data) {setCards(data);});
     });
-    setInterval(function() {
-	$.get("${pageContext.request.contextPath}/laboratory/manage?cmd=getAssignedCards",{ "_": $.now() }, function(data) {setCards(data);});
-    }, 3000);
+    //setInterval(function() {
+	//$.get("${pageContext.request.contextPath}/laboratory/manage?cmd=getAssignedCards",{ "_": $.now() }, function(data) {setCards(data);});
+    //}, 3000);
     $( "#paramForm" ).submit(function( event ) {
         event.preventDefault();
         if ($( "#paramForm .cardId").val()==""){
@@ -79,6 +81,10 @@
         }
         if ($( "#paramForm .humidity").val()==""){
             alert("Введите параметр 'Влажность'");
+            return;
+        }
+        if ($( "#paramForm .queueId").val()==null){
+            alert("Выберите направление");
             return;
         }
         console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
@@ -99,7 +105,7 @@
                     $( "#paramForm .gluten").val( "" );
                     $( "#paramForm .humidity").val( "" );
                     $( "#paramForm .cardId").val( "" );
-                    $( "#paramForm .queueId").selectedIndex = -1; 
+                    $( "#paramForm .queueId").val(-1); 
                     selectedId=0;
                     $.get("${pageContext.request.contextPath}/laboratory/manage?cmd=getAssignedCards",{ "_": $.now() }, function(data) {setCards(data);});
                 }
@@ -111,8 +117,10 @@
     });
     function setCards(data) { 
         var dateOptions = {
-		weekday: "short", year: "numeric", month: "short",
-		day: "numeric", hour: "2-digit", minute: "2-digit"
+                day: "numeric", month: "numeric", year: "numeric",
+		hour: "2-digit", minute: "2-digit"
+		//weekday: "short", year: "numeric", month: "short",
+		//day: "numeric", hour: "2-digit", minute: "2-digit"
 	};
 	var cards=data.cards;
         cardList=cards;
@@ -139,6 +147,9 @@
             cell=newrow.insertCell(-1);
             cell.classList.add("carNumber");
             cell.innerHTML = cards[i].car.carNumber;
+            cell=newrow.insertCell(-1);
+            cell.classList.add("destination");
+            cell.innerHTML = cards[i].car.destination;
             cell=newrow.insertCell(-1);
             cell.classList.add("weediness");
             cell.innerHTML = cards[i].car.cargo.sample.weediness;
@@ -178,7 +189,11 @@
             $( "#paramForm .gluten").val( card.car.cargo.sample.gluten );
             $( "#paramForm .humidity").val( card.car.cargo.sample.humidity );
             $( "#paramForm .cardId").val( card.id );
-            $( "#paramForm .queueId").selectedIndex = -1; 
+            //alert($( "#paramForm .queueId option:selected").text());
+            $( "#paramForm .queueId").val(-1); 
+            if (card.car.destination!="" && card.car.destination!=null) {
+                $("#paramForm .queueId :contains('" + card.car.destination + "')").prop("selected", true);
+            }
         }
         $(".selected").removeClass("selected");
         e.classList.add("selected");

@@ -42,7 +42,9 @@ public class CarFacade {
     }
     @Transactional(readOnly = true)
     public CarView get(Long id){
-        return new CarView(carDAO.getCar(id));
+        Car car = carDAO.getCar(id);
+        if (car!=null) return new CarView(car);
+        else return null;
     }
     @Transactional(readOnly = true)
     public List<CarView> getList(Date from, Date to){

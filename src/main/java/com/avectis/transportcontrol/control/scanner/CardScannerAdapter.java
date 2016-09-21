@@ -11,7 +11,7 @@ public interface CardScannerAdapter {
     public void disconnect();
     public void reconnect();
     
-    public void isConnected();
+    public boolean isConnected();
     
     public void addPortListener(SerialPortEventListener listener);
     public void removePortListener();

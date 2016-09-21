@@ -46,7 +46,9 @@ public class QueueFacade {
     }
     @Transactional(readOnly = true)
     public QueueView getQueue(Long id){
-        return new QueueView(queueDAO.getQueue(id));
+        Queue queue=queueDAO.getQueue(id);
+        if (queue!=null) return new QueueView(queue);
+        else return null;
     }
     @Transactional(readOnly = true)
     public List<QueueView> getQueueList(){

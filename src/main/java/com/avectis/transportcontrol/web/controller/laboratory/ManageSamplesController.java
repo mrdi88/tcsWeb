@@ -4,6 +4,7 @@ import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.QueueNameView;
+import com.avectis.transportcontrol.view.QueueView;
 import com.avectis.transportcontrol.view.SampleView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
@@ -38,24 +39,10 @@ public class ManageSamplesController extends AbstractController {
             switch (arg0.getParameter("cmd")){
                 case "assignParams": 
                     data = new HashMap<>();
-                    if (arg0.getParameter("cardId")!=null && 
-                            arg0.getParameter("cardId").length()>0 &&
-                            arg0.getParameter("weediness")!=null && 
-                            arg0.getParameter("weediness").length()>0 &&
-                            arg0.getParameter("gluten")!=null && 
-                            arg0.getParameter("gluten").length()>0 &&
-                            arg0.getParameter("humidity")!=null && 
-                            arg0.getParameter("humidity").length()>0){
-                        CardView card = cardFacade.getCard(Long.decode(arg0.getParameter("cardId")));
-                        if (card!=null){
-                            SampleView sample=card.getCar().getCargo().getSample();
-                            sample.setWeediness(Float.parseFloat(arg0.getParameter("weediness")));
-                            sample.setGluten(Float.parseFloat(arg0.getParameter("gluten")));
-                            sample.setHumidity(Float.parseFloat(arg0.getParameter("humidity")));
-                            cardFacade.update(card);
-                            data.put("result", "true");
-                        }
-                    } else {
+                    if (assignParams(arg0)){
+                        data.put("result", "true");
+                    }
+                    else {
                         data.put("result", "false");
                     }
                     return new ModelAndView("laboratory/resultJSON", data);
@@ -86,5 +73,48 @@ public class ManageSamplesController extends AbstractController {
             }
         }
         return cal;
+    }
+    private boolean assignParams(HttpServletRequest arg0){
+            if (arg0.getParameter("cardId")!=null && 
+                arg0.getParameter("cardId").length()>0 &&
+                arg0.getParameter("weediness")!=null && 
+                arg0.getParameter("weediness").length()>0 &&
+                arg0.getParameter("gluten")!=null && 
+                arg0.getParameter("gluten").length()>0 &&
+                arg0.getParameter("humidity")!=null && 
+                arg0.getParameter("humidity").length()>0 &&
+                arg0.getParameter("queueId")!=null && 
+                arg0.getParameter("queueId").length()>0){
+                
+                CardView card = cardFacade.getCard(Long.decode(arg0.getParameter("cardId")));
+                QueueView qv=null;
+                SampleView sample;
+                if (card!=null){
+                    sample=card.getCar().getCargo().getSample();
+                    sample.setWeediness(Float.parseFloat(arg0.getParameter("weediness")));
+                    sample.setGluten(Float.parseFloat(arg0.getParameter("gluten")));
+                    sample.setHumidity(Float.parseFloat(arg0.getParameter("humidity")));
+                    //назначить очередь
+                    if (arg0.getParameter("queueId").equals("0")){
+                        queueFacade.deleteCardFromQueues(card);
+                        card.getCar().setDestination("");
+                        cardFacade.update(card);
+                        return true;
+                    }
+                    qv = queueFacade.getQueue(Long.decode(arg0.getParameter("queueId")));
+                    if (qv!=null ){
+                        if (!qv.getName().equals(card.getCar().getDestination())){
+                            queueFacade.deleteCardFromQueues(card);
+                            qv = queueFacade.getQueue(Long.decode(arg0.getParameter("queueId")));
+                            qv.getCards().add(card);
+                            card.getCar().setDestination(qv.getName());
+                            queueFacade.update(qv);
+                        }
+                        cardFacade.update(card);
+                        return true;
+                    }
+                }
+        }
+        return false;
     }
 }

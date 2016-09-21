@@ -37,7 +37,9 @@ public class CardFacade {
     }
     @Transactional(readOnly = true)
     public CardView getCard(Long id){
-        return new CardView(cardDAO.getCard(id));
+        Card card = cardDAO.getCard(id);
+        if (card!=null) return new CardView(card);
+        else return null;
     }
     @Transactional(readOnly = true)
     public CardView getCardByNumber(String number){

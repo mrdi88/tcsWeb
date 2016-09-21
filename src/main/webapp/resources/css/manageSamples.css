@@ -37,6 +37,9 @@
 #cards .carNumber {
     width: 60px;
 }
+#cards .destination {
+    width: 30px;
+}
 #cards .ttnNumber {
     width: 60px;
 }

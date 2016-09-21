@@ -90,8 +90,8 @@ public class CardScannerAdapterCOM implements CardScannerAdapter {
         connect();
     }
     @Override
-    public void isConnected(){
-        this.serialPort.isOpened();
+    public boolean isConnected(){
+        return this.serialPort.isOpened();
     }
     @Override
     public void addPortListener(SerialPortEventListener listener){       
