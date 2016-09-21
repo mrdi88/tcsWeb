@@ -21,8 +21,8 @@ public class CarView {
     private CargoView cargo;
     private DriverView driver;
     private String destination;
-    private String firstNumber;
-    private String secondNumber;
+    private String carNumber;
+    private String ttnNumber;
     private Date createDate;
     private Date leaveDate;
 
@@ -45,17 +45,17 @@ public class CarView {
         }
         this.createDate = createDate;
     }
-    public String getSecondNumber() {
-        return secondNumber;
+    public String getTtnNumber() {
+        return ttnNumber;
     }
-    public void setSecondNumber(String secondNumber) {
-        this.secondNumber = secondNumber;
+    public void setTtnNumber(String secondNumber) {
+        this.ttnNumber = secondNumber;
     }
-    public String getFirstNumber() {
-        return firstNumber;
+    public String getCarNumber() {
+        return carNumber;
     }
-    public void setFirstNumber(String firstNumber) {
-        this.firstNumber = firstNumber;
+    public void setCarNumber(String firstNumber) {
+        this.carNumber = firstNumber;
     }
     public String getDestination() {
         return destination;
@@ -91,15 +91,15 @@ public class CarView {
         if (driverEntity!=null) this.driver=new DriverView(driverEntity);
         this.createDate=car.getCreateDate();
         this.destination=car.getDestination();
-        this.firstNumber=car.getFirstNumber();
+        this.carNumber=car.getCarNumber();
         this.id=car.getId();
         this.leaveDate=car.getLeaveDate();
-        this.secondNumber=car.getSecondNumber();
+        this.ttnNumber=car.getTtnNumber();
     }
     
     @Override
     public String toString() {
-        return "Car{" + "carId=" + id + ", cargo=" + cargo + ", driver=" + driver + ", destination=" + destination + ", firstNumber=" + firstNumber + ", secondNumber=" + secondNumber + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
+        return "Car{" + "carId=" + id + ", cargo=" + cargo + ", driver=" + driver + ", destination=" + destination + ", firstNumber=" + carNumber + ", secondNumber=" + ttnNumber + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
     }
 
     @Override
@@ -109,8 +109,8 @@ public class CarView {
         hash = 67 * hash + Objects.hashCode(this.cargo);
         hash = 67 * hash + Objects.hashCode(this.driver);
         hash = 67 * hash + Objects.hashCode(this.destination);
-        hash = 67 * hash + Objects.hashCode(this.firstNumber);
-        hash = 67 * hash + Objects.hashCode(this.secondNumber);
+        hash = 67 * hash + Objects.hashCode(this.carNumber);
+        hash = 67 * hash + Objects.hashCode(this.ttnNumber);
         hash = 67 * hash + Objects.hashCode(this.createDate);
         hash = 67 * hash + Objects.hashCode(this.leaveDate);
         return hash;
@@ -137,10 +137,10 @@ public class CarView {
         if (!Objects.equals(this.destination, other.destination)) {
             return false;
         }
-        if (!Objects.equals(this.firstNumber, other.firstNumber)) {
+        if (!Objects.equals(this.carNumber, other.carNumber)) {
             return false;
         }
-        if (!Objects.equals(this.secondNumber, other.secondNumber)) {
+        if (!Objects.equals(this.ttnNumber, other.ttnNumber)) {
             return false;
         }
         if ((!Objects.equals(this.createDate, other.createDate))) {

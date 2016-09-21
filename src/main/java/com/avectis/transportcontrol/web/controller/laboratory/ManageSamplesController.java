@@ -1,7 +1,12 @@
 package com.avectis.transportcontrol.web.controller.laboratory;
 
 import com.avectis.transportcontrol.facade.CardFacade;
+import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.CardView;
+import com.avectis.transportcontrol.view.QueueNameView;
+import com.avectis.transportcontrol.view.SampleView;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,16 +21,70 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class ManageSamplesController extends AbstractController {
 
     private CardFacade cardFacade;
-
+    private QueueFacade queueFacade;
+    
     public void setCardFacade(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
+    }
+
+    public void setQueueFacade(QueueFacade queueFacade) {
+        this.queueFacade = queueFacade;
     }
     
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-        List<CardView> cardList = cardFacade.getList();
-        Map<String,List<CardView>>  data = new HashMap<>();
-        data.put("cardList", cardList);
-        return new ModelAndView("laboratory/manageSamples", data);
+        Map<String,String>  data;
+        if (arg0.getParameter("cmd")!=null){
+            switch (arg0.getParameter("cmd")){
+                case "assignParams": 
+                    data = new HashMap<>();
+                    if (arg0.getParameter("cardId")!=null && 
+                            arg0.getParameter("cardId").length()>0 &&
+                            arg0.getParameter("weediness")!=null && 
+                            arg0.getParameter("weediness").length()>0 &&
+                            arg0.getParameter("gluten")!=null && 
+                            arg0.getParameter("gluten").length()>0 &&
+                            arg0.getParameter("humidity")!=null && 
+                            arg0.getParameter("humidity").length()>0){
+                        CardView card = cardFacade.getCard(Long.decode(arg0.getParameter("cardId")));
+                        if (card!=null){
+                            SampleView sample=card.getCar().getCargo().getSample();
+                            sample.setWeediness(Float.parseFloat(arg0.getParameter("weediness")));
+                            sample.setGluten(Float.parseFloat(arg0.getParameter("gluten")));
+                            sample.setHumidity(Float.parseFloat(arg0.getParameter("humidity")));
+                            cardFacade.update(card);
+                            data.put("result", "true");
+                        }
+                    } else {
+                        data.put("result", "false");
+                    }
+                    return new ModelAndView("laboratory/resultJSON", data);
+                case "getAssignedCards": //by scanner
+                    data = new HashMap<>();
+                    List<CardView> cl = getAssignedCards();
+                    ObjectMapper mapper = new ObjectMapper();
+                    String cardJson = mapper.writeValueAsString(cl);
+                    data.put("cards", cardJson);
+                    return new ModelAndView("laboratory/assignedCardsJSON", data);
+                default:
+                    data = new HashMap<>();
+                    data.put("result", "cmd not found");
+                    return new ModelAndView("laboratory/resultJSON", data);
+            }
+        }
+        List<QueueNameView> ql= queueFacade.getQueueNameList();
+        Map<String,List<QueueNameView>>  qlData = new HashMap<>();;
+        qlData.put("queueList", ql);
+        return new ModelAndView("laboratory/manageSamples", qlData);
+    }
+    private List<CardView> getAssignedCards(){
+        List<CardView> cal= new ArrayList();
+        List<CardView> cl = cardFacade.getList();
+        for (CardView c: cl){
+            if (c.getCar().getCargo().getSample()!=null){
+                cal.add(c);
+            }
+        }
+        return cal;
     }
 }

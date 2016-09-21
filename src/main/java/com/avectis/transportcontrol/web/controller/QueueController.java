@@ -37,23 +37,23 @@ public class QueueController extends AbstractController {
             switch (arg0.getParameter("cmd")){
                 case "add":
                     addNewQueue(arg0);
-                    arg1.sendRedirect("queue.std");
+                    arg1.sendRedirect("queue");
                     break;
                 case "delete":
                     deleteQueue(arg0);
-                    arg1.sendRedirect("queue.std");
+                    arg1.sendRedirect("queue");
                     break;
                 case "addCardToQueue":
                     addCardToQueue(arg0);
-                    arg1.sendRedirect("queue.std");
+                    arg1.sendRedirect("queue");
                     break;
                 case "deleteCardFromQueue":
                     deleteCardFromQueue(arg0);
-                    arg1.sendRedirect("queue.std");
+                    arg1.sendRedirect("queue");
                     break;
                 case "moveCardFromTo":
                     moveCardFromTo(arg0);
-                    arg1.sendRedirect("queue.std");
+                    arg1.sendRedirect("queue");
                     break;
             }
         }

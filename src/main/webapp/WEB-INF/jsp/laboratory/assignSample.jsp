@@ -15,7 +15,7 @@
     </head>
     <body>
         <div style="max-width: 172px;">
-            <form id="assignForm" action="${pageContext.request.contextPath}/laboratory?cmd=assignSample" method="post">
+            <form id="assignForm" action="${pageContext.request.contextPath}/laboratory?cmd=assignSample" method="post" autocomplete="off">
                 <div>
                     Номер карты:<br><input class="cardNumber" type="text" name="" value="" readonly><br><br>
                     Водитель<br>
@@ -23,8 +23,8 @@
                     Организация<br><input class="organization" type="text" name="organization" value="" readonly><br>
                     Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br><br>
                     Машина<br>
-                    Номер машины<br><input class="firstNumber" type="text" name="firstNumber" value="" readonly><br>
-                    Номер прицепа<br><input class="secondNumber" type="text" name="secondNumber" value="" readonly><br>
+                    Номер машины<br><input class="carNumber" type="text" name="carNumber" value="" readonly><br>
+                    Номер ТТН<br><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly><br>
                     Время въезда<br><input class="createDate" type="text" name="createDate" value="" readonly><br><br>
                     имя пробы<br><input class="sampleName" type="text" name="sampleName" value=""><br><br>
                     <input class="cardId" type="hidden" name="cardId" value="" readonly>
@@ -62,8 +62,8 @@
                     $( "#assignForm .name").val( "" );
                     $( "#assignForm .organization").val( "" );
                     $( "#assignForm .mobileNumber").val( "" );
-                    $( "#assignForm .firstNumber").val( "" );
-                    $( "#assignForm .secondNumber").val( "" );
+                    $( "#assignForm .carNumber").val( "" );
+                    $( "#assignForm .ttnNumber").val( "" );
                     $( "#assignForm .createDate").val( "" );
                     $( "#assignForm .cardId").val( "" );
                     $( "#assignForm .sampleName").val( "" );
@@ -81,8 +81,8 @@
             $( "#assignForm .name").val( card.car.driver.name );
             $( "#assignForm .organization").val( card.car.driver.organization );
             $( "#assignForm .mobileNumber").val( card.car.driver.mobileNumber );
-            $( "#assignForm .firstNumber").val( card.car.firstNumber );
-            $( "#assignForm .secondNumber").val( card.car.secondNumber );
+            $( "#assignForm .carNumber").val( card.car.carNumber );
+            $( "#assignForm .ttnNumber").val( card.car.ttnNumber );
              var createDate = new Date(card.car.createDate).toLocaleString("ru-ru", dateOptions);
             $( "#assignForm .createDate").val( createDate );
             if (card.car.cargo.sample!=null){

@@ -22,8 +22,8 @@
                     <td>${card.createDate}</td>
                     <td>car</td>
                     <td>${card.car.id}</td>
-                    <td>${card.car.firstNumber}</td>
-                    <td>${card.car.secondNumber}</td>
+                    <td>${card.car.carNumber}</td>
+                    <td>${card.car.ttnNumber}</td>
                     <td>driver</td>
                     <td>${card.car.driver.id}</td>
                     <td>${card.car.driver.name}</td>

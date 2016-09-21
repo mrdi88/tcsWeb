@@ -73,9 +73,9 @@ public class CarFacade {
         }
         car.setCreateDate(carv.getCreateDate());
         car.setDestination(carv.getDestination());
-        car.setFirstNumber(carv.getFirstNumber());
+        car.setCarNumber(carv.getCarNumber());
         car.setLeaveDate(carv.getLeaveDate());
-        car.setSecondNumber(carv.getSecondNumber());
+        car.setTtnNumber(carv.getTtnNumber());
         //create Cargo
         Cargo cargo;
         if (car.getCargo()!=null){

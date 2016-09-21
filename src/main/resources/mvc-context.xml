@@ -60,5 +60,6 @@
     </bean>
     <bean id="manageSamplesController" class="com.avectis.transportcontrol.web.controller.laboratory.ManageSamplesController">
         <property name="cardFacade" ref="cardFacade" />
+        <property name="queueFacade" ref="queueFacade" />
     </bean>
 </beans>

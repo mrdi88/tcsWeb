@@ -20,35 +20,35 @@
                     <td>${queue.id}</td>
                     <td>${queue.name}</td>
                     <c:forEach var="card" items="${queue.cards}">
-                        <td>card&nbsp;${card.id}&nbsp;${card.car.firstNumber}</td>
+                        <td>card&nbsp;${card.id}&nbsp;${card.car.carNumber}</td>
                     </c:forEach>
                 </tr>
             </c:forEach>
         </table>
         <br><br>
-        <form action="queue.std?cmd=add" method="post">
+        <form action="queue?cmd=add" method="post">
             queue name <br><input type="text" name="queueName" value=""><br>
             <input type="submit" value="add">
         </form>
         <br>
-        <form action="queue.std?cmd=delete" method="post">
+        <form action="queu?cmd=delete" method="post">
             queue id <br><input type="text" name="queueId" value="0"><br>
             <input type="submit" value="delete">
         </form>
         <br>
-        <form action="queue.std?cmd=addCardToQueue" method="post">
+        <form action="queue?cmd=addCardToQueue" method="post">
             queue id <br><input type="text" name="queueId" value=""><br>
             card id <br><input type="text" name="cardId" value=""><br>
             <input type="submit" value="addCardToQueue">
         </form>
         <br>
-        <form action="queue.std?cmd=deleteCardFromQueue" method="post">
+        <form action="queue?cmd=deleteCardFromQueue" method="post">
             queue id <br><input type="text" name="queueId" value=""><br>
             card id <br><input type="text" name="cardId" value=""><br>
             <input type="submit" value="deleteCardFromQueue">
         </form>
         <br>
-        <form action="queue.std?cmd=moveCardFromTo" method="post">
+        <form action="queue?cmd=moveCardFromTo" method="post">
             fromId id <br><input type="text" name="fromId" value=""><br>
             toId id <br><input type="text" name="toId" value=""><br>
             card id <br><input type="text" name="cardId" value=""><br>

@@ -74,8 +74,8 @@ public class test1 extends AbstractJUnit4SpringContextTests {//AbstractTransacti
         sv.setWeediness(Float.parseFloat("1.69"));
         cargo.setSample(sv);
         car.setCreateDate(new Date());
-        car.setFirstNumber("0000-EM1");
-        car.setSecondNumber("0000-EM2");
+        car.setCarNumber("0000-EM1");
+        car.setTtnNumber("0000-EM2");
         car.setCargo(cargo);
         car.setDriver(driver);
         return car;

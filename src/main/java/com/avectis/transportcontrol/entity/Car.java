@@ -37,8 +37,8 @@ public class Car {
     @JoinColumn(name = "driverId")
     private Driver driver;
     private String destination;
-    private String firstNumber;
-    private String secondNumber;
+    private String carNumber;
+    private String ttnNumber;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)
@@ -63,17 +63,17 @@ public class Car {
         }
         this.createDate = createDate;
     }
-    public String getSecondNumber() {
-        return secondNumber;
+    public String getTtnNumber() {
+        return ttnNumber;
     }
-    public void setSecondNumber(String secondNumber) {
-        this.secondNumber = secondNumber;
+    public void setTtnNumber(String secondNumber) {
+        this.ttnNumber = secondNumber;
     }
-    public String getFirstNumber() {
-        return firstNumber;
+    public String getCarNumber() {
+        return carNumber;
     }
-    public void setFirstNumber(String firstNumber) {
-        this.firstNumber = firstNumber;
+    public void setCarNumber(String firstNumber) {
+        this.carNumber = firstNumber;
     }
     public String getDestination() {
         return destination;
@@ -107,8 +107,8 @@ public class Car {
         this.cargo = cargo;
         this.driver = driver;
         this.destination = destination;
-        this.firstNumber = firstNumber;
-        this.secondNumber = secondNumber;
+        this.carNumber = firstNumber;
+        this.ttnNumber = secondNumber;
         Date dt=new Date();
         dt.setTime(dt.getTime()-dt.getTime()%1000);
         this.createDate = dt;
@@ -116,7 +116,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" + "carId=" + id + ", cargo=" + cargo + ", driver=" + driver + ", destination=" + destination + ", firstNumber=" + firstNumber + ", secondNumber=" + secondNumber + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
+        return "Car{" + "carId=" + id + ", cargo=" + cargo + ", driver=" + driver + ", destination=" + destination + ", firstNumber=" + carNumber + ", secondNumber=" + ttnNumber + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
     }
 
     @Override
@@ -126,8 +126,8 @@ public class Car {
         hash = 67 * hash + Objects.hashCode(this.getCargo());
         hash = 67 * hash + Objects.hashCode(this.getDriver());
         hash = 67 * hash + Objects.hashCode(this.getDestination());
-        hash = 67 * hash + Objects.hashCode(this.getFirstNumber());
-        hash = 67 * hash + Objects.hashCode(this.getSecondNumber());
+        hash = 67 * hash + Objects.hashCode(this.getCarNumber());
+        hash = 67 * hash + Objects.hashCode(this.getTtnNumber());
         hash = 67 * hash + Objects.hashCode(this.getCreateDate());
         hash = 67 * hash + Objects.hashCode(this.getLeaveDate());
         return hash;
@@ -162,10 +162,10 @@ public class Car {
         if (!Objects.equals(this.getDestination(), other.getDestination())) {
             return false;
         }
-        if (!Objects.equals(this.getFirstNumber(), other.getFirstNumber())) {
+        if (!Objects.equals(this.getCarNumber(), other.getCarNumber())) {
             return false;
         }
-        if (!Objects.equals(this.getSecondNumber(), other.getSecondNumber())) {
+        if (!Objects.equals(this.getTtnNumber(), other.getTtnNumber())) {
             return false;
         }
         if ((!Objects.equals(this.getCreateDate(), other.getCreateDate()))) {

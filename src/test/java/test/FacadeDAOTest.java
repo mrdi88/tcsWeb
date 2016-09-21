@@ -201,8 +201,8 @@ public class FacadeDAOTest extends AbstractJUnit4SpringContextTests {//AbstractT
         DriverView driver = new DriverView("Dima","+375292051312","avectis");
         CargoView cargo = new CargoView();
         car.setCreateDate(new Date());
-        car.setFirstNumber("4700-EM1");
-        car.setSecondNumber("4700-EM2");
+        car.setCarNumber("4700-EM1");
+        car.setTtnNumber("4700-EM2");
         car.setCargo(cargo);
         car.setDriver(driver);
         return car;

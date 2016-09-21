@@ -18,8 +18,8 @@
                 <tr>
                     <td>car</td>
                     <td>${car.id}</td>
-                    <td>${car.firstNumber}</td>
-                    <td>${car.secondNumber}</td>
+                    <td>${car.carNumber}</td>
+                    <td>${car.ttnNumber}</td>
                     <td>driver</td>
                     <td>${car.driver.id}</td>
                     <td>${car.driver.name}</td>

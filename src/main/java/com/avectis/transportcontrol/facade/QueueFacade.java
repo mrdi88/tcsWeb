@@ -10,6 +10,7 @@ import com.avectis.transportcontrol.DAO.QueueDAO;
 import com.avectis.transportcontrol.entity.Card;
 import com.avectis.transportcontrol.entity.Queue;
 import com.avectis.transportcontrol.view.CardView;
+import com.avectis.transportcontrol.view.QueueNameView;
 import com.avectis.transportcontrol.view.QueueView;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,15 @@ public class QueueFacade {
             qvList.add(new QueueView(q));
         }
         return qvList;
+    }
+    @Transactional(readOnly = true)
+    public List<QueueNameView> getQueueNameList(){
+        List<QueueNameView> qnvList=new ArrayList<>();
+        List<Queue> qList = queueDAO.getQueueList();
+        for (Queue q:qList){
+            qnvList.add(new QueueNameView(q));
+        }
+        return qnvList;
     }
     @Transactional
     public void moveCard(CardView cardv, QueueView from, QueueView to){

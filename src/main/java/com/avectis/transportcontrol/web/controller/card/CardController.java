@@ -111,8 +111,8 @@ public class CardController extends AbstractController {
         dv.setMobileNumber(arg0.getParameter("mobileNumber"));
         dv.setName(arg0.getParameter("name"));
         dv.setOrganization(arg0.getParameter("organization"));
-        carv.setFirstNumber(arg0.getParameter("firstNumber"));
-        carv.setSecondNumber(arg0.getParameter("secondNumber"));
+        carv.setCarNumber(arg0.getParameter("carNumber"));
+        carv.setTtnNumber(arg0.getParameter("ttnNumber"));
         carv.setCargo(cargov);
         carv.setDriver(dv);
         carv.setCreateDate(new Date());
@@ -141,10 +141,10 @@ public class CardController extends AbstractController {
         if (arg0.getParameter("organization")==null ){
             return false;
         }
-        if (arg0.getParameter("firstNumber")==null || arg0.getParameter("firstNumber").length()<1){
+        if (arg0.getParameter("carNumber")==null || arg0.getParameter("carNumber").length()<1){
             return false;
         }
-        if (arg0.getParameter("secondNumber")==null ){
+        if (arg0.getParameter("ttnNumber")==null ){
             return false;
         }
         return true;

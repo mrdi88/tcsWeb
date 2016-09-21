@@ -5,28 +5,18 @@
  */
 package com.avectis.transportcontrol.view;
 
-import com.avectis.transportcontrol.entity.Card;
 import com.avectis.transportcontrol.entity.Queue;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author Dima
  */
-public class QueueView {
+public class QueueNameView {
 
     private long id;
     private String name;
-    private List<CardView> cards=new ArrayList<>();
     
-    public List<CardView> getCards() {
-        return cards;
-    }
-    public void setCards(List<CardView> cards) {
-        this.cards = cards;
-    }
     public String getName() {
         return name;
     }
@@ -39,33 +29,24 @@ public class QueueView {
     public void setId(long id) {
         this.id = id;
     }
-    public QueueView() {
+    public QueueNameView() {
     }
 
-    public QueueView(Queue queue) {
+    public QueueNameView(Queue queue) {
         this.id=queue.getId();
         this.name = queue.getName();
-        List<CardView> cardsV=new ArrayList<>();
-        if (queue.getCards()!=null){
-            for (Card card:queue.getCards()){
-                cardsV.add(new CardView(card));
-            }
-        }
-        this.cards = cardsV;
-        
     }
 
     @Override
     public String toString() {
-        return "TransportQueue{" + "queueId=" + id + ", name=" + name + ", qElements=" + cards + '}';
+        return "TransportQueue{" + "queueId=" + id + ", name=" + name +'}';
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 83 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 83 * hash + Objects.hashCode(this.name);
-        hash = 83 * hash + Objects.hashCode(this.cards);
+        hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -77,11 +58,8 @@ public class QueueView {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final QueueView other = (QueueView) obj;
+        final QueueNameView other = (QueueNameView) obj;
         if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.cards, other.cards)) {
             return false;
         }
         return true;

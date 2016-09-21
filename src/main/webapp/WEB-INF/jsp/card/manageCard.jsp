@@ -15,7 +15,7 @@
     </head>
     <body>
         <div style="float:left">
-            <form id="addForm" action="${pageContext.request.contextPath}/card?cmd=add" method="post">
+            <form id="addForm" action="${pageContext.request.contextPath}/card?cmd=add" method="post" autocomplete="off">
                 <div>
                 Номер карты:<br><input class="cardNumber" type="text" name="cardNumber" value="" readonly><br><br>
                 Водитель<br>
@@ -23,8 +23,8 @@
                 Организация<br><input class="organization" type="text" name="organization" value=""><br>
                 Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value=""><br><br>
                 Машина<br>
-                Номер машины<br><input class="firstNumber" type="text" name="firstNumber" value=""><br>
-                Номер прицепа<br><input class="secondNumber" type="text" name="secondNumber" value=""><br><br>
+                Номер машины<br><input class="carNumber" type="text" name="carNumber" value=""><br>
+                Номер ТТН<br><input class="ttnNumber" type="text" name="ttnNumber" value=""><br><br>
                 </div>
                 <div style="float: right;">
                 <input type="submit" value="Добавить">
@@ -32,7 +32,7 @@
             </form>
         </div>
         <div style="float:left; padding-left: 50px;">
-            <form id="deleteForm" action="${pageContext.request.contextPath}/card?cmd=delete" method="post">
+            <form id="deleteForm" action="${pageContext.request.contextPath}/card?cmd=delete" method="post" autocomplete="off">
                 <div style="float:left;">
                     Номер карты:<br><input class="cardNumber" type="text" name="" value="" readonly><br><br>
                     Водитель<br>
@@ -40,8 +40,8 @@
                     Организация<br><input class="organization" type="text" name="organization" value="" readonly><br>
                     Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br><br>
                     Машина<br>
-                    Номер машины<br><input class="firstNumber" type="text" name="firstNumber" value="" readonly><br>
-                    Номер прицепа<br><input class="secondNumber" type="text" name="secondNumber" value="" readonly><br>
+                    Номер машины<br><input class="carNumber" type="text" name="carNumber" value="" readonly><br>
+                    Номер ТТН<br><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly><br>
                     Время въезда<br><input class="createDate" type="text" name="createDate" value="" readonly><br><br>
                 </div>
                 <div style="float: left; padding-left: 20px; padding-top: 18px;">
@@ -79,8 +79,12 @@
             alert("Введите имя водителя");
             return;
         }
-        if ($( "#addForm .firstNumber").val()==""){
+        if ($( "#addForm .carNumber").val()==""){
             alert("Введите номер автомобиля");
+            return;
+        }
+        if ($( "#addForm .ttnNumber").val()==""){
+            alert("Введите номер ТТН");
             return;
         }
         console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
@@ -95,8 +99,8 @@
                     $( "#addForm .name").val( "" );
                     $( "#addForm .organization").val( "" );
                     $( "#addForm .mobileNumber").val( "" );
-                    $( "#addForm .firstNumber").val( "" );
-                    $( "#addForm .secondNumber").val( "" );
+                    $( "#addForm .carNumber").val( "" );
+                    $( "#addForm .ttnNumber").val( "" );
                 }
                 else{
                     alert("Ошибка создания карты");
@@ -122,8 +126,8 @@
                     $( "#deleteForm .name").val( "" );
                     $( "#deleteForm .organization").val( "" );
                     $( "#deleteForm .mobileNumber").val( "" );
-                    $( "#deleteForm .firstNumber").val( "" );
-                    $( "#deleteForm .secondNumber").val( "" );
+                    $( "#deleteForm .carNumber").val( "" );
+                    $( "#deleteForm .ttnNumber").val( "" );
                     $( "#deleteForm .createDate").val( "" );
                     $( "#deleteForm .weightIn").val( "" );
                     $( "#deleteForm .weightOut").val( "" );
@@ -155,8 +159,8 @@
             $( "#deleteForm .name").val( card.car.driver.name );
             $( "#deleteForm .organization").val( card.car.driver.organization );
             $( "#deleteForm .mobileNumber").val( card.car.driver.mobileNumber );
-            $( "#deleteForm .firstNumber").val( card.car.firstNumber );
-            $( "#deleteForm .secondNumber").val( card.car.secondNumber );
+            $( "#deleteForm .carNumber").val( card.car.carNumber );
+            $( "#deleteForm .ttnNumber").val( card.car.ttnNumber );
             var createDate = new Date(card.car.createDate).toLocaleString("ru-ru", dateOptions);
             $( "#deleteForm .createDate").val(createDate);
             $( "#deleteForm .weightIn").val( card.car.cargo.weightIn );
