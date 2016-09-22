@@ -27,7 +27,7 @@
         </table>
         <br><br>
         <form action="queue?cmd=add" method="post">
-            queue name <br><input type="text" name="queueName" value=""><br>
+            queue name <br><input type="text" name="queueName" value=""><br>s
             <input type="submit" value="add">
         </form>
         <br>

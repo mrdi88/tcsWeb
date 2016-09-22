@@ -4,7 +4,7 @@
        xmlns:p = "http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
         
-        <bean id="cardScannerAdapter1" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="destroy">
+        <bean id="cardScannerAdapter1" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterCOM" init-method="init" destroy-method="destroy">
             <property name="portName" value="COM6"> </property>
         </bean>
         <bean id="cardScanner1" class="com.avectis.transportcontrol.control.scanner.CardScanner">

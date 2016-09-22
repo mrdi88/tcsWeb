@@ -8,7 +8,10 @@ package com.avectis.transportcontrol.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -28,9 +31,20 @@ public class Queue {
     @GenericGenerator(name="increment",strategy="increment")
     private long id;
     private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(name="type")  
+    private QueueType type;
     @OneToMany
     @OrderColumn(name="order_id")
     private List<Card> cards=new ArrayList<>();
+
+    public QueueType getType() {
+        return type;
+    }
+
+    public void setType(QueueType type) {
+        this.type = type;
+    }
     
     public List<Card> getCards() {
         return cards;
@@ -60,7 +74,7 @@ public class Queue {
 
     @Override
     public String toString() {
-        return "TransportQueue{" + "queueId=" + id + ", name=" + name + ", qElements=" + cards + '}';
+        return "Queue{" + "id=" + id + ", name=" + name + ", type=" + type + ", cards=" + cards + '}';
     }
 
     @Override
@@ -69,6 +83,7 @@ public class Queue {
         hash = 17 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
         hash = 17 * hash + Objects.hashCode(this.getName());
         hash = 17 * hash + Objects.hashCode(this.getCards());
+        hash = 17 * hash + Objects.hashCode(this.getType());
         return hash;
     }
 
@@ -85,6 +100,9 @@ public class Queue {
             return false;
         }
         if (!Objects.equals(this.getCards(), other.getCards())) {
+            return false;
+        }
+        if (!Objects.equals(this.getType(), other.getType())) {
             return false;
         }
         return true;

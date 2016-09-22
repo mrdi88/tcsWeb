@@ -7,6 +7,7 @@ package com.avectis.transportcontrol.view;
 
 import com.avectis.transportcontrol.entity.Card;
 import com.avectis.transportcontrol.entity.Queue;
+import com.avectis.transportcontrol.entity.QueueType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,16 @@ public class QueueView {
 
     private long id;
     private String name;
+    private QueueType type;
     private List<CardView> cards=new ArrayList<>();
+
+    public QueueType getType() {
+        return type;
+    }
+
+    public void setType(QueueType type) {
+        this.type = type;
+    }
     
     public List<CardView> getCards() {
         return cards;
@@ -45,6 +55,7 @@ public class QueueView {
     public QueueView(Queue queue) {
         this.id=queue.getId();
         this.name = queue.getName();
+        this.type = queue.getType();
         List<CardView> cardsV=new ArrayList<>();
         if (queue.getCards()!=null){
             for (Card card:queue.getCards()){
@@ -57,7 +68,7 @@ public class QueueView {
 
     @Override
     public String toString() {
-        return "TransportQueue{" + "queueId=" + id + ", name=" + name + ", qElements=" + cards + '}';
+        return "QueueView{" + "id=" + id + ", name=" + name + ", type=" + type + ", cards=" + cards + '}';
     }
 
     @Override
@@ -66,6 +77,7 @@ public class QueueView {
         hash = 83 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 83 * hash + Objects.hashCode(this.name);
         hash = 83 * hash + Objects.hashCode(this.cards);
+        hash = 83 * hash + Objects.hashCode(this.type);
         return hash;
     }
 
@@ -78,10 +90,13 @@ public class QueueView {
             return false;
         }
         final QueueView other = (QueueView) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
-        if (!Objects.equals(this.cards, other.cards)) {
+        if (!Objects.equals(this.getCards(), other.getCards())) {
+            return false;
+        }
+        if (!Objects.equals(this.getType(), other.getType())) {
             return false;
         }
         return true;

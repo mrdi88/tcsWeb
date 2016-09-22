@@ -23,6 +23,11 @@ public class ManageSamplesController extends AbstractController {
 
     private CardFacade cardFacade;
     private QueueFacade queueFacade;
+    private String bufferQueue="Buffer";
+
+    public void setBufferQueue(String bufferQueue) {
+        this.bufferQueue = bufferQueue;
+    }
     
     public void setCardFacade(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
@@ -105,9 +110,12 @@ public class ManageSamplesController extends AbstractController {
                     if (qv!=null ){
                         if (!qv.getName().equals(card.getCar().getDestination())){
                             queueFacade.deleteCardFromQueues(card);
+                            //set destination
                             qv = queueFacade.getQueue(Long.decode(arg0.getParameter("queueId")));
-                            qv.getCards().add(card);
                             card.getCar().setDestination(qv.getName());
+                            //put to buffer queue
+                            qv = queueFacade.getQueueByName(bufferQueue);
+                            qv.getCards().add(card);
                             queueFacade.update(qv);
                         }
                         cardFacade.update(card);

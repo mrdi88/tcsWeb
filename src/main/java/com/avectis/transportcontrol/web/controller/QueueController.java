@@ -1,5 +1,6 @@
 package com.avectis.transportcontrol.web.controller;
 
+import com.avectis.transportcontrol.entity.QueueType;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.QueueView;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class QueueController extends AbstractController {
     
     private CardFacade cardFacade;
     private QueueFacade queueFacade;
+
 
     public void setCardFacade(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
@@ -71,6 +73,7 @@ public class QueueController extends AbstractController {
         if (arg0.getParameter("queueName")!=null);
         QueueView qv = new QueueView();
         qv.setName(arg0.getParameter("queueName"));
+        qv.setType(QueueType.DOCK);
         qv.setCards(new ArrayList());
         qv.setId(queueFacade.addQueue(qv));
     }

@@ -9,6 +9,7 @@ import com.avectis.transportcontrol.DAO.CardDAO;
 import com.avectis.transportcontrol.DAO.QueueDAO;
 import com.avectis.transportcontrol.entity.Card;
 import com.avectis.transportcontrol.entity.Queue;
+import com.avectis.transportcontrol.entity.QueueType;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.QueueNameView;
 import com.avectis.transportcontrol.view.QueueView;
@@ -51,6 +52,18 @@ public class QueueFacade {
         else return null;
     }
     @Transactional(readOnly = true)
+    public QueueView getQueueByName(String name){
+        QueueView qv=null;
+        List<Queue> qList = queueDAO.getQueueList();
+        for (Queue q:qList){
+            if (q.getName().equals(name)){
+                qv= new QueueView(q);
+                break;
+            }
+        }
+        return qv;
+    }
+    @Transactional(readOnly = true)
     public List<QueueView> getQueueList(){
         List<QueueView> qvList=new ArrayList<>();
         List<Queue> qList = queueDAO.getQueueList();
@@ -60,11 +73,29 @@ public class QueueFacade {
         return qvList;
     }
     @Transactional(readOnly = true)
+    public List<QueueView> getQueueList(QueueType type){
+        List<QueueView> qvList=new ArrayList<>();
+        List<Queue> qList = queueDAO.getQueueList();
+        for (Queue q:qList){
+            if (q.getType()==type) qvList.add(new QueueView(q));
+        }
+        return qvList;
+    }
+    @Transactional(readOnly = true)
     public List<QueueNameView> getQueueNameList(){
         List<QueueNameView> qnvList=new ArrayList<>();
         List<Queue> qList = queueDAO.getQueueList();
         for (Queue q:qList){
             qnvList.add(new QueueNameView(q));
+        }
+        return qnvList;
+    }
+    @Transactional(readOnly = true)
+    public List<QueueNameView> getQueueNameList(QueueType type){
+        List<QueueNameView> qnvList=new ArrayList<>();
+        List<Queue> qList = queueDAO.getQueueList();
+        for (Queue q:qList){
+            if (q.getType()==type) qnvList.add(new QueueNameView(q));
         }
         return qnvList;
     }
@@ -135,6 +166,7 @@ public class QueueFacade {
             queue = new Queue();
         }
         queue.setName(queueView.getName());
+        queue.setType(queueView.getType());
         //set cards list
         List<Card> cards=new ArrayList<>();
         for (CardView cv:queueView.getCards()){

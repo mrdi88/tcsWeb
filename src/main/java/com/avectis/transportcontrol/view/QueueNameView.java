@@ -6,6 +6,7 @@
 package com.avectis.transportcontrol.view;
 
 import com.avectis.transportcontrol.entity.Queue;
+import com.avectis.transportcontrol.entity.QueueType;
 import java.util.Objects;
 
 /**
@@ -16,6 +17,15 @@ public class QueueNameView {
 
     private long id;
     private String name;
+    private QueueType type;
+
+    public QueueType getType() {
+        return type;
+    }
+
+    public void setType(QueueType type) {
+        this.type = type;
+    }
     
     public String getName() {
         return name;
@@ -39,7 +49,7 @@ public class QueueNameView {
 
     @Override
     public String toString() {
-        return "TransportQueue{" + "queueId=" + id + ", name=" + name +'}';
+        return "QueueNameView{" + "id=" + id + ", name=" + name + ", type=" + type + '}';
     }
 
     @Override
@@ -47,6 +57,7 @@ public class QueueNameView {
         int hash = 3;
         hash = 59 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.type);
         return hash;
     }
 
@@ -59,7 +70,10 @@ public class QueueNameView {
             return false;
         }
         final QueueNameView other = (QueueNameView) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.getType(), other.getType())) {
+            return false;
+        }
+        if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
         return true;
