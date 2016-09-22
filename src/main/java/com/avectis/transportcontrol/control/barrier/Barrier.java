@@ -15,19 +15,40 @@ public class Barrier {
         this.barrierAdapter = barrierAdapter;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean getState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public BarrierAdapter getBarrierAdapter() {
+        return barrierAdapter;
+    }
+
+    public void setBarrierAdapter(BarrierAdapter barrierAdapter) {
+        this.barrierAdapter = barrierAdapter;
+    }
+
     public void Open(){
         System.out.println("Barrier name:="+this.name + " cmd:=Open" );
-        this.barrierAdapter.Open();
+        this.barrierAdapter.open();
     }
     public void Close(){
         System.out.println("Barrier name:="+this.name + " cmd:=Close" );
-        this.barrierAdapter.Close();
+        this.barrierAdapter.close();
     }
-    public Boolean GetState(){
-        System.out.println("Barrier name:="+this.name + " cmd:=GetState" );
-        Boolean state=false;
-        this.barrierAdapter.GetState();
-        return state;
+    public void updateState(){
+        this.state = this.barrierAdapter.getState();
     }
 
 

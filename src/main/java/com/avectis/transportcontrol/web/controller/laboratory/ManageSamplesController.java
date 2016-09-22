@@ -1,5 +1,6 @@
 package com.avectis.transportcontrol.web.controller.laboratory;
 
+import com.avectis.transportcontrol.entity.QueueType;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.CardView;
@@ -64,7 +65,7 @@ public class ManageSamplesController extends AbstractController {
                     return new ModelAndView("laboratory/resultJSON", data);
             }
         }
-        List<QueueNameView> ql= queueFacade.getQueueNameList();
+        List<QueueNameView> ql= queueFacade.getQueueNameList(QueueType.DOCK);
         Map<String,List<QueueNameView>>  qlData = new HashMap<>();;
         qlData.put("queueList", ql);
         return new ModelAndView("laboratory/manageSamples", qlData);

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+">
+    <!-- Queue --> 
+    <bean id="queueProcess" class="com.avectis.transportcontrol.scheduler.QueueProcess"/>
+    <!-- job --> 
+    <bean id="queueJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="queueProcess"/>
+        <property name="targetMethod" value="doJob"/>
+    </bean>
+    <!-- trigger --> 
+    <bean id="queueTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="queueJob"/>
+        <!-- 10 seconds -->
+        <property name="startDelay" value="10000"/>
+        <!-- repeat every 5 seconds -->
+        <property name="repeatInterval" value="5000"/>
+    </bean>
+    <!-- SchedulerFactory -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <property name="triggers">
+        <list>
+            <ref bean="queueTrigger"/>
+        </list>
+    </property>
+</bean>
+</beans>

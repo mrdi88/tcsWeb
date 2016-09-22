@@ -14,8 +14,9 @@
                         <!--/WEB-INF/classes/barrier-context.xml,
                         /WEB-INF/classes/traffic_light-context.xml,
                         /WEB-INF/classes/infotable-context.xml,-->
-                        /WEB-INF/classes/mvc-context.xml
-                    </param-value>
+                        /WEB-INF/classes/mvc-context.xml,
+                        /WEB-INF/classes/scheduler.xml
+                </param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
