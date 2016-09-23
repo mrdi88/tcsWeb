@@ -31,7 +31,7 @@
         </property>
     </bean>
     
-    <bean id="carController" class="com.avectis.transportcontrol.web.controller.CarController">
+    <bean id="carController" class="com.avectis.transportcontrol.web.controller.car.CarController">
         <property name="carFacade" ref="carFacade" />
     </bean>
     <bean id="cardController" class="com.avectis.transportcontrol.web.controller.card.CardController">
@@ -46,8 +46,7 @@
     </bean>
     <bean id="manageCardController" class="com.avectis.transportcontrol.web.controller.card.ManageCardController">
     </bean>
-    <bean id="queueController" class="com.avectis.transportcontrol.web.controller.QueueController">
-        <property name="cardFacade" ref="cardFacade" />
+    <bean id="queueController" class="com.avectis.transportcontrol.web.controller.queue.QueueController">
         <property name="queueFacade" ref="queueFacade" />
     </bean>
     <bean id="laboratoryController" class="com.avectis.transportcontrol.web.controller.laboratory.LaboratoryController">

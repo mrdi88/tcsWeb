@@ -32,6 +32,8 @@
     </bean>
     <bean id="queueProcess" class="com.avectis.transportcontrol.scheduler.QueueProcess" init-method="init">
         <property name="queueFacade" ref="queueFacade"/>
+        <property name="bufferQueueProp" ref="Buffer"/>
+        <property name="InfoQueueProp" ref="MainTable"/>
         <property name="queuePropList">
             <list>
                 <ref bean="MainTable"/>

@@ -12,9 +12,18 @@ import com.avectis.transportcontrol.entity.QueueType;
  * @author Dima
  */
 public class QueueProperties {
+    private Long id;
     private String name;
     private int size;
     private QueueType type;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

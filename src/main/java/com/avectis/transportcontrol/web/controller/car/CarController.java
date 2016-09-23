@@ -1,4 +1,4 @@
-package com.avectis.transportcontrol.web.controller;
+package com.avectis.transportcontrol.web.controller.car;
 
 import com.avectis.transportcontrol.facade.CarFacade;
 import com.avectis.transportcontrol.view.CarView;

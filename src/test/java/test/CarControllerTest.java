@@ -1,7 +1,7 @@
 package test;
 
 
-import com.avectis.transportcontrol.web.controller.CarController;
+import com.avectis.transportcontrol.web.controller.car.CarController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

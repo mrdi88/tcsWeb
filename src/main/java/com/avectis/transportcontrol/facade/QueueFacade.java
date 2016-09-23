@@ -52,6 +52,11 @@ public class QueueFacade {
         else return null;
     }
     @Transactional(readOnly = true)
+    public int getQueueCardCount(Long id){
+        Queue queue=queueDAO.getQueue(id);
+        return queue.getCards().size();
+    }
+    @Transactional(readOnly = true)
     public QueueView getQueueByName(String name){
         QueueView qv=null;
         List<Queue> qList = queueDAO.getQueueList();

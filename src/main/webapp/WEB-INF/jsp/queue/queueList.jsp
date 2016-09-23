@@ -10,50 +10,109 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Applicant List</title>
+        <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>
+        <link href="${pageContext.request.contextPath}/resources/css/queueList.css" rel="stylesheet" type="text/css"/>
+        <title>Состояние очередей</title>
     </head>
     <body>
-        <table cellspacing="0" border="1" cellpadding="5">
-            <c:forEach var="queue" items="${queueList}">
-                <tr>
-                    <td>queue</td>
-                    <td>${queue.id}</td>
-                    <td>${queue.name}</td>
-                    <c:forEach var="card" items="${queue.cards}">
-                        <td>card&nbsp;${card.id}&nbsp;${card.car.carNumber}</td>
-                    </c:forEach>
-                </tr>
-            </c:forEach>
-        </table>
-        <br><br>
-        <form action="queue?cmd=add" method="post">
-            queue name <br><input type="text" name="queueName" value=""><br>s
-            <input type="submit" value="add">
-        </form>
-        <br>
-        <form action="queu?cmd=delete" method="post">
-            queue id <br><input type="text" name="queueId" value="0"><br>
-            <input type="submit" value="delete">
-        </form>
-        <br>
-        <form action="queue?cmd=addCardToQueue" method="post">
-            queue id <br><input type="text" name="queueId" value=""><br>
-            card id <br><input type="text" name="cardId" value=""><br>
-            <input type="submit" value="addCardToQueue">
-        </form>
-        <br>
-        <form action="queue?cmd=deleteCardFromQueue" method="post">
-            queue id <br><input type="text" name="queueId" value=""><br>
-            card id <br><input type="text" name="cardId" value=""><br>
-            <input type="submit" value="deleteCardFromQueue">
-        </form>
-        <br>
-        <form action="queue?cmd=moveCardFromTo" method="post">
-            fromId id <br><input type="text" name="fromId" value=""><br>
-            toId id <br><input type="text" name="toId" value=""><br>
-            card id <br><input type="text" name="cardId" value=""><br>
-            <input type="submit" value="moveCardFromTo">
-        </form>
+        <div id="queues">
+            <div class="queueBlock">
+                <p>buffer</p>
+                <table id="buffer" class="queueTable" width="100%" cellpadding="2" >
+                    <th class="header">№</th>
+                    <th class="header">Номер авто</th>
+                    <th class="header">Засор-ть,%</th>
+                    <th class="header">Клейк-на,%</th>
+                    <th class="header">Влаж-ть,%</th>
+                </table>
+            </div>
+            <div class="queueBlock">
+                <p>infoTable</p>
+                <table id="infoTable" class="queueTable" width="100%" cellpadding="2" >
+                    <th class="header">№</th>
+                    <th class="header">Номер авто</th>
+                    <th class="header">Засор-ть,%</th>
+                    <th class="header">Клейк-на,%</th>
+                    <th class="header">Влаж-ть,%</th>
+                </table>
+            </div>
+            <div class="queueBlock">
+                <p>R01</p>
+                <table id="R01" class="queueTable" width="100%" cellpadding="2" >
+                    <th class="header">№</th>
+                    <th class="header">Номер авто</th>
+                    <th class="header">Засор-ть,%</th>
+                    <th class="header">Клейк-на,%</th>
+                    <th class="header">Влаж-ть,%</th>
+                </table>
+            </div>
+            <div class="queueBlock">
+                <p>R02</p>
+                <table id="R02" class="queueTable" width="100%" cellpadding="2" >
+                    <th class="header">№</th>
+                    <th class="header">Номер авто</th>
+                    <th class="header">Засор-ть,%</th>
+                    <th class="header">Клейк-на,%</th>
+                    <th class="header">Влаж-ть,%</th>
+                </table>
+            </div>
+        </div>
     </body>
 </html>
 
+<script>
+    $(window).load( function(){
+	$.get("${pageContext.request.contextPath}/queue?cmd=getQueueList",{ "_": $.now() }, function(data) {setData(data);});
+    });
+
+    function setData(data) { 
+	var queues=data.queues;
+        for (var i=0; i<queues.length; i++){
+            switch(queues[i].name){
+                case "Buffer":
+                    setQueueTableData(document.getElementById("buffer"), queues[i]);
+                    break;
+                case "MainTable":
+                    setQueueTableData(document.getElementById("infoTable"), queues[i]);
+                    break;
+                case "R01":
+                    setQueueTableData(document.getElementById("R01"), queues[i]);
+                    break;
+                case "R02":
+                    setQueueTableData(document.getElementById("R02"), queues[i]);
+                    break;        
+            }
+        }
+    }
+    function setQueueTableData(table, queue) { 
+        //clean table
+        for(var i = table.rows.length-1; i > 0; i--){
+                table.deleteRow(i);
+        }
+        var newrow;
+        var cell;
+        var cards=queue.cards;
+        //set data in table
+	for (var i = 0; i < cards.length; i++) { 
+            newrow = table.insertRow(i+1);
+            newrow.id=cards[i].id;
+            if (i%2>0) newrow.classList.add("even");
+            else newrow.classList.add("odd");
+            cell=newrow.insertCell(-1);
+            cell.classList.add("rowNumber");
+            cell.innerHTML = i+1;
+            cell=newrow.insertCell(-1);
+            cell.classList.add("carNumber");
+            cell.innerHTML = cards[i].car.carNumber;
+            cell=newrow.insertCell(-1);
+            cell.classList.add("weediness");
+            cell.innerHTML = cards[i].car.cargo.sample.weediness;
+            cell=newrow.insertCell(-1);
+            cell.classList.add("gluten");
+            cell.innerHTML = cards[i].car.cargo.sample.gluten;
+            cell=newrow.insertCell(-1);
+            cell.classList.add("humidity");
+            cell.innerHTML = cards[i].car.cargo.sample.humidity;
+        }
+    }
+</script>

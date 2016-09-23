@@ -116,18 +116,12 @@
         });
     });
     function setCards(data) { 
-        var dateOptions = {
-                day: "numeric", month: "numeric", year: "numeric",
-		hour: "2-digit", minute: "2-digit"
-		//weekday: "short", year: "numeric", month: "short",
-		//day: "numeric", hour: "2-digit", minute: "2-digit"
-	};
 	var cards=data.cards;
         cardList=cards;
         var tableCards = document.getElementById("cards");
         //clean table
         for(var i = tableCards.rows.length-1; i > 0; i--){
-                tableCards.deleteRow(i);
+            tableCards.deleteRow(i);
         }
         var newrow;
         var createDate;
@@ -172,6 +166,7 @@
             };
 	}
     }
+    //set data foor chosed card
     function selectCard(e){
         selectedId = e.id;
         var card=null;
@@ -198,6 +193,10 @@
         $(".selected").removeClass("selected");
         e.classList.add("selected");
     }
+    var dateOptions = {
+                day: "numeric", month: "numeric", year: "numeric",
+		hour: "2-digit", minute: "2-digit"
+	};
 </script>
 
     
