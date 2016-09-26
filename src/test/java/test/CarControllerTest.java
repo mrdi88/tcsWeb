@@ -1,7 +1,7 @@
 package test;
 
 
-import com.avectis.transportcontrol.web.controller.car.CarController;
+import com.avectis.transportcontrol.web.controller.archive.ArchiveController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 public class CarControllerTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
-    private CarController carController;
+    private ArchiveController carController;
 
     @Test
     public void professionTest() {

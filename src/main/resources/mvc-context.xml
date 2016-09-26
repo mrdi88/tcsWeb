@@ -7,7 +7,8 @@
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
-                <prop key="/car">carController</prop>
+                <prop key="/archive">archiveController</prop>
+                <prop key="/archive/cars">archiveController</prop>
                 <prop key="/card">cardController</prop>
                 <prop key="/card/list">listCardController</prop>
                 <prop key="/card/manage">manageCardController</prop>
@@ -15,6 +16,8 @@
                 <prop key="/laboratory/assign">assignSampleController</prop>
                 <prop key="/laboratory/manage">manageSamplesController</prop>
                 <prop key="/queue">queueController</prop>
+                <prop key="/dock">dockController</prop>
+                <prop key="/dock/manage">dockController</prop>
             </props>
         </property>
     </bean>
@@ -31,8 +34,14 @@
         </property>
     </bean>
     
-    <bean id="carController" class="com.avectis.transportcontrol.web.controller.car.CarController">
+    <bean id="archiveController" class="com.avectis.transportcontrol.web.controller.archive.ArchiveController">
         <property name="carFacade" ref="carFacade" />
+    </bean>
+    <bean id="dockController" class="com.avectis.transportcontrol.web.controller.dock.DockController">
+        <property name="queueFacade" ref="queueFacade" />
+        <property name="cardFacade" ref="cardFacade" />
+        <property name="firstQueueName" value="R01" />
+        <property name="secondQueueName" value="R02" />
     </bean>
     <bean id="cardController" class="com.avectis.transportcontrol.web.controller.card.CardController">
         <property name="carFacade" ref="carFacade" />

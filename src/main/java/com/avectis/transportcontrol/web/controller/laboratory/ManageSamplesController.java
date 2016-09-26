@@ -9,11 +9,13 @@ import com.avectis.transportcontrol.view.QueueView;
 import com.avectis.transportcontrol.view.SampleView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
@@ -41,6 +43,8 @@ public class ManageSamplesController extends AbstractController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
         Map<String,String>  data;
+        String URI=arg0.getRequestURI();
+        StringBuffer URL=arg0.getRequestURL();
         if (arg0.getParameter("cmd")!=null){
             switch (arg0.getParameter("cmd")){
                 case "assignParams": 
