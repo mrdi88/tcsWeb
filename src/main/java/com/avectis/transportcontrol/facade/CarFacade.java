@@ -87,7 +87,7 @@ public class CarFacade {
         }
         if (carv.getCargo()!=null){
             cargo.setDischargeDate(carv.getCargo().getDischargeDate());
-            cargo.setDischargingPlace(carv.getCargo().getLoadingPlace());
+            cargo.setDischargingPlace(carv.getCargo().getDischargingPlace());
             cargo.setLoadingDate(carv.getCargo().getLoadingDate());
             cargo.setLoadingPlace(carv.getCargo().getLoadingPlace());
             cargo.setSample(sampleFromView(carv.getCargo().getSample()));

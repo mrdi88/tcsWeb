@@ -1,57 +1,62 @@
-#selectCard{
-        margin-bottom: 10px;
-        width: 600px;
-        max-width: 600px;
-        float:left;
-}
 #params{
     margin-left: 20px;
     width: 172px;
     float: left;
 }
-#cards{
+.queueTable{
     border-collapse: collapse;
     text-align: center;
 }
-#cards td{
+.queueTable td{
         border: 1px solid #BCBCBC; 	
 }
-#cards .even td{
+.queueTable .even td{
         background: #F9F9F9 ;
 }
-#cards .odd td{
+.queueTable .odd td{
         background: #EFEFEF ;
 }
-#cards .selected td{
+.queueTable .selected td{
         background: #95f300 ;
 }
-.cards_header{
+.queueTable header{
         font-weight:bold;
 }
-#cards .rowNumber {
+.queueTable .rowNumber {
     width: 20px;
 }
-#cards .sampleName {
-    width: 40px;
-}
-#cards .carNumber {
+.queueTable .carNumber {
     width: 60px;
 }
-#cards .destination {
-    width: 30px;
+.queueTable .createDate {
+    width: 120px;
 }
-#cards .ttnNumber {
-    width: 60px;
+.dock {
+    width: 250px;
+    height: 200px;
+    float:left;
+    margin-left: 20px;
 }
-#cards .weediness {
-    width: 30px;
+.listScreen{
+    
 }
-#cards .gluten {
-    width: 30px;
+.arrivalScreen{
+    padding-top: 20%;
+    text-align: center;
+   
 }
-#cards .humidity {
-    width: 30px;
+.releaseForm .accept{
+    float:right;
 }
-#cards .createDate {
-    width: 150px;
+.releaseForm .cancel{
+    float:left;
+}
+.releaseScreen{
+    
+}
+.dock .listScreen p{
+    text-align: center;
+}
+.hidden {
+    display:none;
 }

@@ -166,7 +166,7 @@
             };
 	}
     }
-    //set data foor chosed card
+    //set data for chosed card
     function selectCard(e){
         selectedId = e.id;
         var card=null;
