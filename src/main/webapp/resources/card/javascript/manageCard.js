@@ -120,7 +120,7 @@ function setCardData(data) {
             $( "#deleteForm .nomenclature").val( card.car.cargo.sample.nomenclature );
             $( "#deleteForm .class").val( card.car.cargo.sample.cultureClass );
             $( "#deleteForm .destination").val( card.car.destination );
-            $( "#deleteForm .siloNumber").val( card.car.cargo.sample.siloNumber );
+            $( "#deleteForm .siloNumber").val( card.car.siloNumber );
         }else{
             $( "#deleteForm .sampleName").val( "" );
             $( "#deleteForm .humidity").val( "" );

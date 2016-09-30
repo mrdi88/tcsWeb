@@ -176,9 +176,12 @@ public class CardController extends AbstractController {
         return true;
     }
     private void deleteCard(Long id){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         CardView card;
         card=cardFacade.getCard(id);
         if (card!=null){
+            card.getCar().setLeaveDate(new Date());
+            cardFacade.update(card);
             queueFacade.deleteCardFromQueues(card);
             cardFacade.delete(card);
         }
