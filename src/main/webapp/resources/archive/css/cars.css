@@ -1,0 +1,87 @@
+#selectCar{
+        margin-bottom: 10px;
+        width: 600px;
+        max-width: 600px;
+        float:left;
+}
+#params{
+    margin-left: 20px;
+    width: 172px;
+    float: left;
+}
+#cars{
+    border-collapse: collapse;
+    text-align: center;
+}
+#cars td{
+        border: 1px solid #BCBCBC; 	
+}
+#cars .even td{
+        background: #F9F9F9 ;
+}
+#cars .odd td{
+        background: #EFEFEF ;
+}
+#cars .selected td{
+        background: #95f300 ;
+}
+.cars_header{
+        font-weight:bold;
+}
+#cars .rowNumber {
+    width: 20px;
+}
+#cars .sampleName {
+    width: 40px;
+}
+#cars .carNumber {
+    width: 60px;
+}
+#cars .destination {
+    width: 30px;
+}
+#cars .ttnNumber {
+    width: 60px;
+}
+#cars .weediness {
+    width: 30px;
+}
+#cars .gluten {
+    width: 30px;
+}
+#cars .humidity {
+    width: 30px;
+}
+#cars .createDate {
+    width: 150px;
+}
+#start_time {
+    width: 200px;
+}
+#stop_time {
+    width: 200px;
+}
+#params{
+    float:left;
+    padding-left: 50px;
+    width: 400px;
+    max-width: 400px;
+}
+#params .driver{
+    float:left;
+}
+#params .cargo{
+    float:right;
+}
+#params .car{
+    float:right;
+}
+#params .sample{
+    float:left;
+}
+div p:first-child{
+    font-weight: bold;
+}
+p {
+    margin:0;
+}

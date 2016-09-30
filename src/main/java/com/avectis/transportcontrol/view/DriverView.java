@@ -15,23 +15,35 @@ import java.util.Objects;
 public class DriverView {
     
     private long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String mobileNumber;
     private String organization;
 
     public DriverView(Driver driver) {
         this.id=driver.getId();
         this.mobileNumber=driver.getMobileNumber();
-        this.name=driver.getName();
+        this.firstName=driver.getFirstName();
+        this.lastName=driver.getLastName();
         this.organization=driver.getOrganization();
     }
-    public DriverView(String name, String mobileNumber, String organization) {
-        this.name=name;
+    public DriverView(String firstName, String lastName, String mobileNumber, String organization) {
+        this.firstName=firstName;
+        this.lastName=lastName;
         this.mobileNumber=mobileNumber;
         this.organization=organization;
     }
     public DriverView() {
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
     public String getOrganization() {
         return organization;
     }
@@ -44,11 +56,11 @@ public class DriverView {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
     public long getId() {
         return id;
@@ -59,14 +71,15 @@ public class DriverView {
 
     @Override
     public String toString() {
-        return "Driver{" + "driverId=" + id + ", name=" + name + ", mobileNumber=" + mobileNumber + ", organization=" + organization + '}';
+        return "DriverView{" + "id=" + id + ", firstName=" + firstName + ", secondName=" + lastName + ", mobileNumber=" + mobileNumber + ", organization=" + organization + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 71 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 71 * hash + Objects.hashCode(this.name);
+        hash = 71 * hash + Objects.hashCode(this.firstName);
+        hash = 71 * hash + Objects.hashCode(this.lastName);
         hash = 71 * hash + Objects.hashCode(this.mobileNumber);
         hash = 71 * hash + Objects.hashCode(this.organization);
         return hash;
@@ -84,7 +97,10 @@ public class DriverView {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastName, other.lastName)) {
             return false;
         }
         if (!Objects.equals(this.mobileNumber, other.mobileNumber)) {

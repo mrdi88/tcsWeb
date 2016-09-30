@@ -10,11 +10,11 @@
                 <prop key="/archive">archiveController</prop>
                 <prop key="/archive/cars">archiveController</prop>
                 <prop key="/card">cardController</prop>
-                <prop key="/card/list">listCardController</prop>
-                <prop key="/card/manage">manageCardController</prop>
+                <prop key="/card/list">cardController</prop>
+                <prop key="/card/manage">cardController</prop>
                 <prop key="/laboratory">laboratoryController</prop>
-                <prop key="/laboratory/assign">assignSampleController</prop>
-                <prop key="/laboratory/manage">manageSamplesController</prop>
+                <prop key="/laboratory/assign">laboratoryController</prop>
+                <prop key="/laboratory/manage">laboratoryController</prop>
                 <prop key="/queue">queueController</prop>
                 <prop key="/dock">dockController</prop>
                 <prop key="/dock/manage">dockController</prop>
@@ -50,11 +50,6 @@
         <property name="scannerFacade" ref="scannerFacade" />
         <property name="cardScannerName" value="scanner1" />
     </bean>
-    <bean id="listCardController" class="com.avectis.transportcontrol.web.controller.card.ListCardController">
-        <property name="cardFacade" ref="cardFacade" />
-    </bean>
-    <bean id="manageCardController" class="com.avectis.transportcontrol.web.controller.card.ManageCardController">
-    </bean>
     <bean id="queueController" class="com.avectis.transportcontrol.web.controller.queue.QueueController">
         <property name="queueFacade" ref="queueFacade" />
     </bean>
@@ -63,11 +58,5 @@
         <property name="queueFacade" ref="queueFacade" />
         <property name="scannerFacade" ref="scannerFacade" />
         <property name="cardScannerName" value="scanner1" />
-    </bean>
-    <bean id="assignSampleController" class="com.avectis.transportcontrol.web.controller.laboratory.AssignSampleController">
-    </bean>
-    <bean id="manageSamplesController" class="com.avectis.transportcontrol.web.controller.laboratory.ManageSamplesController">
-        <property name="cardFacade" ref="cardFacade" />
-        <property name="queueFacade" ref="queueFacade" />
     </bean>
 </beans>

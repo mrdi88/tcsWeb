@@ -27,8 +27,26 @@ public class Sample {
     private float weediness;
     private float gluten;
     private float humidity;
+    private String nomenclature;
+    private String cultureClass;
     
     public Sample() {
+    }
+
+    public String getNomenclature() {
+        return nomenclature;
+    }
+
+    public void setNomenclature(String nomenclature) {
+        this.nomenclature = nomenclature;
+    }
+
+    public String getCultureClass() {
+        return cultureClass;
+    }
+
+    public void setCultureClass(String cultureClass) {
+        this.cultureClass = cultureClass;
     }
 
     public long getId() {
@@ -73,7 +91,7 @@ public class Sample {
 
     @Override
     public String toString() {
-        return "Sample{" + "id=" + id + ", name=" + name + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + '}';
+        return "Sample{" + "id=" + id + ", name=" + name + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + ", nomenclature=" + nomenclature + ", cultureClass=" + cultureClass + '}';
     }
 
     @Override
@@ -84,6 +102,8 @@ public class Sample {
         hash = 47 * hash + Float.floatToIntBits(this.getWeediness());
         hash = 47 * hash + Float.floatToIntBits(this.getGluten());
         hash = 47 * hash + Float.floatToIntBits(this.getHumidity());
+        hash = 47 * hash + Objects.hashCode(this.getCultureClass());
+        hash = 47 * hash + Objects.hashCode(this.getNomenclature());
         return hash;
     }
 
@@ -100,6 +120,12 @@ public class Sample {
             return false;
         }
         if (!Objects.equals(this.getName(), other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(this.getCultureClass(), other.getCultureClass())) {
+            return false;
+        }
+        if (!Objects.equals(this.getNomenclature(), other.getNomenclature())) {
             return false;
         }
         if (Float.floatToIntBits(this.getWeediness()) != Float.floatToIntBits(other.getWeediness())) {

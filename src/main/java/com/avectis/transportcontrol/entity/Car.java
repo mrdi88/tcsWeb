@@ -36,13 +36,31 @@ public class Car {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "driverId")
     private Driver driver;
+    private String siloNumber;
     private String destination;
     private String carNumber;
     private String ttnNumber;
+    private String nomenclature;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date leaveDate;
+
+    public String getNomenclature() {
+        return nomenclature;
+    }
+
+    public void setNomenclature(String nomenclature) {
+        this.nomenclature = nomenclature;
+    }
+
+    public String getSiloNumber() {
+        return siloNumber;
+    }
+
+    public void setSiloNumber(String siloNumber) {
+        this.siloNumber = siloNumber;
+    }
 
     public Date getLeaveDate() {
         return leaveDate;
@@ -103,12 +121,14 @@ public class Car {
         
     }
 
-    public Car(Cargo cargo, Driver driver, String firstNumber, String secondNumber, String destination) {
+    public Car(Cargo cargo, Driver driver, String firstNumber, String secondNumber, String siloNumber, String destination, String nomenclature) {
         this.cargo = cargo;
         this.driver = driver;
+        this.siloNumber=siloNumber;
         this.destination = destination;
         this.carNumber = firstNumber;
         this.ttnNumber = secondNumber;
+        this.nomenclature=nomenclature;
         Date dt=new Date();
         dt.setTime(dt.getTime()-dt.getTime()%1000);
         this.createDate = dt;
@@ -116,7 +136,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" + "carId=" + id + ", cargo=" + cargo + ", driver=" + driver + ", destination=" + destination + ", firstNumber=" + carNumber + ", secondNumber=" + ttnNumber + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
+        return "Car{" + "id=" + id + ", cargo=" + cargo + ", driver=" + driver + ", siloNumber=" + siloNumber + ", destination=" + destination + ", carNumber=" + carNumber + ", ttnNumber=" + ttnNumber + ", nomenclature=" + nomenclature + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
     }
 
     @Override
@@ -125,9 +145,11 @@ public class Car {
         hash = 67 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
         hash = 67 * hash + Objects.hashCode(this.getCargo());
         hash = 67 * hash + Objects.hashCode(this.getDriver());
+        hash = 67 * hash + Objects.hashCode(this.getSiloNumber());
         hash = 67 * hash + Objects.hashCode(this.getDestination());
         hash = 67 * hash + Objects.hashCode(this.getCarNumber());
         hash = 67 * hash + Objects.hashCode(this.getTtnNumber());
+        hash = 67 * hash + Objects.hashCode(this.getNomenclature());
         hash = 67 * hash + Objects.hashCode(this.getCreateDate());
         hash = 67 * hash + Objects.hashCode(this.getLeaveDate());
         return hash;
@@ -158,6 +180,12 @@ public class Car {
             }
         } else{
             if (other.getDriver()!=null) return false;
+        }
+        if (!Objects.equals(this.getNomenclature(), other.getNomenclature())) {
+            return false;
+        }
+        if (!Objects.equals(this.getSiloNumber(), other.getSiloNumber())) {
+            return false;
         }
         if (!Objects.equals(this.getDestination(), other.getDestination())) {
             return false;

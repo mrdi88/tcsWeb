@@ -8,7 +8,8 @@
     text-align: center;
 }
 .queueTable td{
-        border: 1px solid #BCBCBC; 	
+        border: 1px solid #BCBCBC; 
+        height:40px;
 }
 .queueTable .even td{
         background: #F9F9F9 ;
@@ -26,13 +27,22 @@
     width: 20px;
 }
 .queueTable .carNumber {
-    width: 60px;
+    width: 70px;
 }
-.queueTable .createDate {
+.queueTable .humidity {
+    width: 50px;
+}
+.queueTable .nomenclature {
     width: 120px;
 }
+.queueTable .class {
+    width: 60px;
+}
+.queueTable .siloNumber {
+    width: 90px;
+}
 .dock {
-    width: 250px;
+    width: 560px;
     height: 200px;
     float:left;
     margin-left: 20px;
@@ -41,7 +51,7 @@
     
 }
 .arrivalScreen{
-    padding-top: 20%;
+    padding-top: 10%;
     text-align: center;
    
 }
@@ -59,4 +69,18 @@
 }
 .hidden {
     display:none;
+}
+p {
+    margin: 0;
+}
+.releaseScreen .data1{
+    float: left;
+    margin-right: 20px;
+}
+.releaseScreen .data2{
+    float: left;
+    margin-right: 20px;
+}
+.releaseScreen .submit{
+    margin-top: 20px;
 }

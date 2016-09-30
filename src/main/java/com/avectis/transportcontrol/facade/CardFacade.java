@@ -33,7 +33,8 @@ public class CardFacade {
     }
     @Transactional
     public void update(CardView card){
-        cardDAO.Update(cardFromView(card));
+        Card c = cardFromView(card);
+        cardDAO.Update(c);
     }
     @Transactional(readOnly = true)
     public CardView getCard(Long id){

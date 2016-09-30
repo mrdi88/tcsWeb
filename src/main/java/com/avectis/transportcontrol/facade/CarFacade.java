@@ -38,7 +38,8 @@ public class CarFacade {
     }
     @Transactional
     public void update(CarView car){
-        carDAO.update(carFromView(car));
+        Car c=carFromView(car);
+        carDAO.update(c);
     }
     @Transactional(readOnly = true)
     public CarView get(Long id){
@@ -74,10 +75,12 @@ public class CarFacade {
             car = new Car();
         }
         car.setCreateDate(carv.getCreateDate());
+        car.setSiloNumber(carv.getSiloNumber());
         car.setDestination(carv.getDestination());
         car.setCarNumber(carv.getCarNumber());
         car.setLeaveDate(carv.getLeaveDate());
         car.setTtnNumber(carv.getTtnNumber());
+        car.setNomenclature(carv.getNomenclature());
         //create Cargo
         Cargo cargo;
         if (car.getCargo()!=null){
@@ -104,7 +107,8 @@ public class CarFacade {
         }
         if (carv.getDriver()!=null){
             driver.setMobileNumber(carv.getDriver().getMobileNumber());
-            driver.setName(carv.getDriver().getName());
+            driver.setFirstName(carv.getDriver().getFirstName());
+            driver.setLastName(carv.getDriver().getLastName());
             driver.setOrganization(carv.getDriver().getOrganization());
         }
         car.setDriver(driver);
@@ -120,6 +124,8 @@ public class CarFacade {
             sample.setWeediness(samplev.getWeediness());
             sample.setGluten(samplev.getGluten());
             sample.setHumidity(samplev.getHumidity());
+            sample.setCultureClass(samplev.getCultureClass());
+            sample.setNomenclature(samplev.getNomenclature());
         }
         return sample;
     }

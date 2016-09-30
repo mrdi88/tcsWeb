@@ -38,11 +38,11 @@ public class ArchiveController extends AbstractController {
                     mapper = new ObjectMapper();
                     String carsJson = mapper.writeValueAsString(cars);
                     data.put("cars", carsJson);
-                    return new ModelAndView("archive/carsJSON", data);
+                    return new ModelAndView("archive/json/carsJSON", data);
                 default:
                     data = new HashMap<>();
                     data.put("result", "cmd not found");
-                    return new ModelAndView("archive/resultJSON", data);
+                    return new ModelAndView("archive/json/resultJSON", data);
             }
         }
         //do action

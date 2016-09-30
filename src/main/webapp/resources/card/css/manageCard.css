@@ -1,0 +1,33 @@
+p {
+    margin:0;
+}
+#newCard{
+    float:left;
+}
+#newCard .submit{
+    float:right;
+}
+#existCard{
+    float:left;
+    padding-left: 50px;
+    width: 400px;
+    max-width: 400px;
+}
+#existCard .driver{
+    float:left;
+}
+#existCard .cargo{
+    float:right;
+}
+#existCard .car{
+    float:right;
+}
+#existCard .sample{
+    float:left;
+}
+#existCard .submit{
+    float: right;
+}
+div p:first-child{
+    font-weight: bold;
+}

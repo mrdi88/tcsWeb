@@ -11,181 +11,79 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manage card</title>
-        <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>	
+        <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/card/javascript/manageCard.js"></script>	
+        <link href="${pageContext.request.contextPath}/resources/css/menu.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/resources/card/css/manageCard.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div style="float:left">
+        <jsp:include page="../header.jsp"/>
+        <div id="newCard">
             <form id="addForm" action="${pageContext.request.contextPath}/card?cmd=add" method="post" autocomplete="off">
-                <div>
-                Номер карты:<br><input class="cardNumber" type="text" name="cardNumber" value="" readonly><br><br>
-                Водитель<br>
-                Имя<br><input class="name" type="text" name="name" value=""><br>
-                Организация<br><input class="organization" type="text" name="organization" value=""><br>
-                Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value=""><br><br>
-                Машина<br>
-                Номер машины<br><input class="carNumber" type="text" name="carNumber" value=""><br>
-                Номер ТТН<br><input class="ttnNumber" type="text" name="ttnNumber" value=""><br><br>
+                <div class="cardNumber">
+                    <p>Номер карты:</p><input class="cardNumber" type="text" name="cardNumber" value="" readonly><br><br>
                 </div>
-                <div style="float: right;">
-                <input type="submit" value="Добавить">
+                <div class="driver">
+                    <p>Водитель</p>
+                    <p>Имя</p><input class="firstName" type="text" name="firstName" value=""><br>
+                    <p>Фамилия</p><input class="lastName" type="text" name="lastName" value=""><br>
+                    <p>Организация</p><input class="organization" type="text" name="organization" value=""><br>
+                    <p>Номер телефона</p><input class="mobileNumber" type="text" name="mobileNumber" value=""><br><br>
+                </div>
+                <div class="car">
+                    <p>Машина</p>
+                    <p>Номер машины</p><input class="carNumber" type="text" name="carNumber" value=""><br>
+                    <p>Номер ТТН</p><input class="ttnNumber" type="text" name="ttnNumber" value=""><br>
+                    <p>Культура</p><input class="culture" type="text" name="nomenclature" value=""><br><br>
+                </div>
+                <div class="sumbit">
+                    <input type="submit" value="Добавить">
                 </div>
             </form>
         </div>
-        <div style="float:left; padding-left: 50px;">
+        <div id="existCard" >
             <form id="deleteForm" action="${pageContext.request.contextPath}/card?cmd=delete" method="post" autocomplete="off">
-                <div style="float:left;">
-                    Номер карты:<br><input class="cardNumber" type="text" name="" value="" readonly><br><br>
-                    Водитель<br>
-                    Имя<br><input class="name" type="text" name="name" value="" readonly><br>
-                    Организация<br><input class="organization" type="text" name="organization" value="" readonly><br>
-                    Номер телефона<br><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br><br>
-                    Машина<br>
-                    Номер машины<br><input class="carNumber" type="text" name="carNumber" value="" readonly><br>
-                    Номер ТТН<br><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly><br>
-                    Время въезда<br><input class="createDate" type="text" name="createDate" value="" readonly><br><br>
+                <div class="cardNumber">
+                    <p>Номер карты:</p><input class="cardNumber" type="text" name="" value="" readonly><br><br>
                 </div>
-                <div style="float: left; padding-left: 20px; padding-top: 18px;">
-                    Груз<br>
-                    Вес при въезде, кг<br><input class="weightIn" type="text" name="weightIn" value="" readonly><br>
-                    Вес при выезде, кг<br><input class="weightOut" type="text" name="weightOut" value="" readonly><br>
-                    Место разгрузки<br><input class="dischargingPlace" type="text" name="dischargingPlace" value="" readonly><br>
-                    Время разгрузки<br><input class="dischargeDate" type="text" name="dischargeDate" value="" readonly><br><br>
-                    Проба<br>
-                    Имя пробы<br><input class="sampleName" type="text" name="sampleName" value="" readonly><br>
-                    Засоренность, %<br><input class="weediness" type="text" name="weediness" value="" readonly><br>
-                    Клейковина, %<br><input class="gluten" type="text" name="gluten" value="" readonly><br>
-                    Влажность, %<br><input class="humidity" type="text" name="humidity" value="" readonly><br><br>
+                <div class="driver">
+                    <p>Водитель</p>
+                    <p>Имя</p><input class="firstName" type="text" name="firstName" value="" readonly><br>
+                    <p>Фамилия</p><input class="lastName" type="text" name="lastName" value="" readonly><br>
+                    <p>Организация</p><input class="organization" type="text" name="organization" value="" readonly><br>
+                    <p>Номер телефона</p><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br><br>
+                </div>
+                <div class="car">
+                    <p>Машина</p>
+                    <p>Номер машины</p><input class="carNumber" type="text" name="carNumber" value="" readonly><br>
+                    <p>Номер ТТН</p><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly><br>
+                    <p>Культура</p><input class="culture" type="text" name="nomenclature" value="" readonly><br>
+                    <p>Время въезда</p><input class="createDate" type="text" name="createDate" value="" readonly><br><br>
+                </div>
+                <div class="cargo">
+                    <p>Груз</p>
+                    <p>Вес при въезде, кг</p><input class="weightIn" type="text" name="weightIn" value="" readonly><br>
+                    <p>Вес при выезде, кг</p><input class="weightOut" type="text" name="weightOut" value="" readonly><br>
+                    <p>Место разгрузки</p><input class="dischargingPlace" type="text" name="dischargingPlace" value="" readonly><br>
+                    <p>Время разгрузки</p><input class="dischargeDate" type="text" name="dischargeDate" value="" readonly><br><br>
+                </div>
+                <div class="sample">
+                    <p>Проба</p>
+                    <p>Имя пробы</p><input class="sampleName" type="text" name="sampleName" value="" readonly><br>
+                    <p>Влажность, %</p><input class="humidity" type="text" name="humidity" value="" readonly><br>
+                    <p>Номенклатура</p><input class="nomenclature" type="text" name="nomenclature" value="" readonly><br>
+                    <p>Класс</p><input class="class" type="text" name="class" value="" readonly><br>
+                    <p>Точка выгрузки</p><input class="destination" type="text" name="destination" value="" readonly><br>
+                    <p>Номер силоса</p><input class="siloNumber" type="text" name="siloNumber" value="" readonly><br><br>
                     <input class="cardId" type="hidden" name="cardId" value="" readonly>
                 </div>
-                <div >
-                    <input style="float: right;" type="submit" value="Удалить">
+                <div class="submit">
+                    <input type="submit" value="Удалить">
                 </div>
             </form>
         </div>
     </body>
 </html>
 <script>
-    $(window).load( function(){
-	$.get("${pageContext.request.contextPath}/card?cmd=getNewCardNumber",{ "_": $.now() }, function(data) {setNewCardNumber(data);});
-        $.get("${pageContext.request.contextPath}/card?cmd=getExistCardData",{ "_": $.now() }, function(data) {setCardData(data);});
-    });
-    $( "#addForm" ).submit(function( event ) {
-        event.preventDefault();
-        if ($( "#addForm .cardNumber").val()==""){
-            alert("Поднесите непривязанную карту к считывателю");
-            return;
-        }
-        if ($( "#addForm .name").val()==""){
-            alert("Введите имя водителя");
-            return;
-        }
-        if ($( "#addForm .carNumber").val()==""){
-            alert("Введите номер автомобиля");
-            return;
-        }
-        if ($( "#addForm .ttnNumber").val()==""){
-            alert("Введите номер ТТН");
-            return;
-        }
-        console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
-        $.ajax({
-            type     : "POST",
-            cache    : false,
-            url      : $(this).attr('action'),
-            data     : $(this).serialize(),
-            success  : function(data) {
-                if (data.result=="true"){
-                    $( "#addForm .cardNumber").val( "" );
-                    $( "#addForm .name").val( "" );
-                    $( "#addForm .organization").val( "" );
-                    $( "#addForm .mobileNumber").val( "" );
-                    $( "#addForm .carNumber").val( "" );
-                    $( "#addForm .ttnNumber").val( "" );
-                }
-                else{
-                    alert("Ошибка создания карты");
-                }
-            }
-        });
-    });
-    $( "#deleteForm" ).submit(function( event ) {
-        event.preventDefault();
-        if ($( "#deleteForm .cardId").val()==""){
-            alert("Поднесите карту к считывателю");
-            return;
-        }
-        console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
-        $.ajax({
-            type     : "POST",
-            cache    : false,
-            url      : $(this).attr('action'),
-            data     : $(this).serialize(),
-            success  : function(data) {
-                if (data.result=="true"){
-                    $( "#deleteForm .cardNumber").val("");
-                    $( "#deleteForm .name").val( "" );
-                    $( "#deleteForm .organization").val( "" );
-                    $( "#deleteForm .mobileNumber").val( "" );
-                    $( "#deleteForm .carNumber").val( "" );
-                    $( "#deleteForm .ttnNumber").val( "" );
-                    $( "#deleteForm .createDate").val( "" );
-                    $( "#deleteForm .weightIn").val( "" );
-                    $( "#deleteForm .weightOut").val( "" );
-                    $( "#deleteForm .dischargingPlace").val( "" );
-                    $( "#deleteForm .dischargeDate").val( "" );
-                    $( "#deleteForm .sampleName").val( "" );
-                    $( "#deleteForm .weediness").val( "" );
-                    $( "#deleteForm .gluten").val( "" );
-                    $( "#deleteForm .humidity").val( "" );
-                    $( "#deleteForm .cardId").val( "" ); 
-                }
-                else{
-                    alert("ошибка удаления карты");
-                }
-            }
-        });
-    });
-    function setNewCardNumber(data) { 
-	var cardNumber= data.cardNumber;
-        if (cardNumber!=null && cardNumber!=0){
-            $( "#addForm .cardNumber" ).val( cardNumber );
-        }
-	$.get("${pageContext.request.contextPath}/card?cmd=getNewCardNumber",{ "_": $.now() }, function(data) {setNewCardNumber(data);});
-    }
-    function setCardData(data) { 
-        var card=data.card;
-	if (card!=null && card!=""){
-            $( "#deleteForm .cardNumber").val( card.cardNumber );
-            $( "#deleteForm .name").val( card.car.driver.name );
-            $( "#deleteForm .organization").val( card.car.driver.organization );
-            $( "#deleteForm .mobileNumber").val( card.car.driver.mobileNumber );
-            $( "#deleteForm .carNumber").val( card.car.carNumber );
-            $( "#deleteForm .ttnNumber").val( card.car.ttnNumber );
-            var createDate = new Date(card.car.createDate).toLocaleString("ru-ru", dateOptions);
-            $( "#deleteForm .createDate").val(createDate);
-            $( "#deleteForm .weightIn").val( card.car.cargo.weightIn );
-            $( "#deleteForm .weightOut").val( card.car.cargo.weightOut );
-            $( "#deleteForm .dischargingPlace").val( card.car.cargo.dischargingPlace );
-            $( "#deleteForm .dischargeDate").val( card.car.cargo.dischargeDate );
-            if (card.car.cargo.sample!=null){
-                $( "#deleteForm .sampleName").val( card.car.cargo.sample.name );
-                $( "#deleteForm .weediness").val( card.car.cargo.sample.weediness );
-                $( "#deleteForm .gluten").val( card.car.cargo.sample.gluten );
-                $( "#deleteForm .humidity").val( card.car.cargo.sample.humidity );
-            }else{
-                $( "#deleteForm .sampleName").val( "" );
-                $( "#deleteForm .weediness").val( "" );
-                $( "#deleteForm .gluten").val( "" );
-                $( "#deleteForm .humidity").val( "" );
-            }
-            $( "#deleteForm .cardId").val( card.id );
-        } 
-	$.get("${pageContext.request.contextPath}/card?cmd=getExistCardData",{ "_": $.now() }, function(data) {setCardData(data);});
-    }	
-    var dateOptions = {
-		weekday: "short", year: "numeric", month: "short",
-		day: "numeric", hour: "2-digit", minute: "2-digit"
-            };
+    var contextPath="${pageContext.request.contextPath}";
 </script>
-
-    

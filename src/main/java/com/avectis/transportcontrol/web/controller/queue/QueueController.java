@@ -33,11 +33,11 @@ public class QueueController extends AbstractController {
                     ObjectMapper mapper = new ObjectMapper();
                     String queueJson = mapper.writeValueAsString(ql);
                     data.put("queues", queueJson);
-                    return new ModelAndView("queue/queueListJSON", data);
+                    return new ModelAndView("queue/json/queueListJSON", data);
                 default:
                     data = new HashMap<>();
                     data.put("result", "cmd not found");
-                    return new ModelAndView("queue/resultJSON", data);
+                    return new ModelAndView("queue/json/resultJSON", data);
             }
         }
         return new ModelAndView("queue/queueList", null);

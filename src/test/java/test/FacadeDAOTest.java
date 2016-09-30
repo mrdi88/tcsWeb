@@ -70,10 +70,10 @@ public class FacadeDAOTest extends AbstractJUnit4SpringContextTests {//AbstractT
         endTime=new Date().getTime();
         System.out.println("read time: "+(endTime-startTime));
         //update 
-        saved_car.getDriver().setName("Sasha");
+        saved_car.getDriver().setFirstName("Sasha");
         carFacade.update(saved_car);
         car = carFacade.get(saved_car.getId());
-        assertEquals(car.getDriver().getName(),saved_car.getDriver().getName());
+        assertEquals(car.getDriver().getFirstName(),saved_car.getDriver().getFirstName());
         //delete
         cvList=carFacade.getList(null, null);
         startTime=new Date().getTime();
@@ -106,10 +106,10 @@ public class FacadeDAOTest extends AbstractJUnit4SpringContextTests {//AbstractT
         System.out.println("getCard : "+saved_card);
         //get car
         assertEquals(card,saved_card);
-        saved_card.getCar().getDriver().setName("Ricky");
+        saved_card.getCar().getDriver().setFirstName("Ricky");
         cardFacade.update(saved_card);
         cardFacade.getCard(saved_card.getId());
-        assertEquals(saved_card.getCar().getDriver().getName(),"Ricky");
+        assertEquals(saved_card.getCar().getDriver().getFirstName(),"Ricky");
         //create card list
         card.setId(0);
         card.getCar().setId(0);
@@ -198,7 +198,7 @@ public class FacadeDAOTest extends AbstractJUnit4SpringContextTests {//AbstractT
     }
     private CarView createCar(){
         CarView car= new CarView();
-        DriverView driver = new DriverView("Dima","+375292051312","avectis");
+        DriverView driver = new DriverView("Dima","Popl","+375292051312","avectis");
         CargoView cargo = new CargoView();
         car.setCreateDate(new Date());
         car.setCarNumber("4700-EM1");

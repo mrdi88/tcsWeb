@@ -87,7 +87,7 @@ public class CargoView {
 
     public CargoView(Cargo cargo) {
         this.dischargeDate=cargo.getDischargeDate();
-        this.dischargingPlace=cargo.getLoadingPlace();
+        this.dischargingPlace=cargo.getDischargingPlace();
         this.id=cargo.getId();
         this.loadingDate=cargo.getLoadingDate();
         this.loadingPlace=cargo.getLoadingPlace();

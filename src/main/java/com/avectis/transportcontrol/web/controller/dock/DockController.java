@@ -58,7 +58,7 @@ public class DockController extends AbstractController {
                     ObjectMapper mapper = new ObjectMapper();
                     String queueJson = mapper.writeValueAsString(ql);
                     data.put("queues", queueJson);
-                    return new ModelAndView("dock/docksQueueDataJSON", data);
+                    return new ModelAndView("dock/json/docksQueueDataJSON", data);
                 case "acceptCar":
                     data = new HashMap<>();
                     if (acceptCar(arg0)){
@@ -66,7 +66,7 @@ public class DockController extends AbstractController {
                     }else{
                         data.put("result", "false");
                     }
-                    return new ModelAndView("queue/resultJSON", data);
+                    return new ModelAndView("queue/json/resultJSON", data);
                 case "releaseCar":
                     data = new HashMap<>();
                     if (releaseCar(arg0)){
@@ -74,11 +74,11 @@ public class DockController extends AbstractController {
                     }else{
                         data.put("result", "false");
                     }
-                    return new ModelAndView("queue/resultJSON", data);
+                    return new ModelAndView("queue/json/resultJSON", data);
                 default:
                     data = new HashMap<>();
                     data.put("result", "cmd not found");
-                    return new ModelAndView("queue/resultJSON", data);
+                    return new ModelAndView("queue/json/resultJSON", data);
             }
         }
         //do action

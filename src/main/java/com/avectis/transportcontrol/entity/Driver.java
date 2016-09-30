@@ -23,15 +23,26 @@ public class Driver {
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy="increment")
     private long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String mobileNumber;
     private String organization;
 
-    public Driver(String name, String mobileNumber, String organization) {
-        this.name = name;
+    public Driver(String firstName,String lastName, String mobileNumber, String organization) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.mobileNumber = mobileNumber;
         this.organization = organization;
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
     public String getOrganization() {
         return organization;
     }
@@ -44,11 +55,11 @@ public class Driver {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
     public Long getId() {
         return id;
@@ -61,14 +72,15 @@ public class Driver {
 
     @Override
     public String toString() {
-        return "Driver{" + "driverId=" + id + ", name=" + name + ", mobileNumber=" + mobileNumber + ", organization=" + organization + '}';
+        return "Driver{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", mobileNumber=" + mobileNumber + ", organization=" + organization + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 71 * hash + (int) (this.getId() ^ (this.getId() >>> 32));
-        hash = 71 * hash + Objects.hashCode(this.getName());
+        hash = 71 * hash + Objects.hashCode(this.getFirstName());
+        hash = 71 * hash + Objects.hashCode(this.getLastName());
         hash = 71 * hash + Objects.hashCode(this.getMobileNumber());
         hash = 71 * hash + Objects.hashCode(this.getOrganization());
         return hash;
@@ -86,7 +98,10 @@ public class Driver {
         if (this.getId() != other.getId()) {
             return false;
         }
-        if (!Objects.equals(this.getName(), other.getName())) {
+        if (!Objects.equals(this.getFirstName(), other.getFirstName())) {
+            return false;
+        }
+        if (!Objects.equals(this.getLastName(), other.getLastName())) {
             return false;
         }
         if (!Objects.equals(this.getMobileNumber(), other.getMobileNumber())) {

@@ -65,7 +65,7 @@ public class test1 extends AbstractJUnit4SpringContextTests {//AbstractTransacti
     
     private CarView createCar(){
         CarView car= new CarView();
-        DriverView driver = new DriverView("Dima777","+375292051312","avectis");
+        DriverView driver = new DriverView("Dima777","Popl","+375292051312","avectis");
         CargoView cargo = new CargoView();
         SampleView sv=new SampleView();
         sv.setName("f323");

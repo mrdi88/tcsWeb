@@ -1,0 +1,29 @@
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+#menu li {
+    float: left;
+}
+
+#menu li a {
+    width: 80px;
+    height: 32px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+#menu li a:hover {
+    background-color: #222;
+}
+#menu {
+    padding-bottom: 30px;
+}

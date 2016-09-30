@@ -20,6 +20,8 @@ public class SampleView {
     private float weediness;
     private float gluten;
     private float humidity;
+    private String nomenclature;
+    private String cultureClass;
     
     public SampleView() {
     }
@@ -30,8 +32,27 @@ public class SampleView {
             this.weediness=sample.getWeediness();
             this.gluten=sample.getGluten();
             this.humidity=sample.getHumidity();
+            this.nomenclature=sample.getNomenclature();
+            this.cultureClass=sample.getCultureClass();
         }
     }
+
+    public String getNomenclature() {
+        return nomenclature;
+    }
+
+    public void setNomenclature(String nomenclature) {
+        this.nomenclature = nomenclature;
+    }
+
+    public String getCultureClass() {
+        return cultureClass;
+    }
+
+    public void setCultureClass(String cultureClass) {
+        this.cultureClass = cultureClass;
+    }
+    
     public long getId() {
         return id;
     }
@@ -74,7 +95,7 @@ public class SampleView {
 
     @Override
     public String toString() {
-        return "SampleView{" + "id=" + id + ", name=" + name + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + '}';
+        return "SampleView{" + "id=" + id + ", name=" + name + ", weediness=" + weediness + ", gluten=" + gluten + ", humidity=" + humidity + ", nomenclature=" + nomenclature + ", cultureClass=" + cultureClass + '}';
     }
 
     @Override
@@ -85,6 +106,8 @@ public class SampleView {
         hash = 47 * hash + Float.floatToIntBits(this.getWeediness());
         hash = 47 * hash + Float.floatToIntBits(this.getGluten());
         hash = 47 * hash + Float.floatToIntBits(this.getHumidity());
+        hash = 47 * hash + Objects.hashCode(this.getCultureClass());
+        hash = 47 * hash + Objects.hashCode(this.getNomenclature());
         return hash;
     }
 
@@ -104,6 +127,12 @@ public class SampleView {
             return false;
         }
         if (!Objects.equals(this.getName(), other.getName())) {
+            return false;
+        }
+        if (!Objects.equals(this.getCultureClass(), other.getCultureClass())) {
+            return false;
+        }
+        if (!Objects.equals(this.getNomenclature(), other.getNomenclature())) {
             return false;
         }
         if (Float.floatToIntBits(this.weediness) != Float.floatToIntBits(other.weediness)) {

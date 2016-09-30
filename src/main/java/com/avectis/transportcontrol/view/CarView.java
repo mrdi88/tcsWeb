@@ -20,11 +20,29 @@ public class CarView {
     private long id;
     private CargoView cargo;
     private DriverView driver;
+    private String siloNumber;
     private String destination;
     private String carNumber;
     private String ttnNumber;
+    private String nomenclature;
     private Date createDate;
     private Date leaveDate;
+
+    public String getNomenclature() {
+        return nomenclature;
+    }
+
+    public void setNomenclature(String nomenclature) {
+        this.nomenclature = nomenclature;
+    }
+
+    public String getSiloNumber() {
+        return siloNumber;
+    }
+
+    public void setSiloNumber(String siloNumber) {
+        this.siloNumber = siloNumber;
+    }
 
     public Date getLeaveDate() {
         return leaveDate;
@@ -90,16 +108,18 @@ public class CarView {
         if (cargoEntity!=null) this.cargo=new CargoView(cargoEntity);
         if (driverEntity!=null) this.driver=new DriverView(driverEntity);
         this.createDate=car.getCreateDate();
+        this.siloNumber=car.getSiloNumber();
         this.destination=car.getDestination();
         this.carNumber=car.getCarNumber();
         this.id=car.getId();
         this.leaveDate=car.getLeaveDate();
         this.ttnNumber=car.getTtnNumber();
+        this.nomenclature=car.getNomenclature();
     }
-    
+
     @Override
     public String toString() {
-        return "Car{" + "carId=" + id + ", cargo=" + cargo + ", driver=" + driver + ", destination=" + destination + ", firstNumber=" + carNumber + ", secondNumber=" + ttnNumber + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
+        return "CarView{" + "id=" + id + ", cargo=" + cargo + ", driver=" + driver + ", siloNumber=" + siloNumber + ", destination=" + destination + ", carNumber=" + carNumber + ", ttnNumber=" + ttnNumber + ", nomenclature=" + nomenclature + ", createDate=" + createDate + ", leaveDate=" + leaveDate + '}';
     }
 
     @Override
@@ -108,9 +128,11 @@ public class CarView {
         hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
         hash = 67 * hash + Objects.hashCode(this.cargo);
         hash = 67 * hash + Objects.hashCode(this.driver);
+        hash = 67 * hash + Objects.hashCode(this.siloNumber);
         hash = 67 * hash + Objects.hashCode(this.destination);
         hash = 67 * hash + Objects.hashCode(this.carNumber);
         hash = 67 * hash + Objects.hashCode(this.ttnNumber);
+        hash = 67 * hash + Objects.hashCode(this.nomenclature);
         hash = 67 * hash + Objects.hashCode(this.createDate);
         hash = 67 * hash + Objects.hashCode(this.leaveDate);
         return hash;
@@ -134,6 +156,9 @@ public class CarView {
         if (!Objects.equals(this.driver, other.driver)) {
             return false;
         }
+        if (!Objects.equals(this.siloNumber, other.siloNumber)) {
+            return false;
+        }
         if (!Objects.equals(this.destination, other.destination)) {
             return false;
         }
@@ -141,6 +166,9 @@ public class CarView {
             return false;
         }
         if (!Objects.equals(this.ttnNumber, other.ttnNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.nomenclature, other.nomenclature)) {
             return false;
         }
         if ((!Objects.equals(this.createDate, other.createDate))) {

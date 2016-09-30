@@ -18,23 +18,26 @@
     width: 20px;
 }
 .queueTable .carNumber {
-    width: 60px;
-}
-.queueTable .weediness {
-    width: 30px;
-}
-.queueTable .gluten {
-    width: 30px;
+    width: 70px;
 }
 .queueTable .humidity {
-    width: 30px;
+    width: 50px;
+}
+.queueTable .nomenclature {
+    width: 120px;
+}
+.queueTable .class {
+    width: 60px;
+}
+.queueTable .destination {
+    width: 90px;
 }
 .queueBlock{
-    width: 300px;
+    width: 410px;
     height: 240px;
     float: left;
     margin-right: 20px;
 }
 #queues{
-    width: 640px;
+    width: 860px;
 }

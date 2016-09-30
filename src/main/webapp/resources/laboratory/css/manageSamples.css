@@ -1,4 +1,4 @@
-#selectCar{
+#selectCard{
         margin-bottom: 10px;
         width: 600px;
         max-width: 600px;
@@ -9,49 +9,55 @@
     width: 172px;
     float: left;
 }
-#cars{
+#cards{
     border-collapse: collapse;
     text-align: center;
 }
-#cars td{
+#cards td{
         border: 1px solid #BCBCBC; 	
 }
-#cars .even td{
+#cards .even td{
         background: #F9F9F9 ;
 }
-#cars .odd td{
+#cards .odd td{
         background: #EFEFEF ;
 }
-#cars .selected td{
+#cards .selected td{
         background: #95f300 ;
 }
-.cars_header{
+.cards_header{
         font-weight:bold;
 }
-#cars .rowNumber {
+#cards .rowNumber {
     width: 20px;
 }
-#cars .sampleName {
+#cards .sampleName {
     width: 40px;
 }
-#cars .carNumber {
+#cards .carNumber {
     width: 60px;
 }
-#cars .destination {
+#cards .destination {
     width: 30px;
 }
-#cars .ttnNumber {
+#cards .ttnNumber {
     width: 60px;
 }
-#cars .weediness {
+#cards .weediness {
     width: 30px;
 }
-#cars .gluten {
+#cards .gluten {
     width: 30px;
 }
-#cars .humidity {
+#cards .humidity {
     width: 30px;
 }
-#cars .createDate {
+#cards .createDate {
     width: 150px;
+}
+p {
+    margin:0;
+}
+div p:first-child{
+    font-weight: bold;
 }
