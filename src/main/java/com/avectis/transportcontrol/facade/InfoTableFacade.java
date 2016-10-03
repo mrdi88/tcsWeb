@@ -30,19 +30,19 @@ public class InfoTableFacade {
     }
 
     /*Получение времени последнего обновления табло по ID*/
-    public LocalDateTime getDateLastUpdate( String id){
-        InfoTable infotable = GetElementById(id);
-        if(null != infotable)return infotable.getDateLastUpdate();
-        else {
-            System.out.println("InfoTable's not found");
-            return null;
-        }
-    }
+//    public LocalDateTime getDateLastUpdate( String id){
+//        InfoTable infotable = GetElementById(id);
+//        if(null != infotable)return infotable.getDateLastUpdate();
+//        else {
+//            System.out.println("InfoTable's not found");
+//            return null;
+//        }
+//    }
 
     /*Поиск табло по ID*/
     private InfoTable GetElementById( String id){
         for (InfoTable infoTable: infoTableCollection) {
-            if(id.equals(infoTable.name)){
+            if(id.equals(infoTable.getName())){
                 return infoTable;
             }
         }
