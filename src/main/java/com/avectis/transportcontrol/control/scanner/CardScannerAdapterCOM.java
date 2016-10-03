@@ -60,6 +60,10 @@ public class CardScannerAdapterCOM implements CardScannerAdapter, SerialPortEven
     public void removeDataListener(){
         externalDataListener = null;
     } 
+
+    public void setPortName(String portName) {
+        this.portName = portName;
+    }
     
     public String getPortName() {
         return this.portName;

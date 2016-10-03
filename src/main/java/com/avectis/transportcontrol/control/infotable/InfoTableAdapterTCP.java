@@ -13,7 +13,8 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
     private int port;
     private int InfoTableAddress;
     private Socket socket;
-        
+    
+    public InfoTableAdapterTCP(){} 
     public InfoTableAdapterTCP(String IP, int port, int address){
         ipAddr = IP;
         this.port = port;

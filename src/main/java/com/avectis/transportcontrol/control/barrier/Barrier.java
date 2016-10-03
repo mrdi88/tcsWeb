@@ -8,11 +8,12 @@ public class Barrier {
     private String   name;
     private BarrierAdapter barrierAdapter;
 
+    public Barrier(){}
     public Barrier(String barrierName, BarrierAdapter barrierAdapter){
         this.name = barrierName;
         this.barrierAdapter = barrierAdapter;
     }
-
+    
     public void Open(){
         this.barrierAdapter.open();
     }

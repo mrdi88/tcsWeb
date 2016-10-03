@@ -1,5 +1,7 @@
 package com.avectis.transportcontrol.web.controller.dock;
 
+import com.avectis.transportcontrol.control.barrier.Barrier;
+import com.avectis.transportcontrol.control.infotable.InfoTable;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.CardView;
@@ -26,6 +28,10 @@ public class DockController extends AbstractController {
     private CardFacade cardFacade;
     String firstQueueName;
     String secondQueueName;
+    //infodisplay
+    InfoTable infoTable;
+    //control barrier
+    Barrier barrier;
 
     public void setCardFacade(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
@@ -41,6 +47,14 @@ public class DockController extends AbstractController {
 
     public void setQueueFacade(QueueFacade queueFacade) {
         this.queueFacade = queueFacade;
+    }
+
+    public void setInfoTable(InfoTable infoTable) {
+        this.infoTable = infoTable;
+    }
+
+    public void setBarrier(Barrier barrier) {
+        this.barrier = barrier;
     }
 
     @Override
@@ -59,9 +73,18 @@ public class DockController extends AbstractController {
                     String queueJson = mapper.writeValueAsString(ql);
                     data.put("queues", queueJson);
                     return new ModelAndView("dock/json/docksQueueDataJSON", data);
+                case "callCar":
+                    data = new HashMap<>();
+                    if (callCar(arg0)){
+                        data.put("result", "true");
+                    }else{
+                        data.put("result", "false");
+                    }
+                    return new ModelAndView("queue/json/resultJSON", data);
                 case "acceptCar":
                     data = new HashMap<>();
                     if (acceptCar(arg0)){
+                        callCar(arg0); //remove from this command
                         data.put("result", "true");
                     }else{
                         data.put("result", "false");
@@ -105,6 +128,21 @@ public class DockController extends AbstractController {
     private QueueView getDockQueue(String name){
         QueueView qv = queueFacade.getQueueByName(name);
         return qv;
+    }
+    private boolean callCar(HttpServletRequest arg0){
+        if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty()){
+            CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+            //display on infotable
+            String[] textArray=new String[1];
+            textArray[0]=card.getCar().getCarNumber();
+            infoTable.SendData(textArray);
+            infoTable.SetBrightness(1);
+            //open barier
+            barrier.Open();
+            
+            return true;
+        }
+        return false;
     }
     private boolean acceptCar(HttpServletRequest arg0){
         if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty()){

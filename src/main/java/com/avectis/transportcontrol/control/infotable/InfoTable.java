@@ -13,6 +13,7 @@ public class InfoTable {
     private String name;
     private InfoTableAdapter infoTableAdapter;
     
+    public InfoTable(){}
     public InfoTable(String name, InfoTableAdapter adapter){
         this.name = name;
         this.infoTableAdapter = adapter;

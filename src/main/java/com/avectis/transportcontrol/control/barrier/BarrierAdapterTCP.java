@@ -26,14 +26,10 @@ public class BarrierAdapterTCP implements BarrierAdapter{
     private int port = Modbus.DEFAULT_PORT;
     private int unitId = 1;
     private int pulseLength = 1000;
-
-    public BarrierAdapterTCP(String IP, int port, int unitId, int pulseLength){
+    
+    public BarrierAdapterTCP(){}
+    public void init() throws Exception{
         try{
-            this.ipAddr = IP;
-            this.port = port;
-            this.unitId = unitId;
-            this.pulseLength = pulseLength;
-            
             connection = new TCPMasterConnection(InetAddress.getByName(this.ipAddr));
             connection.setTimeout(3000);
             connection.setPort(this.port);
@@ -42,7 +38,7 @@ public class BarrierAdapterTCP implements BarrierAdapter{
             transaction = new ModbusTCPTransaction(connection);
         }
         catch (Exception e){
-
+            throw new Exception("BarrierAdapterTCP init failed "+e);
         }
     }
    
@@ -99,22 +95,39 @@ public class BarrierAdapterTCP implements BarrierAdapter{
             this.response = transaction.getResponse();
 
             if (requestType == RequestType.READ_INPUT_DISCRETES) {
-                rInDiscrResp = (ReadInputDiscretesResponse) transaction.getResponse();
-                boolean[] result = new boolean[x];
-                for(int i = 0; i < result.length; i++){
-                    result[i] = rInDiscrResp.getDiscretes().getBit(i);
+                    rInDiscrResp = (ReadInputDiscretesResponse) transaction.getResponse();
+                    boolean[] result = new boolean[x];
+                    for(int i = 0; i < result.length; i++){
+                        result[i] = rInDiscrResp.getDiscretes().getBit(i);
+                    }
+
+                    return result;
                 }
-                
-                return result;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return new boolean[1] ;
     }
-    return new boolean[1] ;
-}
     
     public void onDestroy(){
         connection.close();        
     }    
+
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public void setUnitId(int unitId) {
+        this.unitId = unitId;
+    }
+
+    public void setPulseLength(int pulseLength) {
+        this.pulseLength = pulseLength;
+    }
+    
 }

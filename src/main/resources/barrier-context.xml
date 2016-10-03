@@ -7,39 +7,20 @@
                            http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 
-    <bean id="AdapterBarrierSetting" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterCOM"
-          p:baudRate="9600"
-          p:dataBits="8"
-          p:stopBits="1"
-          p:parity="0">
-    </bean>
-    <bean id="B1Adapter"  parent="AdapterBarrierSetting">
-        <constructor-arg value="COM1" index="0"/>
-    </bean>
-    <bean id="B2Adapter" parent="AdapterBarrierSetting">
-        <constructor-arg value="COM2" index="0"/>
+    <bean id="barrierAdapter1" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTCP" init-method="init" destroy-method="onDestroy">
+        <property name="ipAddr" value="192.168.1.13"> </property>
     </bean>
 
-    <bean id="B1" class="com.avectis.transportcontrol.control.barrier.Barrier">
-        <constructor-arg index="0" value="barrier1"/>
-        <constructor-arg index="1" ref="B1Adapter"/>
+    <bean id="barrier1" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <property name="name" value="barrier1"> </property>
+        <property name="barrierAdapter" ref="barrierAdapter1"> </property>
     </bean>
-    <bean id="B2" class="com.avectis.transportcontrol.control.barrier.Barrier">
-        <constructor-arg index="0" value="barrier2"/>
-        <constructor-arg index="1" ref="B2Adapter"/>
-    </bean>
-
 
     <bean id="barrierFacade" class="com.avectis.transportcontrol.facade.BarrierFacade">
         <property name="barrierCollection">
             <list>
-               <ref bean="B1"/>
-               <ref bean="B2"/>
+               <ref bean="barrier1"/>
             </list>
-
         </property>
     </bean>
-
-
-
 </beans>

@@ -4,17 +4,33 @@
        xmlns:p = "http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
         
-        <bean id="cardScannerAdapter1" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterCOM" init-method="init" destroy-method="destroy">
+        <bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterCOM" init-method="init" destroy-method="onDestroy">
             <property name="portName" value="COM6"> </property>
+            <property name="baudRate" value="9600"> </property>
+            <property name="dataBits" value="8"> </property>
+            <property name="stopBits" value="1"> </property>
+            <property name="parity" value="0"> </property>
         </bean>
-        <bean id="cardScanner1" class="com.avectis.transportcontrol.control.scanner.CardScanner">
-            <property name="name" value="scanner1"> </property>
-            <property name="scannerAdapter" ref="cardScannerAdapter1"> </property>
+        <bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterCOM" init-method="init" destroy-method="onDestroy">
+            <property name="portName" value="COM8"> </property>
+            <property name="baudRate" value="9600"> </property>
+            <property name="dataBits" value="8"> </property>
+            <property name="stopBits" value="1"> </property>
+            <property name="parity" value="0"> </property>
+        </bean>
+        <bean id="scannerEntrance" class="com.avectis.transportcontrol.control.scanner.CardScanner">
+            <property name="name" value="scannerEntrance"> </property>
+            <property name="scannerAdapter" ref="cardScannerAdapterEntrance"> </property>
+        </bean>
+        <bean id="scannerSample" class="com.avectis.transportcontrol.control.scanner.CardScanner">
+            <property name="name" value="scannerSample"> </property>
+            <property name="scannerAdapter" ref="cardScannerAdapterSample"> </property>
         </bean>
         <bean id="scannerFacade" class="com.avectis.transportcontrol.facade.ScannerFacade">
             <property name="scannerCollection">
                 <list>
-                    <ref bean="cardScanner1"/>
+                    <ref bean="scannerEntrance"/>
+                    <ref bean="scannerSample"/>
                 </list>
             </property>
         </bean>
