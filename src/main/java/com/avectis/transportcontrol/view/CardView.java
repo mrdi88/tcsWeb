@@ -8,6 +8,7 @@ package com.avectis.transportcontrol.view;
 import com.avectis.transportcontrol.entity.Card;
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 /**
  *
@@ -27,6 +28,7 @@ public class CardView {
     }
     public void setCreateDate(Date createDate) {
         if (createDate!=null){
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             createDate.setTime(createDate.getTime()-createDate.getTime()%1000);
         }
         this.createDate = createDate;

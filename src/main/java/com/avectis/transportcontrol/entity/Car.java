@@ -7,6 +7,7 @@ package com.avectis.transportcontrol.entity;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,6 +68,7 @@ public class Car {
     }
     public void setLeaveDate(Date leaveDate) {
         if(leaveDate!=null){
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             leaveDate.setTime(leaveDate.getTime()-leaveDate.getTime()%1000);
         }
         
@@ -77,6 +79,7 @@ public class Car {
     }
     public void setCreateDate(Date createDate) {
         if(createDate!=null){
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             createDate.setTime(createDate.getTime()-createDate.getTime()%1000);
         }
         this.createDate = createDate;
@@ -122,6 +125,7 @@ public class Car {
     }
 
     public Car(Cargo cargo, Driver driver, String firstNumber, String secondNumber, String siloNumber, String destination, String nomenclature) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         this.cargo = cargo;
         this.driver = driver;
         this.siloNumber=siloNumber;

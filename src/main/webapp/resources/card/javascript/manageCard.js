@@ -103,7 +103,8 @@ function setCardData(data) {
         $( "#deleteForm .culture").val( card.car.nomenclature );
         var createDate = "";
         if (card.car.createDate!=null){
-            createDate = new Date(card.car.createDate).toLocaleString("ru-ru", dateOptions);
+            var date=new Date(card.car.createDate);
+            createDate = date.toLocaleString("ru-ru", dateOptions);;
         }
         $( "#deleteForm .createDate").val(createDate);
         $( "#deleteForm .weightIn").val( card.car.cargo.weightIn );

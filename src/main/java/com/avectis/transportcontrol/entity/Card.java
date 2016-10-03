@@ -7,6 +7,7 @@ package com.avectis.transportcontrol.entity;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -43,6 +44,7 @@ public class Card {
     }
     public void setCreateDate(Date createDate) {
         if (createDate!=null){
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             createDate.setTime(createDate.getTime()-createDate.getTime()%1000);
         }
         this.createDate = createDate;

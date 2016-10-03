@@ -19,7 +19,6 @@ $(window).load( function(){
             });
     });	
     setDefultdate();
-    $( "#paramForm .queueId").val(-1); 
     $.ajax({
         type     : "POST",
         cache    : false,
@@ -29,26 +28,29 @@ $(window).load( function(){
             setData(data);
         }
     });
-    $('#update').click(function () {
-        start_time = document.getElementById('start_time').value;
-        stop_time = document.getElementById('stop_time').value; 
-        alert(start_time+"-"+stop_time);
-    });
     $( "#periodForm" ).submit(function( event ) {
         event.preventDefault();
+        var from=new Date(this["start_time"].value);
+        var to=new Date(this["stop_time"].value);
+        //format: 'Y/m/d H:i:s', 
+        var from_UTCstr=from.getUTCDate();
+        var from_str=""+from.getUTCFullYear()+"/"+(from.getUTCMonth()+1)+"/"+from.getUTCDate()+" "+
+            from.getUTCHours()+":"+from.getUTCMinutes()+":"+from.getUTCSeconds();
+        var to_str=""+to.getUTCFullYear()+"/"+(to.getUTCMonth()+1)+"/"+to.getUTCDate()+" "+
+            to.getUTCHours()+":"+to.getUTCMinutes()+":"+to.getUTCSeconds();
+        
         console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
         $.ajax({
             type     : "POST",
             cache    : false,
             url      : $(this).attr('action'),
-            data     : $(this).serialize(),
+            data     : {"from":from_str,"to":to_str},
             success  : function(data) {
                 setData(data);
             }
         });
     });
 });
-
 function setData(data) { 
     var cars=data.cars;
     carList=cars;

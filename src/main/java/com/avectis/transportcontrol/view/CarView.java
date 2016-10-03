@@ -10,6 +10,7 @@ import com.avectis.transportcontrol.entity.Cargo;
 import com.avectis.transportcontrol.entity.Driver;
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 /**
  *
@@ -49,6 +50,7 @@ public class CarView {
     }
     public void setLeaveDate(Date leaveDate) {
         if(leaveDate!=null){
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             leaveDate.setTime(leaveDate.getTime()-leaveDate.getTime()%1000);
         }
         
@@ -59,6 +61,7 @@ public class CarView {
     }
     public void setCreateDate(Date createDate) {
         if(createDate!=null){
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             createDate.setTime(createDate.getTime()-createDate.getTime()%1000);
         }
         this.createDate = createDate;
