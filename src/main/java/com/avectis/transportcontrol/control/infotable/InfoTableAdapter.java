@@ -1,9 +1,10 @@
 package com.avectis.transportcontrol.control.infotable;
 
 /**
- * Created by vitaly on 02.09.2016.
+ *
+ * @author Ivan
  */
 public interface InfoTableAdapter {
-    public void SendData(String [] data,  int lineCount);
-
+    public void SendData(String[] data);
+    public void SetBrightness(int brightness);
 }

@@ -5,61 +5,37 @@ package com.avectis.transportcontrol.control.barrier;
  */
 public class Barrier {
 
-    public String   name;
-    private boolean  state;
+    private String   name;
     private BarrierAdapter barrierAdapter;
 
     public Barrier(String barrierName, BarrierAdapter barrierAdapter){
         this.name = barrierName;
-        this.state = false;
         this.barrierAdapter = barrierAdapter;
     }
 
-    public String getName() {
+    public void Open(){
+        this.barrierAdapter.open();
+    }
+    public void Close(){
+        this.barrierAdapter.close();
+    }
+    public Boolean GetStateDI_0(){
+        return this.barrierAdapter.getState(0);
+    }
+    public Boolean GetStateDI_1(){
+        return this.barrierAdapter.getState(1);
+    }
+        public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean getState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
     }
 
     public BarrierAdapter getBarrierAdapter() {
         return barrierAdapter;
     }
-
     public void setBarrierAdapter(BarrierAdapter barrierAdapter) {
         this.barrierAdapter = barrierAdapter;
     }
-
-    public void Open(){
-        System.out.println("Barrier name:="+this.name + " cmd:=Open" );
-        this.barrierAdapter.open();
-    }
-    public void Close(){
-        System.out.println("Barrier name:="+this.name + " cmd:=Close" );
-        this.barrierAdapter.close();
-    }
-    public void updateState(){
-        this.state = this.barrierAdapter.getState();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 }

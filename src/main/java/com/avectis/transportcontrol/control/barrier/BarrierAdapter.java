@@ -6,5 +6,5 @@ package com.avectis.transportcontrol.control.barrier;
 public interface BarrierAdapter {
     public void open();
     public void close();
-    public boolean getState();
+    public boolean getState(int inputNumber);
 }

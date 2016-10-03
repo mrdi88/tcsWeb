@@ -35,7 +35,7 @@ public class BarrierFacade {
     /*Получение состояния шлагбаума по ID*/
     public Boolean GetState(String id){
         Barrier barrier = GetElementById(id);
-        if(null != barrier)return barrier.getState();
+        if(null != barrier)return barrier.GetStateDI_0();
         else {
             System.out.println("Barrier's not found");
             return null;
@@ -45,7 +45,7 @@ public class BarrierFacade {
     /*Поиск шлагбаума по ID*/
     private Barrier GetElementById( String id){
         for (Barrier barrier: barrierCollection) {
-            if(id.equals(barrier.name)){
+            if(id.equals(barrier.getName())){
                return barrier;
             }
         }

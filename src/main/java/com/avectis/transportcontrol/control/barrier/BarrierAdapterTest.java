@@ -15,8 +15,9 @@ public class BarrierAdapterTest implements BarrierAdapter {
     @Override//Открытие шлагбаума
     public void close() {
     }
-    @Override//Закрытие шлагбаума
-    public boolean getState() {
-        return false;
+
+    @Override
+    public boolean getState(int inputNumber) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

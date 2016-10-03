@@ -3,35 +3,41 @@ package com.avectis.transportcontrol.control.infotable;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.*;
 
 /**
- * Created by vitaly on 02.09.2016.
+ *
+ * @author Ivan
  */
 public class InfoTable {
-    public String name;
-    private LocalDateTime dateLastUpdate;
-    private final int lineCount;
+    private String name;
     private InfoTableAdapter infoTableAdapter;
-
-    public InfoTable(String name, int lineCount, InfoTableAdapter infoTableAdapter) {
+    
+    public InfoTable(String name, InfoTableAdapter adapter){
         this.name = name;
-        this.lineCount = lineCount;
+        this.infoTableAdapter = adapter;
+    }
+    
+    public void SendData(String[] textArray){
+        infoTableAdapter.SendData(textArray);
+    }
+    public void SetBrightness(int v){
+        infoTableAdapter.SetBrightness(v);
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public InfoTableAdapter getInfoTableAdapter() {
+        return infoTableAdapter;
+    }
+    public void setInfoTableAdapter(InfoTableAdapter infoTableAdapter) {
         this.infoTableAdapter = infoTableAdapter;
     }
-
-    public LocalDateTime getDateLastUpdate() {
-        System.out.println("InfoTable name:="+this.name + " cmd:=getDateLastUpdate" );
-        return dateLastUpdate;
-    }
-
-    private void setDateLastUpdate(LocalDateTime dateLastUpdate) {
-        this.dateLastUpdate = dateLastUpdate;
-    }
-
-    public void SendData(String [] data){
-        System.out.println("InfoTable name:="+this.name + " cmd:=SendData("+data+")");
-        this.infoTableAdapter.SendData(data, lineCount);
-        LocalDateTime time = LocalDateTime.now(ZoneId.of("Europe/Minsk"));
-        setDateLastUpdate(time);
-    }
+    
+    
 }

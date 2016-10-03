@@ -41,40 +41,19 @@ public class CardScannerAdapterTest implements CardScannerAdapter {
         this.parity = parity;
     }
 
-    @Override
-    public void connect(){
-    }
-    @Override
-    public void disconnect(){
-    
-    }
-    @Override
-    public void reconnect(){
-        disconnect();
-        connect();
-    }
-    @Override
-    public boolean isConnected(){
-        return false;
-    }
-    @Override
-    public void addPortListener(SerialPortEventListener listener){       
-        
-    }
-    @Override
-    public void removePortListener(){       
-        
-    }
-    @Override
-    public String getReceivedData() {
-        return null;
-    }
-    @Override
-    public void ClearBuffers(){
-        
-    }
+
     public void destroy(){
         
+    }
+
+    @Override
+    public void addDataListener(DataListener listener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeDataListener() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
