@@ -40,7 +40,7 @@ public class InfoTableFacade {
 //    }
 
     /*Поиск табло по ID*/
-    private InfoTable GetElementById( String id){
+    public InfoTable GetElementById( String id){
         for (InfoTable infoTable: infoTableCollection) {
             if(id.equals(infoTable.getName())){
                 return infoTable;

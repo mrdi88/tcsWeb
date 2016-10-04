@@ -44,7 +44,6 @@ public class Card {
     }
     public void setCreateDate(Date createDate) {
         if (createDate!=null){
-            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             createDate.setTime(createDate.getTime()-createDate.getTime()%1000);
         }
         this.createDate = createDate;
@@ -88,6 +87,7 @@ public class Card {
         this.cardNumber = cardNumber;
         this.state = state;
         this.accessLevel = accessLevel;
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date dt=new Date();
         dt.setTime(dt.getTime()-dt.getTime()%1000);
         this.createDate=dt;

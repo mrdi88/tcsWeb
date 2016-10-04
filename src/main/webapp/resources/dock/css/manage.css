@@ -55,6 +55,11 @@
     text-align: center;
    
 }
+.confirmationScreen{
+    padding-top: 10%;
+    text-align: center;
+   
+}
 .releaseForm .accept{
     float:right;
 }

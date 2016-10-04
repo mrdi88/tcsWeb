@@ -8,6 +8,7 @@ package com.avectis.transportcontrol.view;
 import com.avectis.transportcontrol.entity.Cargo;
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 /**
  *
@@ -86,10 +87,19 @@ public class CargoView {
     }
 
     public CargoView(Cargo cargo) {
-        this.dischargeDate=cargo.getDischargeDate();
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        if (cargo.getDischargeDate()!=null){
+            this.dischargeDate=new Date(cargo.getDischargeDate().getTime());
+        }else{
+            this.dischargeDate=null;
+        }
+        if (cargo.getLoadingDate()!=null){
+            this.loadingDate=new Date(cargo.getLoadingDate().getTime());
+        }else{
+            this.loadingDate=null;
+        }
         this.dischargingPlace=cargo.getDischargingPlace();
         this.id=cargo.getId();
-        this.loadingDate=cargo.getLoadingDate();
         this.loadingPlace=cargo.getLoadingPlace();
         if (cargo.getSample()!=null){
             this.sample=new SampleView(cargo.getSample());

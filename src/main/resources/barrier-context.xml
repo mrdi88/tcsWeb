@@ -7,19 +7,19 @@
                            http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 
-    <bean id="barrierAdapter1" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTCP" init-method="init" destroy-method="onDestroy">
+    <bean id="barrierAdapterR01" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTCP" init-method="init" destroy-method="onDestroy">
         <property name="ipAddr" value="192.168.1.13"> </property>
     </bean>
 
-    <bean id="barrier1" class="com.avectis.transportcontrol.control.barrier.Barrier">
-        <property name="name" value="barrier1"> </property>
-        <property name="barrierAdapter" ref="barrierAdapter1"> </property>
+    <bean id="barrierR01" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <property name="name" value="barrierR01"> </property>
+        <property name="barrierAdapter" ref="barrierAdapterR01"> </property>
     </bean>
 
     <bean id="barrierFacade" class="com.avectis.transportcontrol.facade.BarrierFacade">
         <property name="barrierCollection">
             <list>
-               <ref bean="barrier1"/>
+               <ref bean="barrierR01"/>
             </list>
         </property>
     </bean>

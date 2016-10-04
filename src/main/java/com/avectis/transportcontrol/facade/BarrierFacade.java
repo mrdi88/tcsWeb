@@ -43,7 +43,7 @@ public class BarrierFacade {
     }
 
     /*Поиск шлагбаума по ID*/
-    private Barrier GetElementById( String id){
+    public Barrier GetElementById( String id){
         for (Barrier barrier: barrierCollection) {
             if(id.equals(barrier.getName())){
                return barrier;

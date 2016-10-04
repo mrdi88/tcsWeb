@@ -40,10 +40,14 @@
     <bean id="dockController" class="com.avectis.transportcontrol.web.controller.dock.DockController">
         <property name="queueFacade" ref="queueFacade" />
         <property name="cardFacade" ref="cardFacade" />
+        <property name="infoTableFacade" ref="infoTableFacade" />
+        <property name="barrierFacade" ref="barrierFacade" />
         <property name="firstQueueName" value="R01" />
         <property name="secondQueueName" value="R02" />
-        <property name="infoTable" ref="infoTable1" />
-        <property name="barrier" ref="barrier1" />
+        <property name="firstQueueinfoTableName" value="infoTableR01" />
+        <property name="secondQueueinfoTableName" value="infoTableR01" />
+        <property name="firstQueuebarrierName" value="barrierR01" />
+        <property name="secondQueuebarrierName" value="barrierR01" />
     </bean>
     <bean id="cardController" class="com.avectis.transportcontrol.web.controller.card.CardController">
         <property name="carFacade" ref="carFacade" />

@@ -2,7 +2,9 @@ package com.avectis.transportcontrol.web.controller.dock;
 
 import com.avectis.transportcontrol.control.barrier.Barrier;
 import com.avectis.transportcontrol.control.infotable.InfoTable;
+import com.avectis.transportcontrol.facade.BarrierFacade;
 import com.avectis.transportcontrol.facade.CardFacade;
+import com.avectis.transportcontrol.facade.InfoTableFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
@@ -13,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +29,16 @@ public class DockController extends AbstractController {
     
     private QueueFacade queueFacade;
     private CardFacade cardFacade;
+    private InfoTableFacade infoTableFacade;
+    private BarrierFacade barrierFacade;
     String firstQueueName;
     String secondQueueName;
     //infodisplay
-    InfoTable infoTable;
+    String firstQueueinfoTableName;
+    String secondQueueinfoTableName;
     //control barrier
-    Barrier barrier;
+    String firstQueuebarrierName;
+    String secondQueuebarrierName;
 
     public void setCardFacade(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
@@ -49,12 +56,28 @@ public class DockController extends AbstractController {
         this.queueFacade = queueFacade;
     }
 
-    public void setInfoTable(InfoTable infoTable) {
-        this.infoTable = infoTable;
+    public void setInfoTableFacade(InfoTableFacade infoTableFacade) {
+        this.infoTableFacade = infoTableFacade;
     }
 
-    public void setBarrier(Barrier barrier) {
-        this.barrier = barrier;
+    public void setBarrierFacade(BarrierFacade barrierFacade) {
+        this.barrierFacade = barrierFacade;
+    }
+
+    public void setFirstQueueinfoTableName(String firstQueueinfoTableName) {
+        this.firstQueueinfoTableName = firstQueueinfoTableName;
+    }
+
+    public void setSecondQueueinfoTableName(String secondQueueinfoTableName) {
+        this.secondQueueinfoTableName = secondQueueinfoTableName;
+    }
+
+    public void setFirstQueuebarrierName(String firstQueuebarrierName) {
+        this.firstQueuebarrierName = firstQueuebarrierName;
+    }
+
+    public void setSecondQueuebarrierName(String secondQueuebarrierName) {
+        this.secondQueuebarrierName = secondQueuebarrierName;
     }
 
     @Override
@@ -73,7 +96,7 @@ public class DockController extends AbstractController {
                     String queueJson = mapper.writeValueAsString(ql);
                     data.put("queues", queueJson);
                     return new ModelAndView("dock/json/docksQueueDataJSON", data);
-                case "callCar":
+                case "callCar": //show car number in info table amd open barrier
                     data = new HashMap<>();
                     if (callCar(arg0)){
                         data.put("result", "true");
@@ -81,10 +104,17 @@ public class DockController extends AbstractController {
                         data.put("result", "false");
                     }
                     return new ModelAndView("queue/json/resultJSON", data);
+                case "resetCall": //clear info table amd close barrier
+                    data = new HashMap<>();
+                    if (resetCall(arg0)){
+                        data.put("result", "true");
+                    }else{
+                        data.put("result", "false");
+                    }
+                    return new ModelAndView("queue/json/resultJSON", data);    
                 case "acceptCar":
                     data = new HashMap<>();
                     if (acceptCar(arg0)){
-                        callCar(arg0); //remove from this command
                         data.put("result", "true");
                     }else{
                         data.put("result", "false");
@@ -130,17 +160,67 @@ public class DockController extends AbstractController {
         return qv;
     }
     private boolean callCar(HttpServletRequest arg0){
-        if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty()){
-            CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
-            //display on infotable
-            String[] textArray=new String[1];
-            textArray[0]=card.getCar().getCarNumber();
-            infoTable.SendData(textArray);
-            infoTable.SetBrightness(1);
-            //open barier
-            barrier.Open();
-            
-            return true;
+        if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty() &&
+                arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
+            if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
+                CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+                //display on infotable
+                String[] textArray=new String[1];
+                textArray[0]=card.getCar().getCarNumber();
+                InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
+                barrier.Open();
+                return true;
+            }else
+            if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
+                CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+                //display on infotable
+                String[] textArray=new String[1];
+                textArray[0]=card.getCar().getCarNumber();
+                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                barrier.Open();
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean resetCall(HttpServletRequest arg0){
+        if (arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
+            if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
+                //display on infotable
+                String[] textArray=new String[1];
+                textArray[0]=" ";
+                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                barrier.Close();
+                return true;
+            }else
+            if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
+                //display on infotable
+                String[] textArray=new String[1];
+                textArray[0]=" ";
+                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                barrier.Close();
+                return true;
+            }
         }
         return false;
     }

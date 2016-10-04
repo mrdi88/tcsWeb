@@ -4,19 +4,19 @@
        xmlns:p = "http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="infoTableAdapter1" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTCP">
+    <bean id="infoTableAdapterR01" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTCP">
         <property name="ipAddr" value="192.168.1.111"> </property>
         <property name="port" value="5000"> </property>
         <property name="InfoTableAddress" value="9999"> </property>
     </bean>
-    <bean id="infoTable1" class="com.avectis.transportcontrol.control.infotable.InfoTable">
-        <property name="name" value="infoTable1"> </property>
-        <property name="infoTableAdapter" ref="infoTableAdapter1"> </property>
+    <bean id="infoTableR01" class="com.avectis.transportcontrol.control.infotable.InfoTable">
+        <property name="name" value="infoTableR01"> </property>
+        <property name="infoTableAdapter" ref="infoTableAdapterR01"> </property>
     </bean>
     <bean id="infoTableFacade" class="com.avectis.transportcontrol.facade.InfoTableFacade">
         <property name="infoTableCollection">
             <list>
-                <ref bean="infoTable1"/>
+                <ref bean="infoTableR01"/>
             </list>
         </property>
     </bean>

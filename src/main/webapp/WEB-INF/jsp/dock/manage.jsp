@@ -32,6 +32,16 @@
                         <th class="header">Номер силоса</th>
                     </table>
                 </div>
+                <div class="screen confirmationScreen">
+                    <p>Вызвать автомобиль?</p>
+                    <p class="carNumber"></p>
+                    <form class="confirmationForm" action="${pageContext.request.contextPath}/dock?cmd=callCar" method="post" autocomplete="off">
+                        <input class="cardId" type="hidden" name="cardId" value="" >
+                        <input class="queueName" type="hidden" name="queueName" value="" >
+                        <input class= "accept" type="submit" value="Да">
+                        <input class= "cancel" type="button" value="Нет" onclick="resetScreen(this);">
+                    </form>
+                </div>
                 <div class="screen arrivalScreen">
                     <p>Вызван автомобиль</p>
                     <p class="carNumber"></p>
@@ -40,7 +50,7 @@
                         <input class="cardId" type="hidden" name="cardId" value="" >
                         <input class="queueName" type="hidden" name="queueName" value="" >
                         <input class= "accept" type="submit" value="Да">
-                        <input class= "cancel" type="button" value="Нет" onclick="resetScreen(this)">
+                        <input class= "cancel" type="button" value="Нет" onclick="resetScreen(this);  clearInfo(this);">
                     </form>
                 </div>
                 <div class="screen releaseScreen">
@@ -82,6 +92,16 @@
                         <th class="header">Номер силоса</th>
                     </table>
                 </div>
+                <div class="screen confirmationScreen">
+                    <p>Вызвать автомобиль?</p>
+                    <p class="carNumber"></p>
+                    <form class="confirmationForm" action="${pageContext.request.contextPath}/dock?cmd=callCar" method="post" autocomplete="off">
+                        <input class="cardId" type="hidden" name="cardId" value="" >
+                        <input class="queueName" type="hidden" name="queueName" value="" >
+                        <input class= "accept" type="submit" value="Да">
+                        <input class= "cancel" type="button" value="Нет" onclick="resetScreen(this);">
+                    </form>
+                </div>
                 <div class="screen arrivalScreen">
                     <p>Вызван автомобиль</p>
                     <p class="carNumber"></p>
@@ -90,7 +110,7 @@
                         <input class="cardId" type="hidden" name="cardId" value="" >
                         <input class="queueName" type="hidden" name="queueName" value="" >
                         <input class= "accept" type="submit" value="Да">
-                        <input class= "cancel" type="button" value="Нет" onclick="resetScreen(this)">
+                        <input class= "cancel" type="button" value="Нет" onclick="resetScreen(this);  clearInfo(this);">
                     </form>
                 </div>
                 <div class="screen releaseScreen">

@@ -28,7 +28,6 @@ public class CardView {
     }
     public void setCreateDate(Date createDate) {
         if (createDate!=null){
-            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             createDate.setTime(createDate.getTime()-createDate.getTime()%1000);
         }
         this.createDate = createDate;
@@ -66,7 +65,6 @@ public class CardView {
     public CardView() {
         
     }
-
     public CardView(Card card) {
         if (card.getCar()!=null){
             this.car= new CarView(card.getCar());
@@ -74,7 +72,13 @@ public class CardView {
         else this.car=null;
         this.accessLevel=card.getAccessLevel();
         this.cardNumber=card.getCardNumber();
-        this.createDate=card.getCreateDate();
+        if (card.getCreateDate()!=null){
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+            this.createDate=new Date(card.getCreateDate().getTime());
+        }else{
+            this.createDate=null;
+        }
+        
         this.id=card.getId();
         this.state=card.getState();
     }

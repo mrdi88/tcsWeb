@@ -27,7 +27,7 @@ $(window).load( function(){
     //get docks data
     sendAjaxGetData();
     //arrivalForm submit action
-    $( ".arrivalForm" ).submit(function( event ) {
+    $( ".confirmationForm" ).submit(function( event ) {
         event.preventDefault();
         console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
         var dockId;
@@ -46,7 +46,35 @@ $(window).load( function(){
                 if (data.result=="true"){
                     //display arrival screen
                     setDisplay(dockId,3);
-
+                }
+                else{
+                    alert("Ошибка");
+                }
+            }
+        });
+    });
+    $( ".arrivalForm" ).submit(function( event ) {
+        var element=this; //for clearInfo
+        event.preventDefault();
+        console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
+        var dockId;
+        if ($.contains( document.getElementById(dock1Id),this[0])){
+            dockId=dock1Id;
+        }else 
+        if ($.contains( document.getElementById(dock2Id),this[0])){
+            dockId=dock2Id;
+        } 
+        $.ajax({
+            type     : "POST",
+            cache    : false,
+            url      : $(this).attr('action'),
+            data     : $(this).serialize(),
+            success  : function(data) {
+                if (data.result=="true"){
+                    //display arrival screen
+                    setDisplay(dockId,4);
+                    //close barrier and clear info
+                    clearInfo(element);
                 }
                 else{
                     alert("Ошибка");
@@ -84,6 +112,24 @@ $(window).load( function(){
         });
     });
 });
+function clearInfo(element){ //clear info table and close barrier
+    var dockId=null;
+    if ($.contains( document.getElementById(dock1Id),element)){
+        dockId=dock1Id;
+    }else 
+    if ($.contains( document.getElementById(dock2Id),element)){
+        dockId=dock2Id;
+    } 
+    if (dockId!=null){
+        $.ajax({
+            type     : "POST",
+            cache    : false,
+            url      : contextPath+"/dock?cmd=resetCall",
+            data     : {"queueName":dockQueues[dockId].name} ,
+            success  : function(data) {}
+        });
+    }
+}
 function resetScreen(element){
     var dockId=null;
     if ($.contains( document.getElementById(dock1Id),element)){
@@ -175,6 +221,10 @@ function selectCard(e){
     }
     if (card!=null){
         //set data in arrivalForm
+        $("#"+dockId+" .confirmationScreen .carNumber").text(card.car.carNumber);
+        $("#"+dockId+" .confirmationForm .cardId").val(e.id);
+        $("#"+dockId+" .confirmationForm .queueName").val(queueName);
+        //set data in arrivalForm
         $("#"+dockId+" .arrivalScreen .carNumber").text(card.car.carNumber);
         $("#"+dockId+" .arrivalForm .cardId").val(e.id);
         $("#"+dockId+" .arrivalForm .queueName").val(queueName);
@@ -209,9 +259,12 @@ function setDisplay(dockId,step){
             $("#"+dockId+" .listScreen").removeClass("hidden");
             break;
         case 2:
-            $("#"+dockId+" .arrivalScreen").removeClass("hidden");
+            $("#"+dockId+" .confirmationScreen").removeClass("hidden");
             break;
         case 3:
+            $("#"+dockId+" .arrivalScreen").removeClass("hidden");
+            break;
+        case 4:
             $("#"+dockId+" .releaseScreen").removeClass("hidden");
             break;
     }

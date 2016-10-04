@@ -36,6 +36,7 @@ public class BarrierAdapterTCP implements BarrierAdapter{
             connection.connect();
             
             transaction = new ModbusTCPTransaction(connection);
+            transaction.setReconnecting(true);
         }
         catch (Exception e){
             throw new Exception("BarrierAdapterTCP init failed "+e);
@@ -88,12 +89,10 @@ public class BarrierAdapterTCP implements BarrierAdapter{
                     break;
                 }
             }
-
             request.setUnitID(unitId);
             this.transaction.setRequest(request);
             this.transaction.execute();
             this.response = transaction.getResponse();
-
             if (requestType == RequestType.READ_INPUT_DISCRETES) {
                     rInDiscrResp = (ReadInputDiscretesResponse) transaction.getResponse();
                     boolean[] result = new boolean[x];

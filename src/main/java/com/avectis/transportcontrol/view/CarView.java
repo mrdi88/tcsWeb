@@ -50,7 +50,6 @@ public class CarView {
     }
     public void setLeaveDate(Date leaveDate) {
         if(leaveDate!=null){
-            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             leaveDate.setTime(leaveDate.getTime()-leaveDate.getTime()%1000);
         }
         
@@ -61,7 +60,6 @@ public class CarView {
     }
     public void setCreateDate(Date createDate) {
         if(createDate!=null){
-            TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
             createDate.setTime(createDate.getTime()-createDate.getTime()%1000);
         }
         this.createDate = createDate;
@@ -106,16 +104,25 @@ public class CarView {
         
     }
     public CarView(Car car) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Cargo cargoEntity=car.getCargo();
         Driver driverEntity=car.getDriver();
         if (cargoEntity!=null) this.cargo=new CargoView(cargoEntity);
         if (driverEntity!=null) this.driver=new DriverView(driverEntity);
-        this.createDate=car.getCreateDate();
+        if (car.getCreateDate()!=null){
+            this.createDate=new Date(car.getCreateDate().getTime());
+        }else{
+            this.createDate=null;
+        }
+        if (car.getLeaveDate()!=null){
+            this.leaveDate=new Date(car.getLeaveDate().getTime());
+        }else{
+            this.leaveDate=null;
+        }
         this.siloNumber=car.getSiloNumber();
         this.destination=car.getDestination();
         this.carNumber=car.getCarNumber();
         this.id=car.getId();
-        this.leaveDate=car.getLeaveDate();
         this.ttnNumber=car.getTtnNumber();
         this.nomenclature=car.getNomenclature();
     }
