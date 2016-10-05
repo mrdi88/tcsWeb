@@ -7,7 +7,7 @@
                            http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 
-    <bean id="barrierAdapterR01" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTCP" init-method="init" destroy-method="onDestroy">
+    <bean id="barrierAdapterR01" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" init-method="init" destroy-method="onDestroy">
         <property name="ipAddr" value="192.168.1.13"> </property>
     </bean>
 
