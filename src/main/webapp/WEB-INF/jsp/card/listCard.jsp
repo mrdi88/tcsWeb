@@ -26,7 +26,8 @@
                     <td>${card.car.ttnNumber}</td>
                     <td>driver</td>
                     <td>${card.car.driver.id}</td>
-                    <td>${card.car.driver.name}</td>
+                    <td>${card.car.driver.firstName}</td>
+                    <td>${card.car.driver.lastName}</td>
                     <td>${card.car.driver.mobileNumber}</td>
                     <td>${card.car.driver.organization}</td>
                     <td>cargo</td>
