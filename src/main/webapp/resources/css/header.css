@@ -25,5 +25,29 @@
     background-color: #222;
 }
 #menu {
-    padding-bottom: 30px;
+    float: left;
+}
+#header{
+    display: table;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 30px;
+    background-color: #000;
+}
+#user p{
+    font-weight: normal;
+    float: right;
+    margin: 8px 0px 8px 0px;
+}
+#user .submit{
+    float: right;
+}
+#header #user{
+    background: crimson;
+    float:right;
+    width: 250px;
+    height:60px;
+}
+#header #user .userName{
+    width: 120px;
 }

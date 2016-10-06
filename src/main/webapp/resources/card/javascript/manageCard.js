@@ -1,4 +1,10 @@
 $(window).load( function(){
+    //include the csrf token within all Ajax requests
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
     $.get(contextPath+"/card?cmd=getNewCardNumber",{ "_": $.now() }, function(data) {setNewCardNumber(data);});
     $.get(contextPath+"/card?cmd=getExistCardData",{ "_": $.now() }, function(data) {setCardData(data);});
     $( "#addForm" ).submit(function( event ) {

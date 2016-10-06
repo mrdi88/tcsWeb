@@ -5,9 +5,16 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
-<http>
-    <intercept-url pattern="/**" access="hasRole('USER')" />
-    <form-login />
+    
+<!-- allow acces to static resources -->
+<http pattern="/resources/**" security="none"/>
+<http use-expressions="false">
+    <!-- intercept -->
+    <intercept-url pattern="/user/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    <intercept-url pattern="/**" access="ROLE_USER" />
+    <!-- login -->
+    <form-login login-page='/user/login' default-target-url='/card/manage'
+		always-use-default-target='true' />
     <logout />
     <!--<csrf disabled="true"/>-->
 </http>

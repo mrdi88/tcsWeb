@@ -1,4 +1,10 @@
 $(window).load( function(){
+    //include the csrf token within all Ajax requests
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
     $.get(contextPath+"/laboratory?cmd=getExistCardData",{ "_": $.now() }, function(data) {setCardData(data);});
     $( "#assignForm" ).submit(function( event ) {
         event.preventDefault();

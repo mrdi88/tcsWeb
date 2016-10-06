@@ -10,9 +10,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- meta for CSRF-TOKEN -->
+        <meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
         <title>Manage samples</title>
         <link href="${pageContext.request.contextPath}/resources/laboratory/css/manageSamples.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/resources/css/menu.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>	
         <script src="${pageContext.request.contextPath}/resources/laboratory/javascript/manageSamples.js"></script>	
     </head>

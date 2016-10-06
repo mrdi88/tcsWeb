@@ -7,6 +7,8 @@
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
+                <prop key="/user">userController</prop>
+                <prop key="/user/login">userController</prop>
                 <prop key="/archive">archiveController</prop>
                 <prop key="/archive/cars">archiveController</prop>
                 <prop key="/card">cardController</prop>
@@ -34,6 +36,8 @@
         </property>
     </bean>
     
+    <bean id="userController" class="com.avectis.transportcontrol.web.controller.user.UserController">
+    </bean>
     <bean id="archiveController" class="com.avectis.transportcontrol.web.controller.archive.ArchiveController">
         <property name="carFacade" ref="carFacade" />
     </bean>

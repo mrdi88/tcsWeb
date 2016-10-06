@@ -3,6 +3,12 @@ var stop_time="";
 var selectedId=0;
 var carList;
 $(window).load( function(){
+    //include the csrf token within all Ajax requests
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
     $(function(){
         $('#periodForm input[type="text"]').will_pickdate({ 
             format: 'Y/m/d H:i:s', 

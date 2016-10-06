@@ -1,6 +1,12 @@
 var selectedId=0;
 var cardList;
 $(window).load( function(){
+    //include the csrf token within all Ajax requests
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
     $( "#paramForm .queueId").val(-1); 
     $.get(contextPath+"/laboratory/manage?cmd=getAssignedCards",{ "_": $.now() }, function(data) {setCards(data);});
     $( "#paramForm" ).submit(function( event ) {
