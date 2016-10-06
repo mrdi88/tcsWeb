@@ -9,12 +9,15 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <intercept-url pattern="/**" access="hasRole('USER')" />
     <form-login />
     <logout />
+    <!--<csrf disabled="true"/>-->
 </http>
 <authentication-manager>
     <authentication-provider>
             <user-service>
                 <user name="dima" password="dim" authorities="ROLE_USER, ROLE_ADMIN" />
                 <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+                <user name="vitalik" password="winccgod" authorities="ROLE_USER" />
+                <user name="ivan" password="proadapterdesigner" authorities="ROLE_USER" />
             </user-service>
     </authentication-provider>
 </authentication-manager>

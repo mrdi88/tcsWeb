@@ -21,6 +21,12 @@ function sendAjaxGetData(){
     });
 }
 $(window).load( function(){
+    //include the csrf token within all Ajax requests
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
     //set screens
     setDisplay(dock1Id,dockStep[dock1Id]);
     setDisplay(dock2Id,dockStep[dock2Id]);
