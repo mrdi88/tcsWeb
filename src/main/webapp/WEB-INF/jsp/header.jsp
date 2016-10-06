@@ -5,7 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/WEB-INF/tld/c.tld" prefix="c" %>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div id="header">
     <div id="menu">
@@ -21,7 +21,13 @@
     <div id="user">
         <form action="${pageContext.request.contextPath}/logout?${_csrf.parameterName}=${_csrf.token}" method="POST">
             <p>Пользователь:&nbsp;
-
+            <sec:authorize access="isAuthenticated()">
+                <sec:authentication property="principal.username" var="username" />
+            </sec:authorize>
+            <sec:authorize access="!isAuthenticated()">
+                <sec:authentication property="principal" var="username" />
+            </sec:authorize>
+            Hello ${username}            
             </p>
             <input class="submit" type="submit" value="Выйти">
         </form>

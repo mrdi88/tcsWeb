@@ -6,6 +6,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
     
+<beans:bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 <!-- allow acces to static resources -->
 <http pattern="/resources/**" security="none"/>
 <http use-expressions="false">
@@ -18,6 +19,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <logout />
     <!--<csrf disabled="true"/>-->
 </http>
+    
 <authentication-manager>
     <authentication-provider>
             <user-service>
