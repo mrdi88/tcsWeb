@@ -16,6 +16,8 @@
         <property name="dataSource" ref="tcsDS" />
         <property name="annotatedClasses">
             <list>
+              <value>com.avectis.transportcontrol.entity.User</value>
+              <value>com.avectis.transportcontrol.entity.UserRole</value>
               <value>com.avectis.transportcontrol.entity.Driver</value>
               <value>com.avectis.transportcontrol.entity.Cargo</value>
               <value>com.avectis.transportcontrol.entity.Card</value>

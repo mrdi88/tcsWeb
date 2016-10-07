@@ -10,9 +10,11 @@ import com.avectis.transportcontrol.entity.User;
 import com.avectis.transportcontrol.entity.UserRole;
 import com.avectis.transportcontrol.view.UserRoleView;
 import com.avectis.transportcontrol.view.UserView;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -27,6 +29,65 @@ public class UserFacade {
     
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
+    }
+    @Transactional
+    public Long addUser(UserView user) {
+        return userDAO.addUser(userFromView(user));
+    }
+
+    @Transactional
+    public Long addUserRole(UserRoleView userRole) {
+        return userDAO.addUserRole(userRoleFromView(userRole));
+    }
+
+    @Transactional
+    public void update(UserView user) {
+        userDAO.update(userFromView(user));
+    }
+
+    @Transactional
+    public void update(UserRoleView userRole) {
+        userDAO.update(userRoleFromView(userRole));
+    }
+
+    @Transactional(readOnly = true)
+    public UserView getUserByName(String username) {
+        return new UserView(userDAO.getUserByName(username));
+    }
+
+    @Transactional(readOnly = true)
+    public UserRoleView getUserRole(Long id) {
+        return new UserRoleView(userDAO.getUserRole(id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserView> getUsers() {
+        List<User> userList=userDAO.getUsers();
+        List<UserView> userViewList=new ArrayList();
+        for (User user:userList){
+            userViewList.add(new UserView(user));
+        }
+        return userViewList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserRoleView> getUserRoles() {
+        List<UserRole> userRoleList=userDAO.getUserRoles();
+        List<UserRoleView> userRoleViewList=new ArrayList();
+        for (UserRole userRole:userRoleList){
+            userRoleViewList.add(new UserRoleView(userRole));
+        }
+        return userRoleViewList;
+    }
+
+    @Transactional
+    public void deleteUser(UserView user) {
+        userDAO.deleteUser(userFromView(user));
+    }
+
+    @Transactional
+    public void deleteUserRole(UserRoleView userRole) {
+        userDAO.deleteUserRole(userRoleFromView(userRole));
     }
     
     public User userFromView(UserView userV){
@@ -47,10 +108,12 @@ public class UserFacade {
             }else{
                 r=new UserRole();
             }
-                r.    
             r.setRole(rv.getRole());
-            r.setUserRoleId(rv.);
+            r.setUserRoleId(rv.getUserRoleId());
+            r.setUser(user);
+            roleSet.add(r);
         }
+        user.setUserRole(roleSet);
         return user;
     }
     private UserRole userRoleFromView(UserRoleView userRoleV){

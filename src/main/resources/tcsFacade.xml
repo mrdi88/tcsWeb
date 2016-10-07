@@ -7,6 +7,8 @@
     <bean id="baseHibernateDAO" class="com.avectis.transportcontrol.DAO.BaseHibernateDAO" abstract="true">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    <bean id="userDAO" class="com.avectis.transportcontrol.DAO.UserHibernateDAO" parent="baseHibernateDAO">
+    </bean>
     <bean id="carDAO" class="com.avectis.transportcontrol.DAO.CarHibernateDAO" parent="baseHibernateDAO">
     </bean>
     <bean id="cardDAO" class="com.avectis.transportcontrol.DAO.CardHibernateDAO" parent="baseHibernateDAO">
@@ -14,6 +16,9 @@
     <bean id="queueDAO" class="com.avectis.transportcontrol.DAO.QueueHibernateDAO" parent="baseHibernateDAO">
     </bean>
     
+    <bean id="userFacade" class="com.avectis.transportcontrol.facade.UserFacade">
+        <property name="userDAO" ref="userDAO" />
+    </bean>
     <bean id="carFacade" class="com.avectis.transportcontrol.facade.CarFacade">
         <property name="carDAO" ref="carDAO" />
     </bean>

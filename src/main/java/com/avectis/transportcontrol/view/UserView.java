@@ -33,7 +33,11 @@ public class UserView {
         Set<UserRoleView> UserRoleV=new HashSet<>();
         if (user.getUserRole()!=null){
             for (UserRole userRole:user.getUserRole()){
-                UserRoleV.add(new UserRoleView(userRole));
+                UserRoleView rv= new UserRoleView();
+                rv.setUserRoleId(userRole.getUserRoleId());
+                rv.setRole(userRole.getRole());
+                rv.setUser(this);
+                UserRoleV.add(rv);
             }
         }
         this.userRole = UserRoleV;
