@@ -1,9 +1,7 @@
 package com.avectis.transportcontrol.control.infotable;
 
+import com.avectis.transportcontrol.exception.ConnectionFailException;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.*;
 
 /**
  *
@@ -19,11 +17,11 @@ public class InfoTable {
         this.infoTableAdapter = adapter;
     }
     
-    public void SendData(String[] textArray){
+    public void SendData(String[] textArray) throws ConnectionFailException {
         infoTableAdapter.SendData(textArray);
     }
-    public void SetBrightness(int v){
-        infoTableAdapter.SetBrightness(v);
+    public void SetBrightness(int bv) throws ConnectionFailException{
+        infoTableAdapter.SetBrightness(bv);
     }
 
     public String getName() {
@@ -42,3 +40,4 @@ public class InfoTable {
     
     
 }
+

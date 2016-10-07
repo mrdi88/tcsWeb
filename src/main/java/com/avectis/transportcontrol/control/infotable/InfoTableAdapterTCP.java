@@ -1,6 +1,14 @@
 package com.avectis.transportcontrol.control.infotable;
-import java.net.*;
-import java.io.*;
+import com.avectis.transportcontrol.exception.ConnectionFailException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
 import java.util.Random;
 
 /**
@@ -14,7 +22,9 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
     private int InfoTableAddress;
     private Socket socket;
     
-    public InfoTableAdapterTCP(){} 
+    public InfoTableAdapterTCP(){
+
+    }    
     public InfoTableAdapterTCP(String IP, int port, int address){
         ipAddr = IP;
         this.port = port;
@@ -22,12 +32,13 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
     }
     
     @Override
-    public void SendData(String[] data) {    
+    public void SendData(String[] data) throws ConnectionFailException{    
         try{
             for(int i = 0; i < data.length; i++)
             {
                 InetAddress ipAddress = InetAddress.getByName(this.ipAddr);
                 this.socket = new Socket(ipAddress,this.port);
+                this.socket.setSoTimeout(500);
             
                 InputStream sin = socket.getInputStream();
                 OutputStream sout = socket.getOutputStream();
@@ -80,15 +91,23 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
                     byte[] decr = decryptL2pack(resultToDecrypt);
                     System.out.println("Status: " + decr[7]);
                     this.socket.close();
-            }
-            
+            }            
         }
-        catch(Exception ex){        
-            ex = ex;
-        }                  
+        catch(UnknownHostException ex)
+        {
+            throw new ConnectionFailException("Unable to find remote host ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+        }
+        catch(SocketException ex)
+        {
+            throw new ConnectionFailException("Unable to create remote host connection ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+        }
+        catch(IOException ex)
+        {
+            throw new ConnectionFailException("Unable to connect remote host ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+        }                
     }
     @Override
-    public void SetBrightness(int brightness){
+    public void SetBrightness(int brightness) throws ConnectionFailException{
         try{
                 InetAddress ipAddress = InetAddress.getByName(this.ipAddr);
                 this.socket = new Socket(ipAddress,this.port);
@@ -125,13 +144,19 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
                             newCount = sin.read(result);
                         }while(newCount == -1 && (tryToResend++) < 5 );      
                     }
-
-                    this.socket.close();
-            
-            
+                    this.socket.close();            
         }
-        catch(Exception ex){        
-            ex = ex;
+        catch(UnknownHostException ex)
+        {
+            throw new ConnectionFailException("Unable to find remote host ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+        }
+        catch(SocketException ex)
+        {
+            throw new ConnectionFailException("Unable to create remote host connection ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+        }
+        catch(IOException ex)
+        {
+            throw new ConnectionFailException("Unable to connect remote host ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
         }                  
     }    
     //Создание запроса на вывод текста
@@ -155,20 +180,16 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
                 j++;
             }   
         }
-        catch(Exception ex){
-            
+        catch(UnsupportedEncodingException ex){
+            ex.printStackTrace();
         }
         return request;
     }
     //Создание запроса на вывод текста
     private byte[] makeBrightnessRequest(int value ){
         byte[] request = new byte[1];        
-        try{
-            request[0] = (byte)(value & 0x00FF); 
-        }
-        catch(Exception ex){
-            
-        }
+        request[0] = (byte)(value & 0x00FF);  
+        
         return request;
     }
     //Создание незашифрованного пакета 2го уровня
@@ -187,10 +208,10 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
         L2_package[9] = (byte)((request.length >>8) & 0x00FF);
         
         for(int i = 0,j = 10; i < request.length; i++)
-            {
-                L2_package[j] = request[i];
-                j++;
-            }
+        {
+            L2_package[j] = request[i];
+            j++;
+        }
         
         return L2_package;
     }
@@ -273,6 +294,7 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
         result[result.length - 3] = crc[0];
         result[result.length - 2] = crc[1];
         result[result.length - 1] = 0x03;
+        
         return result;
     }
     
@@ -282,13 +304,14 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
     public void setIpAddr(String ipAddr) {
         this.ipAddr = ipAddr;
     }
+    
     public int getPort() {
         return port;
     }
-
     public void setPort(int port) {
         this.port = port;
     }
+    
     public int getInfoTableAddress() {
         return InfoTableAddress;
     }
@@ -302,15 +325,16 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
         int i = 0;        
         cs1=0;
         cs2=0;            
-            while (i < Cnt) {
-                cs1=CRC_TABLE[(short)((cs1 ^ (Data[i])) & 0x00FF)];
-                cs2 +=~(Data[i]) & 0x00FF;
-                i++;
-            };
-         tempCRC = (short)(0x8080 | ((short)cs1 & 0x00FF)  | (((((short)cs1 & 0x00FF) )<<1) & 0x100) | ((((short)cs2) & 0xFF)<<9));
-         result[0] = (byte)(tempCRC & 0x00FF);
-         result[1] = (byte)((tempCRC & 0xFF00) >> 8);
-         return result;
+        while (i < Cnt) {
+            cs1=CRC_TABLE[(short)((cs1 ^ (Data[i])) & 0x00FF)];
+            cs2 +=~(Data[i]) & 0x00FF;
+            i++;
+        }
+        tempCRC = (short)(0x8080 | ((short)cs1 & 0x00FF)  | (((((short)cs1 & 0x00FF) )<<1) & 0x100) | ((((short)cs2) & 0xFF)<<9));
+        result[0] = (byte)(tempCRC & 0x00FF);
+        result[1] = (byte)((tempCRC & 0xFF00) >> 8);
+         
+        return result;
     }
     //Константы для расчета контрольной суммы
     static final byte[] CRC_TABLE = {
@@ -331,3 +355,4 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
       (byte)233, (byte)183,  85,  11, (byte)136, (byte)214,  52, 106,  43, 117, (byte)151, (byte)201,  74,  20, (byte)246, (byte)168,
       116,  42, (byte)200, (byte)150,  21,  75, (byte)169, (byte)247, (byte)182, (byte)232,  10,  84, (byte)215, (byte)137, 107,  53};
 }
+
