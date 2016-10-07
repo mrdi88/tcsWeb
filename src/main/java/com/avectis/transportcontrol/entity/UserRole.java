@@ -5,13 +5,18 @@
  */
 package com.avectis.transportcontrol.entity;
 
+import com.avectis.transportcontrol.util.Role;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -20,12 +25,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name="user_roles")
 public class UserRole{
-    @Id        
+    @Id     
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment",strategy="increment")
     private Long userRoleId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username", nullable = false)
     private User user;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public UserRole() {
     }
@@ -46,24 +54,24 @@ public class UserRole{
         this.user = user;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
     @Override
     public String toString() {
-        return "UserRole{" + "userRoleId=" + userRoleId + ", user=" + this.getUser() + ", role=" + role + '}';
+        return "UserRole{" + "userRoleId=" + userRoleId + ", user=" + this.getUser().getUsername() + ", role=" + role + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 41 * hash + Objects.hashCode(this.userRoleId);
-        hash = 41 * hash + Objects.hashCode(this.getUser());
+        hash = 41 * hash + Objects.hashCode(this.getUser().getUsername());
         hash = 41 * hash + Objects.hashCode(this.role);
         return hash;
     }
@@ -86,7 +94,7 @@ public class UserRole{
         if (!Objects.equals(this.userRoleId, other.userRoleId)) {
             return false;
         }
-        if (!Objects.equals(this.getUser(), other.getUser())) {
+        if (!Objects.equals(this.getUser(), other.getUser().getUsername())) {
             return false;
         }
         return true;

@@ -17,7 +17,7 @@ public class InfoTable {
         this.infoTableAdapter = adapter;
     }
     
-    public void SendData(String[] textArray) throws ConnectionFailException {
+    public void SendData(String[] textArray) throws ConnectionFailException{
         infoTableAdapter.SendData(textArray);
     }
     public void SetBrightness(int bv) throws ConnectionFailException{

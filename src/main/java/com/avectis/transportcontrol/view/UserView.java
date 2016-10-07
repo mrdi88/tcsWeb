@@ -32,7 +32,8 @@ public class UserView {
         //set RoleViewList
         Set<UserRoleView> UserRoleV=new HashSet<>();
         if (user.getUserRole()!=null){
-            for (UserRole userRole:user.getUserRole()){
+            Set<UserRole> userRoles=user.getUserRole();
+            for (UserRole userRole:userRoles){
                 UserRoleView rv= new UserRoleView();
                 rv.setUserRoleId(userRole.getUserRoleId());
                 rv.setRole(userRole.getRole());

@@ -8,6 +8,7 @@ package com.avectis.transportcontrol.entity;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
     public User() {

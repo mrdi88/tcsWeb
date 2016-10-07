@@ -18,9 +18,9 @@ import org.hibernate.Session;
 public class UserHibernateDAO extends BaseHibernateDAO implements UserDAO{
 
     @Override
-    public Long addUser(User user) {
+    public void addUser(User user) {
         Session session=sessionFactory.getCurrentSession();
-        return (Long)session.save(user);
+        session.save(user);
     }
 
     @Override

@@ -5,6 +5,7 @@
  */
 package com.avectis.transportcontrol.entity;
 
+import com.avectis.transportcontrol.util.QueueType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

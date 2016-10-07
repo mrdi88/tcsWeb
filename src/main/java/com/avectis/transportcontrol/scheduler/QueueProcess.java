@@ -5,7 +5,7 @@
  */
 package com.avectis.transportcontrol.scheduler;
 
-import com.avectis.transportcontrol.entity.QueueType;
+import com.avectis.transportcontrol.util.QueueType;
 import com.avectis.transportcontrol.exception.WrongParamException;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.CardView;

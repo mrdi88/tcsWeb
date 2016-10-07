@@ -14,7 +14,7 @@ import java.util.List;
  * @author DPoplauski
  */
 public interface UserDAO {
-    public Long addUser(User user);
+    public void addUser(User user);
     public Long addUserRole(UserRole userRole);
     public void update(User user);
     public void update(UserRole userRole);

@@ -7,7 +7,7 @@ package com.avectis.transportcontrol.view;
 
 import com.avectis.transportcontrol.entity.Card;
 import com.avectis.transportcontrol.entity.Queue;
-import com.avectis.transportcontrol.entity.QueueType;
+import com.avectis.transportcontrol.util.QueueType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

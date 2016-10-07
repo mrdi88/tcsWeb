@@ -31,8 +31,8 @@ public class UserFacade {
         this.userDAO = userDAO;
     }
     @Transactional
-    public Long addUser(UserView user) {
-        return userDAO.addUser(userFromView(user));
+    public void addUser(UserView user) {
+        userDAO.addUser(userFromView(user));
     }
 
     @Transactional
@@ -41,8 +41,9 @@ public class UserFacade {
     }
 
     @Transactional
-    public void update(UserView user) {
-        userDAO.update(userFromView(user));
+    public void update(UserView userv) {
+        User user=userFromView(userv);
+        userDAO.update(user);
     }
 
     @Transactional
@@ -91,10 +92,11 @@ public class UserFacade {
     }
     
     public User userFromView(UserView userV){
-        User user;
+        User user=null;
         if (!userV.getUsername().isEmpty()) {
             user = userDAO.getUserByName(userV.getUsername());
-        } else {
+        }
+        if (user==null){
             user = new User();
         }
         user.setEnabled(userV.isEnabled());

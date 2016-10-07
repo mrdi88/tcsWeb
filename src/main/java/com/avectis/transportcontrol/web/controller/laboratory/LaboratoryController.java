@@ -1,7 +1,7 @@
 package com.avectis.transportcontrol.web.controller.laboratory;
 
 import com.avectis.transportcontrol.control.scanner.CardScannerListener;
-import com.avectis.transportcontrol.entity.QueueType;
+import com.avectis.transportcontrol.util.QueueType;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.facade.ScannerFacade;

@@ -1,6 +1,7 @@
 package com.avectis.transportcontrol.facade;
 
 import com.avectis.transportcontrol.control.infotable.InfoTable;
+import com.avectis.transportcontrol.exception.ConnectionFailException;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -21,7 +22,7 @@ public class InfoTableFacade {
     }
 
     /*Отправка данных на табло по ID*/
-    public void SendData(String [] data, String id){
+    public void SendData(String [] data, String id) throws ConnectionFailException{
         InfoTable infotable = GetElementById(id);
         if(null != infotable) infotable.SendData(data);
         else {

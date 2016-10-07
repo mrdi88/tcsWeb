@@ -160,68 +160,80 @@ public class DockController extends AbstractController {
         return qv;
     }
     private boolean callCar(HttpServletRequest arg0){
-        if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty() &&
+        try {
+            if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty() &&
                 arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
-            if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
-                CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
-                //display on infotable
-                String[] textArray=new String[1];
-                textArray[0]=card.getCar().getCarNumber();
-                InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
-                infoTable.SendData(textArray);
-                //set brightness level
-                infoTable.SetBrightness(1);
-                //open barier
-                Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
-                barrier.Open();
-                return true;
-            }else
-            if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
-                CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
-                //display on infotable
-                String[] textArray=new String[1];
-                textArray[0]=card.getCar().getCarNumber();
-                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
-                infoTable.SendData(textArray);
-                //set brightness level
-                infoTable.SetBrightness(1);
-                //open barier
-                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
-                barrier.Open();
-                return true;
+                if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
+                    CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+                    //display on infotable
+                    String[] textArray=new String[1];
+                    textArray[0]=card.getCar().getCarNumber();
+                    InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
+                    infoTable.SendData(textArray);
+                    //set brightness level
+                    infoTable.SetBrightness(1);
+                    //open barier
+                    Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
+                    barrier.Open();
+                    return true;
+                }else
+                if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
+                    CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+                    //display on infotable
+                    String[] textArray=new String[1];
+                    textArray[0]=card.getCar().getCarNumber();
+                    InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                    infoTable.SendData(textArray);
+                    //set brightness level
+                    infoTable.SetBrightness(1);
+                    //open barier
+                    Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                    barrier.Open();
+                    return true;
+                }
             }
         }
+        catch(Exception e){
+            System.out.println(e);
+            return false;
+        }    
         return false;
     }
     private boolean resetCall(HttpServletRequest arg0){
-        if (arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
-            if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
-                //display on infotable
-                String[] textArray=new String[1];
-                textArray[0]=" ";
-                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
-                infoTable.SendData(textArray);
-                //set brightness level
-                infoTable.SetBrightness(1);
-                //open barier
-                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
-                barrier.Close();
-                return true;
-            }else
-            if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
-                //display on infotable
-                String[] textArray=new String[1];
-                textArray[0]=" ";
-                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
-                infoTable.SendData(textArray);
-                //set brightness level
-                infoTable.SetBrightness(1);
-                //open barier
-                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
-                barrier.Close();
-                return true;
+        try{
+            if (arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
+                if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
+                    //display on infotable
+                    String[] textArray=new String[1];
+                    textArray[0]=" ";
+                    InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                    infoTable.SendData(textArray);
+                    //set brightness level
+                    infoTable.SetBrightness(1);
+                    //open barier
+                    Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                    barrier.Close();
+                    return true;
+                }else
+                if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
+                    //display on infotable
+                    String[] textArray=new String[1];
+                    textArray[0]=" ";
+                    InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                    infoTable.SendData(textArray);
+                    //set brightness level
+                    infoTable.SetBrightness(1);
+                    //open barier
+                    Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                    barrier.Close();
+                    return true;
+                }
             }
         }
+        catch(Exception e){
+            System.out.println(e);
+            return false;
+        } 
         return false;
     }
     private boolean acceptCar(HttpServletRequest arg0){

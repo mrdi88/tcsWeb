@@ -9,7 +9,7 @@ import com.avectis.transportcontrol.DAO.CardDAO;
 import com.avectis.transportcontrol.DAO.QueueDAO;
 import com.avectis.transportcontrol.entity.Card;
 import com.avectis.transportcontrol.entity.Queue;
-import com.avectis.transportcontrol.entity.QueueType;
+import com.avectis.transportcontrol.util.QueueType;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.QueueNameView;
 import com.avectis.transportcontrol.view.QueueView;

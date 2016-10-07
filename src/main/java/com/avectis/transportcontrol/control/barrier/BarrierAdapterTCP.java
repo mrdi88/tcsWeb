@@ -55,7 +55,7 @@ public class BarrierAdapterTCP implements BarrierAdapter{
         T.schedule(TT, pulseLength);
     }
     @Override //Закрытие шлагбаума
-    public void close() throws ConnectionFailException {
+    public void close() throws ConnectionFailException{
         try {        
             modbusRequest((byte)0x05,writeCoilReq((short)0,false));
             modbusRequest((byte)0x05,writeCoilReq((short)1,true));
@@ -78,7 +78,7 @@ public class BarrierAdapterTCP implements BarrierAdapter{
         T.schedule(TT, pulseLength);
     }
     @Override //Получения состояния щлагбаума
-    public boolean getState(int inputNumber) throws ConnectionFailException {
+    public boolean getState(int inputNumber) throws ConnectionFailException{
         byte[] responce;
         try {
             responce = modbusRequest((byte)0x02,readInputReq((short)0,(short)8));

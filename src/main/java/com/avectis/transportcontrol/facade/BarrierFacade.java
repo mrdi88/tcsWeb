@@ -1,6 +1,7 @@
 package com.avectis.transportcontrol.facade;
 
 import com.avectis.transportcontrol.control.barrier.Barrier;
+import com.avectis.transportcontrol.exception.ConnectionFailException;
 
 import java.util.Collection;
 
@@ -19,21 +20,21 @@ public class BarrierFacade {
     }
 
     /*Отрытие шлагбаума по ID*/
-    public void Open(String id){
+    public void Open(String id) throws ConnectionFailException{
         Barrier barrier = GetElementById(id);
         if(null != barrier)barrier.Open();
         else System.out.println("Barrier's not found");
     }
 
     /*Закрытие шлагбаума по ID*/
-    public void Close(String id){
+    public void Close(String id) throws ConnectionFailException{
         Barrier barrier = GetElementById(id);
         if(null != barrier)barrier.Close();
         else System.out.println("Barrier's not found");
     }
 
     /*Получение состояния шлагбаума по ID*/
-    public Boolean GetState(String id){
+    public Boolean GetState(String id) throws ConnectionFailException{
         Barrier barrier = GetElementById(id);
         if(null != barrier)return barrier.GetStateDI_0();
         else {

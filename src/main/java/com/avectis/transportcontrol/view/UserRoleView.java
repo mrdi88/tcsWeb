@@ -6,6 +6,7 @@
 package com.avectis.transportcontrol.view;
 
 import com.avectis.transportcontrol.entity.*;
+import com.avectis.transportcontrol.util.Role;
 import java.util.Objects;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class UserRoleView{      
     private Long userRoleId;
     private UserView user;
-    private String role;
+    private Role role;
 
     public UserRoleView() {
     }
@@ -42,24 +43,24 @@ public class UserRoleView{
         this.user = user;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
     @Override
     public String toString() {
-        return "UserRole{" + "userRoleId=" + userRoleId + ", user=" + this.getUser() + ", role=" + role + '}';
+        return "UserRole{" + "userRoleId=" + userRoleId + ", user=" + this.getUser().getUsername() + ", role=" + role + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 41 * hash + Objects.hashCode(this.userRoleId);
-        hash = 41 * hash + Objects.hashCode(this.getUser());
+        hash = 41 * hash + Objects.hashCode(this.getUser().getUsername());
         hash = 41 * hash + Objects.hashCode(this.role);
         return hash;
     }
@@ -82,7 +83,7 @@ public class UserRoleView{
         if (!Objects.equals(this.userRoleId, other.userRoleId)) {
             return false;
         }
-        if (!Objects.equals(this.getUser(), other.getUser())) {
+        if (!Objects.equals(this.getUser(), other.getUser().getUsername())) {
             return false;
         }
         return true;
