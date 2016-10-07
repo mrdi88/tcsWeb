@@ -21,13 +21,13 @@
     <div id="user">
         <form action="${pageContext.request.contextPath}/logout?${_csrf.parameterName}=${_csrf.token}" method="POST">
             <p>Пользователь:&nbsp;
-            <sec:authorize access="isAuthenticated()">
-                <sec:authentication property="principal.username" var="username" />
-            </sec:authorize>
-            <sec:authorize access="!isAuthenticated()">
-                <sec:authentication property="principal" var="username" />
-            </sec:authorize>
-            Hello ${username}            
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal.username" var="username" />
+                </sec:authorize>
+                <sec:authorize access="!isAuthenticated()">
+                    <sec:authentication property="principal" var="username" />
+                </sec:authorize>
+                <input class="userName" type="text" value="${username}"><br>        
             </p>
             <input class="submit" type="submit" value="Выйти">
         </form>
