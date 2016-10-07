@@ -18,6 +18,8 @@ public class UserController extends AbstractController {
         switch(action){
             case "login":
                 return doLoginAction(arg0);
+            case "accessdenied":
+                return doAccessDeniedAction(arg0);
         }
         arg1.sendRedirect("user/login");
         return null;
@@ -32,5 +34,8 @@ public class UserController extends AbstractController {
     }
     private ModelAndView doLoginAction(HttpServletRequest arg0){
         return new ModelAndView("user/login", null);
+    }
+    private ModelAndView doAccessDeniedAction(HttpServletRequest arg0){
+        return new ModelAndView("user/accessdenied", null);
     }
 }

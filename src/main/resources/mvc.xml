@@ -9,6 +9,7 @@
             <props>
                 <prop key="/user">userController</prop>
                 <prop key="/user/login">userController</prop>
+                <prop key="/user/accessdenied">userController</prop>
                 <prop key="/archive">archiveController</prop>
                 <prop key="/archive/cars">archiveController</prop>
                 <prop key="/card">cardController</prop>

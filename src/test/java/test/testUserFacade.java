@@ -63,6 +63,6 @@ public class testUserFacade extends AbstractJUnit4SpringContextTests {//Abstract
         userFacade.update(userv);
         System.out.println(userv);
         userv=userFacade.getUserByName(userv.getUsername());
-        userFacade.deleteUser(userv);
+        //userFacade.deleteUser(userv);
     }
 }

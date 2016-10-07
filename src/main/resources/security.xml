@@ -6,28 +6,43 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
     
-<beans:bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
-<!-- allow acces to static resources -->
-<http pattern="/resources/**" security="none"/>
-<http use-expressions="false">
-    <!-- intercept -->
-    <intercept-url pattern="/user/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-    <intercept-url pattern="/**" access="ROLE_USER" />
-    <!-- login -->
-    <form-login login-page='/user/login' default-target-url='/card/manage'
-		always-use-default-target='true' />
-    <logout />
-    <!--<csrf disabled="true"/>-->
-</http>
+    <beans:bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+    <!-- user provider -->
+    <beans:bean id="myUserDetailsService" class="com.avectis.transportcontrol.util.MyUserDetailsService">
+        <beans:property name="userFacade" ref="userFacade" />
+    </beans:bean>
     
-<authentication-manager>
-    <authentication-provider>
-            <user-service>
-                <user name="dima" password="dim" authorities="ROLE_USER, ROLE_ADMIN" />
-                <user name="bob" password="bobspassword" authorities="ROLE_USER" />
-                <user name="vitalik" password="winccgod" authorities="ROLE_USER" />
-                <user name="ivan" password="proadapterdesigner" authorities="ROLE_USER" />
-            </user-service>
-    </authentication-provider>
-</authentication-manager>
+    <!-- allow acces to static resources -->
+    <http pattern="/resources/**" security="none"/>
+    <http use-expressions="false">
+        <!-- intercept -->
+        <intercept-url pattern="/user/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/queue/**" access="ROLE_USER" />
+        <intercept-url pattern="/archive/**" access="ROLE_USER" />
+        <intercept-url pattern="/dock/**" access="ROLE_ADMIN,ROLE_DOCKOPERATOR" />
+        <intercept-url pattern="/card/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/laboratory/**" access="ROLE_ADMIN" />
+        
+        <access-denied-handler error-page="/user/accessdenied" />
+        <!-- login -->
+        <form-login login-page='/user/login' default-target-url='/card/manage'
+                    always-use-default-target='true' />
+        <logout />
+        <!--<csrf disabled="true"/>-->
+    </http>
+    
+    <authentication-manager>
+        <authentication-provider user-service-ref="myUserDetailsService" >
+            <password-encoder hash="bcrypt" />
+        </authentication-provider>
+        <!--
+        <authentication-provider>
+                <user-service>
+                    <user name="dima" password="dim" authorities="ROLE_USER, ROLE_ADMIN" />
+                    <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+                    <user name="vitalik" password="winccgod" authorities="ROLE_USER" />
+                    <user name="ivan" password="proadapterdesigner" authorities="ROLE_USER" />
+                </user-service>
+        </authentication-provider>-->
+    </authentication-manager>
 </beans:beans>
