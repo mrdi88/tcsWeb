@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -34,7 +35,7 @@ public class Queue {
     @Enumerated(EnumType.STRING)
     @Column(name="type")  
     private QueueType type;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @OrderColumn(name="order_id")
     private List<Card> cards=new ArrayList<>();
 
