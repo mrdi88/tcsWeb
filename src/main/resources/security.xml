@@ -17,15 +17,23 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <http use-expressions="false">
         <!-- intercept -->
         <intercept-url pattern="/user/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/queue/**" access="ROLE_USER" />
-        <intercept-url pattern="/archive/**" access="ROLE_USER" />
-        <intercept-url pattern="/dock/**" access="ROLE_ADMIN,ROLE_DOCKOPERATOR" />
-        <intercept-url pattern="/card/**" access="ROLE_ADMIN" />
-        <intercept-url pattern="/laboratory/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/user/accessdenied" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/user/**" access="ROLE_ADMIN" />
+        
+        <intercept-url pattern="/queue/**" access="ROLE_USER,ROLE_OPERATOR,ROLE_ADMIN" />
+        
+        <intercept-url pattern="/archive/**" access="ROLE_USER,ROLE_OPERATOR,ROLE_ADMIN" />
+        
+        <intercept-url pattern="/dock/**" access="ROLE_DOCKOPERATOR,ROLE_ADMIN" />
+        
+        <intercept-url pattern="/card/list" access="ROLE_USER,ROLE_OPERATOR" />
+        <intercept-url pattern="/card/**" access="ROLE_OPERATOR,ROLE_ADMIN" />
+        
+        <intercept-url pattern="/laboratory/**" access="ROLE_OPERATOR,ROLE_ADMIN" />
         
         <access-denied-handler error-page="/user/accessdenied" />
         <!-- login -->
-        <form-login login-page='/user/login' default-target-url='/card/manage'
+        <form-login login-page='/user/login' default-target-url='/archive'
                     always-use-default-target='true' />
         <logout />
         <!--<csrf disabled="true"/>-->

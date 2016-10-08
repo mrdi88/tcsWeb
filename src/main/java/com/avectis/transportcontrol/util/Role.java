@@ -10,6 +10,6 @@ package com.avectis.transportcontrol.util;
  * @author Dima
  */
 public enum Role {
-    ROLE_USER, ROLE_ADMIN, ROLE_DOCKOPERATOR;  
+    ROLE_USER, ROLE_ADMIN, ROLE_OPERATOR, ROLE_DOCKOPERATOR;  
 }
 

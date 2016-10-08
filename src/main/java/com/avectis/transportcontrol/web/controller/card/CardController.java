@@ -9,6 +9,7 @@ import com.avectis.transportcontrol.view.CarView;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
 import com.avectis.transportcontrol.view.DriverView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,39 +63,13 @@ public class CardController extends AbstractController {
         if (arg0.getParameter("cmd")!=null){
             switch (arg0.getParameter("cmd")){
                 case "add":
-                    Map<String,String>  addData = new HashMap<>();
-                    if (validNewCardData(arg0)){ //check parameters
-                        addNewCard(arg0);
-                        addData.put("result", "true");
-                    } else {
-                        addData.put("result", "false");
-                    }
-                    return new ModelAndView("card/json/resultJSON", addData);
+                    return doAddCmd(arg0);
                 case "delete":
-                    Map<String,String>  deleteData = new HashMap<>();
-                    if (arg0.getParameter("cardId")!=null){
-                        deleteCard(Long.decode(arg0.getParameter("cardId")));
-                        deleteData.put("result", "true");
-                    }else {
-                        deleteData.put("result", "false");
-                    }
-                    return new ModelAndView("card/json/resultJSON", deleteData);
+                    return doDeleteCmd(arg0);
                 case "getNewCardNumber": //by scanner
-                    CardNumberClass ncn = getCardNumber();
-                    if (cardFacade.getCardByNumber(ncn.getCardNumber())!=null){
-                        ncn.setCardNumber("0");
-                    }
-                    Map<String,String>  data = new HashMap<>();
-                    data.put("cardNumber", ncn.getCardNumber());
-                    return new ModelAndView("card/json/newCardNumberJSON", data);
+                    return doGetNewCardNumberCmd(arg0);
                 case "getExistCardData": //by scanner
-                    Map<String,String>  edata = new HashMap<>();
-                    CardNumberClass ecn = getCardNumber();
-                    CardView card = cardFacade.getCardByNumber(ecn.getCardNumber());
-                    ObjectMapper mapper = new ObjectMapper();
-                    String cardJson = mapper.writeValueAsString(card);
-                    edata.put("card", cardJson);
-                    return new ModelAndView("card/json/existCardDataJSON", edata);
+                    return doGetExistCardDataCmd(arg0);
                 default:
                     Map<String,String>  defData = new HashMap<>();
                     defData.put("result", "cmd not found");
@@ -102,7 +77,6 @@ public class CardController extends AbstractController {
             }
         }
         //do action
-        //get action 
         String action = getAction(arg0.getRequestURI().toString());
         switch(action){
             case "manage":
@@ -113,6 +87,54 @@ public class CardController extends AbstractController {
         arg1.sendRedirect("card/list");
         return null;
     }
+    private ModelAndView doAddCmd(HttpServletRequest arg0){
+        Map<String,String>  addData = new HashMap<>();
+        if (validNewCardData(arg0)){ //check parameters
+            addNewCard(arg0);
+            addData.put("result", "true");
+        } else {
+            addData.put("result", "false");
+        }
+        return new ModelAndView("card/json/resultJSON", addData);
+    }
+    private ModelAndView doDeleteCmd(HttpServletRequest arg0){
+        Map<String,String>  deleteData = new HashMap<>();
+        if (arg0.getParameter("cardId")!=null){
+            deleteCard(Long.decode(arg0.getParameter("cardId")));
+            deleteData.put("result", "true");
+        }else {
+            deleteData.put("result", "false");
+        }
+        return new ModelAndView("card/json/resultJSON", deleteData);
+    }
+    private ModelAndView doGetNewCardNumberCmd(HttpServletRequest arg0){
+        CardNumberClass ncn = getCardNumber();
+        if (cardFacade.getCardByNumber(ncn.getCardNumber())!=null){
+            ncn.setCardNumber("0");
+        }
+        Map<String,String>  data = new HashMap<>();
+        data.put("cardNumber", ncn.getCardNumber());
+        return new ModelAndView("card/json/newCardNumberJSON", data);
+    }
+    private ModelAndView doGetExistCardDataCmd(HttpServletRequest arg0) throws JsonProcessingException{
+        Map<String,String>  edata = new HashMap<>();
+        CardNumberClass ecn = getCardNumber();
+        CardView card = cardFacade.getCardByNumber(ecn.getCardNumber());
+        ObjectMapper mapper = new ObjectMapper();
+        String cardJson = mapper.writeValueAsString(card);
+        edata.put("card", cardJson);
+        return new ModelAndView("card/json/existCardDataJSON", edata);
+    }
+    private ModelAndView doManageAction(HttpServletRequest arg0){
+        Map<String,List<CardView>>  data = new HashMap<>();
+        return new ModelAndView("card/manageCard", data);
+    }
+    private ModelAndView doListAction(HttpServletRequest arg0){
+        List<CardView> cardList = cardFacade.getList();
+        Map<String,List<CardView>>  data = new HashMap<>();
+        data.put("cardList", cardList);
+        return new ModelAndView("card/listCard", data);
+    }
     private String getAction(String url){
         String action="";
         String[] URLparts = url.split("/", 0);
@@ -120,6 +142,17 @@ public class CardController extends AbstractController {
             action=URLparts[3];
         }
         return action;
+    }
+    private void deleteCard(Long id){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        CardView card;
+        card=cardFacade.getCard(id);
+        if (card!=null){
+            card.getCar().setLeaveDate(new Date());
+            cardFacade.update(card);
+            queueFacade.deleteCardFromQueues(card);
+            cardFacade.delete(card);
+        }
     }
     private void addNewCard(HttpServletRequest arg0){
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
@@ -175,17 +208,6 @@ public class CardController extends AbstractController {
         }
         return true;
     }
-    private void deleteCard(Long id){
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        CardView card;
-        card=cardFacade.getCard(id);
-        if (card!=null){
-            card.getCar().setLeaveDate(new Date());
-            cardFacade.update(card);
-            queueFacade.deleteCardFromQueues(card);
-            cardFacade.delete(card);
-        }
-    }
     private CardNumberClass getCardNumber(){
         CardNumberClass cardNumber= new CardNumberClass("0");
         synchronized(cardNumber){
@@ -212,15 +234,5 @@ public class CardController extends AbstractController {
             }
         }
         return cardNumber;
-    }
-    private ModelAndView doManageAction(HttpServletRequest arg0){
-        Map<String,List<CardView>>  data = new HashMap<>();
-        return new ModelAndView("card/manageCard", data);
-    }
-    private ModelAndView doListAction(HttpServletRequest arg0){
-        List<CardView> cardList = cardFacade.getList();
-        Map<String,List<CardView>>  data = new HashMap<>();
-        data.put("cardList", cardList);
-        return new ModelAndView("card/listCard", data);
     }
 }

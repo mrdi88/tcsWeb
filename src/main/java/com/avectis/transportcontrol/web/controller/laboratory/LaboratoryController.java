@@ -11,6 +11,7 @@ import com.avectis.transportcontrol.view.QueueView;
 import com.avectis.transportcontrol.view.SampleView;
 import com.avectis.transportcontrol.web.controller.card.CardController;
 import com.avectis.transportcontrol.web.controller.card.CardNumberClass;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,61 +60,24 @@ public class LaboratoryController extends AbstractController {
     
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-        if (arg0.getParameter("cmd")!=null){
-            Map<String,String>  data;
-            ObjectMapper mapper;
-            String cardJson;
+        if (arg0.getParameter("cmd")!=null){ 
             switch (arg0.getParameter("cmd")){
                 case "assignSample":
-                    data = new HashMap<>();
-                    if (arg0.getParameter("cardId")!=null && 
-                            arg0.getParameter("cardId").length()>0 &&
-                            arg0.getParameter("sampleName")!=null && 
-                            arg0.getParameter("sampleName").length()>0){
-                        CardView card = cardFacade.getCard(Long.decode(arg0.getParameter("cardId")));
-                        if (card!=null){
-                            SampleView sample=new SampleView();
-                            sample.setName(arg0.getParameter("sampleName"));
-                            card.getCar().getCargo().setSample(sample);
-                            cardFacade.update(card);
-                            data.put("result", "true");
-                        }
-                    } else {
-                        data.put("result", "false");
-                    }
-                    return new ModelAndView("laboratory/json/resultJSON", data);
+                    return doAssignSampleCmd(arg0);
                 case "getExistCardData": //by scanner
-                    data = new HashMap<>();
-                    CardNumberClass ecn = getCardNumber();
-                    CardView card = cardFacade.getCardByNumber(ecn.getCardNumber());
-                    mapper = new ObjectMapper();
-                    cardJson = mapper.writeValueAsString(card);
-                    data.put("card", cardJson);
-                    return new ModelAndView("laboratory/json/existCardDataJSON", data);
+                    return doGetExistCardDataCmd(arg0);
                 case "assignParams": 
-                    data = new HashMap<>();
-                    if (assignParams(arg0)){
-                        data.put("result", "true");
-                    }
-                    else {
-                        data.put("result", "false");
-                    }
-                    return new ModelAndView("laboratory/json/resultJSON", data);
+                    return doAssignParamsCmd(arg0);
                 case "getAssignedCards": //by scanner
-                    data = new HashMap<>();
-                    List<CardView> cl = getAssignedCards();
-                    mapper = new ObjectMapper();
-                    cardJson = mapper.writeValueAsString(cl);
-                    data.put("cards", cardJson);
-                    return new ModelAndView("laboratory/json/assignedCardsJSON", data);
+                    return doGetAssignedCardsCmd(arg0);
                 default:
+                    Map<String,String>  data;
                     data = new HashMap<>();
                     data.put("result", "cmd not found");
                     return new ModelAndView("laboratory/json/resultJSON", data);
             }
         }
         //do action
-        //get action 
         String action = getAction(arg0.getRequestURI().toString());
         switch(action){
             case "manage":
@@ -123,6 +87,70 @@ public class LaboratoryController extends AbstractController {
         }
         arg1.sendRedirect("laboratory/manage");
         return null;
+    }
+    private ModelAndView doAssignSampleCmd(HttpServletRequest arg0){
+        Map<String,String>  data;
+        data = new HashMap<>();
+        if (arg0.getParameter("cardId")!=null && 
+                arg0.getParameter("cardId").length()>0 &&
+                arg0.getParameter("sampleName")!=null && 
+                arg0.getParameter("sampleName").length()>0){
+            CardView card = cardFacade.getCard(Long.decode(arg0.getParameter("cardId")));
+            if (card!=null){
+                SampleView sample=new SampleView();
+                sample.setName(arg0.getParameter("sampleName"));
+                card.getCar().getCargo().setSample(sample);
+                cardFacade.update(card);
+                data.put("result", "true");
+            }
+        } else {
+            data.put("result", "false");
+        }
+        return new ModelAndView("laboratory/json/resultJSON", data);
+    }
+    private ModelAndView doGetExistCardDataCmd(HttpServletRequest arg0) throws JsonProcessingException{
+        ObjectMapper mapper;
+            String cardJson;
+        Map<String,String>  data;
+        data = new HashMap<>();
+        CardNumberClass ecn = getCardNumber();
+        CardView card = cardFacade.getCardByNumber(ecn.getCardNumber());
+        mapper = new ObjectMapper();
+        cardJson = mapper.writeValueAsString(card);
+        data.put("card", cardJson);
+        return new ModelAndView("laboratory/json/existCardDataJSON", data);
+    }
+    private ModelAndView doAssignParamsCmd(HttpServletRequest arg0){
+        Map<String,String>  data;
+        data = new HashMap<>();
+        if (assignParams(arg0)){
+            data.put("result", "true");
+        }
+        else {
+            data.put("result", "false");
+        }
+        return new ModelAndView("laboratory/json/resultJSON", data);
+    }
+    private ModelAndView doGetAssignedCardsCmd(HttpServletRequest arg0) throws JsonProcessingException{
+        ObjectMapper mapper;
+        String cardJson;
+        Map<String,String>  data;
+        data = new HashMap<>();
+        List<CardView> cl = getAssignedCards();
+        mapper = new ObjectMapper();
+        cardJson = mapper.writeValueAsString(cl);
+        data.put("cards", cardJson);
+        return new ModelAndView("laboratory/json/assignedCardsJSON", data);
+    }
+    private ModelAndView doManageAction(HttpServletRequest arg0){
+        List<QueueNameView> ql= queueFacade.getQueueNameList(QueueType.DOCK);
+        Map<String,List<QueueNameView>>  qlData = new HashMap<>();;
+        qlData.put("queueList", ql);
+        return new ModelAndView("laboratory/manageSamples", qlData);
+    }
+    private ModelAndView doAssignAction(HttpServletRequest arg0){
+        Map<String,String>  data = new HashMap<>();
+        return new ModelAndView("laboratory/assignSample", data);
     }
     private CardNumberClass getCardNumber(){
         CardNumberClass cardNumber= new CardNumberClass("0");
@@ -218,15 +246,5 @@ public class LaboratoryController extends AbstractController {
             action=URLparts[3];
         }
         return action;
-    }
-    private ModelAndView doManageAction(HttpServletRequest arg0){
-        List<QueueNameView> ql= queueFacade.getQueueNameList(QueueType.DOCK);
-        Map<String,List<QueueNameView>>  qlData = new HashMap<>();;
-        qlData.put("queueList", ql);
-        return new ModelAndView("laboratory/manageSamples", qlData);
-    }
-    private ModelAndView doAssignAction(HttpServletRequest arg0){
-        Map<String,String>  data = new HashMap<>();
-        return new ModelAndView("laboratory/assignSample", data);
     }
 }

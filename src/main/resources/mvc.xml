@@ -8,19 +8,17 @@
         <property name="mappings">
             <props>
                 <prop key="/user">userController</prop>
-                <prop key="/user/login">userController</prop>
-                <prop key="/user/accessdenied">userController</prop>
+                <prop key="/user/**">userController</prop>
                 <prop key="/archive">archiveController</prop>
-                <prop key="/archive/cars">archiveController</prop>
+                <prop key="/archive/**">archiveController</prop>
                 <prop key="/card">cardController</prop>
-                <prop key="/card/list">cardController</prop>
-                <prop key="/card/manage">cardController</prop>
+                <prop key="/card/**">cardController</prop>
                 <prop key="/laboratory">laboratoryController</prop>
-                <prop key="/laboratory/assign">laboratoryController</prop>
-                <prop key="/laboratory/manage">laboratoryController</prop>
+                <prop key="/laboratory/**">laboratoryController</prop>
                 <prop key="/queue">queueController</prop>
+                <prop key="/queue/**">queueController</prop>
                 <prop key="/dock">dockController</prop>
-                <prop key="/dock/manage">dockController</prop>
+                <prop key="/dock/**">dockController</prop>
             </props>
         </property>
     </bean>
