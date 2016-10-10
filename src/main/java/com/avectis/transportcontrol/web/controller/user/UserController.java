@@ -81,9 +81,13 @@ public class UserController extends AbstractController {
         UserView user=userFacade.getUserByName(username);
         if (user!=null){
             Set<UserRoleView> userRoles=user.getUserRole();
-            //userRoles.clear();
-            //userFacade.update(user);
-            String[] rolesList = roles.split(",");
+
+            String[] rolesList=null;
+            if (!roles.isEmpty()){
+                rolesList = roles.split(",");
+            }else{
+                rolesList = new String[0];
+            }
             //add new roles
             for (String role:rolesList){
                 boolean existFlag=false;
