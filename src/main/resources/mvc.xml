@@ -36,6 +36,7 @@
     </bean>
     
     <bean id="userController" class="com.avectis.transportcontrol.web.controller.user.UserController">
+        <property name="userFacade" ref="userFacade" />
     </bean>
     <bean id="archiveController" class="com.avectis.transportcontrol.web.controller.archive.ArchiveController">
         <property name="carFacade" ref="carFacade" />

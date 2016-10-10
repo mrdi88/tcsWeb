@@ -126,7 +126,7 @@ public class UserFacade {
             userRole=new UserRole();
         }
         userRole.setRole(userRoleV.getRole());
-        userRole.setUser(userFromView(userRoleV.getUser()));
+        userRole.setUser(userDAO.getUserByName(userRoleV.getUser()));
         userRole.setUserRoleId(userRoleV.getUserRoleId());
         return userRole;
     }

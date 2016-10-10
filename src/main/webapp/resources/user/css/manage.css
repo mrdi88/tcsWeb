@@ -1,0 +1,53 @@
+#users{
+    border-collapse: collapse;
+    text-align: center;
+}
+#users td{
+        border: 1px solid #BCBCBC; 	
+}
+#users .even td{
+        background: #F9F9F9 ;
+}
+#users .odd td{
+        background: #EFEFEF ;
+}
+#users .selected td{
+        background: #95f300 ;
+}
+.users_header{
+        font-weight:bold;
+}
+#users .rowNumber {
+    width: 20px;
+}
+#users .login {
+    width: 80px;
+}
+#cards .roles {
+    width: 150px;
+}
+p {
+    margin:0;
+}
+div p:first-child{
+    font-weight: bold;
+}
+
+
+#setRoles SELECT,#setRoles INPUT[type="text"] {
+    width: 160px;
+    box-sizing: border-box;
+}
+#setRoles {
+    padding: 8px;
+    background-color: #f0f0f0;
+    overflow: auto;
+}
+#setRoles > DIV {
+    float: left;
+    padding: 4px;
+}
+#setRoles > DIV + DIV {
+    width: 40px;
+    text-align: center;
+}

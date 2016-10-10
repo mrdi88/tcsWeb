@@ -21,6 +21,10 @@ public class UserController extends AbstractController {
     
     private UserFacade userFacade;
 
+    public void setUserFacade(UserFacade userFacade) {
+        this.userFacade = userFacade;
+    }
+
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
         if (arg0.getParameter("cmd")!=null){
@@ -48,13 +52,21 @@ public class UserController extends AbstractController {
         return null;
     }
     private ModelAndView doGetUsersListCmd(HttpServletRequest arg0) throws JsonProcessingException{
-        Map<String,String>  data;
-        data = new HashMap<>();
+        //set users list
         List<UserView> usersList = userFacade.getUsers();
         ObjectMapper mapper = new ObjectMapper();
-        String queueJson = mapper.writeValueAsString(usersList);
-        data.put("users", queueJson);
-        return new ModelAndView("user/json/userListJSON", data);
+        String usersJson = mapper.writeValueAsString(usersList);
+        ModelAndView model = new ModelAndView();
+        model.addObject("users", usersJson);
+        //set roles list
+        List<String> roleList = new ArrayList();
+        for (Role role:Role.values()){
+            roleList.add(role.toString());
+        }
+        String rolesJson = mapper.writeValueAsString(roleList);
+        model.addObject("roles", rolesJson);
+        model.setViewName("user/json/userListJSON");
+        return model;
     }
     private ModelAndView doLoginAction(HttpServletRequest arg0){
         return new ModelAndView("user/login", null);
@@ -62,14 +74,10 @@ public class UserController extends AbstractController {
     private ModelAndView doAccessDeniedAction(HttpServletRequest arg0){
         return new ModelAndView("user/accessdenied", null);
     }
-    private ModelAndView doManageAction(HttpServletRequest arg0){
-        List<String> roleList = new ArrayList();
-        for (Role role:Role.values()){
-            roleList.add(role.toString());
-        }
-        Map<String,List<String>>  data = new HashMap<>();;
-        data.put("roles", roleList);
-        return new ModelAndView("user/manage", data);
+    private ModelAndView doManageAction(HttpServletRequest arg0) throws JsonProcessingException{
+        ModelAndView model = new ModelAndView();
+        model.setViewName("user/manage");
+        return model;
     }
     private String getAction(String url){
         String action="";

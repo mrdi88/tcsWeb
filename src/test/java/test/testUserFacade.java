@@ -50,7 +50,7 @@ public class testUserFacade extends AbstractJUnit4SpringContextTests {//Abstract
         user.setPassword(Password.hashPassword("123"));
         user.setUsername("dima");
         UserRoleView rv = new UserRoleView();
-        rv.setUser(user);
+        rv.setUser(user.getUsername());
         rv.setRole(Role.ROLE_ADMIN);
         user.getUserRole().add(rv);
         userFacade.addUser(user);

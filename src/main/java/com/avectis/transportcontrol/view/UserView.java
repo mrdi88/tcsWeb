@@ -37,7 +37,7 @@ public class UserView {
                 UserRoleView rv= new UserRoleView();
                 rv.setUserRoleId(userRole.getUserRoleId());
                 rv.setRole(userRole.getRole());
-                rv.setUser(this);
+                rv.setUser(this.username);
                 UserRoleV.add(rv);
             }
         }

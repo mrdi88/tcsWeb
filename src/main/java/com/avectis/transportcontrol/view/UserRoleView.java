@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class UserRoleView{      
     private Long userRoleId;
-    private UserView user;
+    private String user;
     private Role role;
 
     public UserRoleView() {
@@ -24,7 +24,7 @@ public class UserRoleView{
     public UserRoleView(UserRole userRole) {
         this.setUserRoleId(userRole.getUserRoleId());
         this.setRole(userRole.getRole());
-        this.setUser(new UserView(userRole.getUser()));
+        this.setUser(userRole.getUser().getUsername());
     }
 
     public Long getUserRoleId() {
@@ -35,11 +35,11 @@ public class UserRoleView{
         this.userRoleId = userRoleId;
     }
 
-    public UserView getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserView user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -53,14 +53,14 @@ public class UserRoleView{
 
     @Override
     public String toString() {
-        return "UserRole{" + "userRoleId=" + userRoleId + ", user=" + this.getUser().getUsername() + ", role=" + role + '}';
+        return "UserRole{" + "userRoleId=" + userRoleId + ", user=" + this.getUser() + ", role=" + role + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 41 * hash + Objects.hashCode(this.userRoleId);
-        hash = 41 * hash + Objects.hashCode(this.getUser().getUsername());
+        hash = 41 * hash + Objects.hashCode(this.getUser());
         hash = 41 * hash + Objects.hashCode(this.role);
         return hash;
     }
@@ -83,7 +83,7 @@ public class UserRoleView{
         if (!Objects.equals(this.userRoleId, other.userRoleId)) {
             return false;
         }
-        if (!Objects.equals(this.getUser(), other.getUser().getUsername())) {
+        if (!Objects.equals(this.getUser(), other.getUser())) {
             return false;
         }
         return true;
