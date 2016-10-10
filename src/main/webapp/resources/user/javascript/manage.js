@@ -10,21 +10,63 @@ $(window).load( function(){
     });
     $.get(contextPath+"/user/manage?cmd=getUsersList",{ "_": $.now() }, function(data) {setUsers(data);});
 
-$("#btnLeft").click(function () {
-    var selectedItem = $("#rightValues option:selected");
-    $("#leftValues").append(selectedItem);
-});
+    //register events for roles form
+    $("#toExist").click(function () {
+        var selectedItem = $("#availableRoles option:selected");
+        $("#existRoles").append(selectedItem);
+    });
 
-$("#btnRight").click(function () {
-    var selectedItem = $("#leftValues option:selected");
-    $("#rightValues").append(selectedItem);
-});
+    $("#toAvailable").click(function () {
+        var selectedItem = $("#existRoles option:selected");
+        $("#availableRoles").append(selectedItem);
+    });
 
-$("#rightValues").change(function () {
-    var selectedItem = $("#rightValues option:selected");
-    $("#txtRight").val(selectedItem.text());
-});    
-
+    $("#availableRoles").change(function () {
+        var selectedItem = $("#availableRoles option:selected");
+        $("#txtAvailable").val(selectedItem.text());
+    });    
+    //changeRolesForm submit event
+    $( "#changeRolesForm" ).submit(function( event ) {
+        event.preventDefault();
+        if ($( "#changeRolesForm .username").val()==""){
+            alert("Выберите пользователя");
+            return;
+        }
+        //get username from form
+        var username=this.username.value;
+        //get option as user roles
+        var options=$('#existRoles').find('option');
+        var roles="";
+        var comaFlag=false;
+        for (var i=0;i<options.length; i++){
+            if (comaFlag) roles+=",";
+            roles+=options[i].text;
+            comaFlag=true;
+        }
+        console.log('Sending request to '+$(this).attr('action')+' with data: '+$(this).serialize());
+        //send ajax query
+        $.ajax({
+            type     : "POST",
+            cache    : false,
+            url      : $(this).attr('action'),
+            data     : {"username":username,"roles":roles},
+            success  : function(data) {
+                if (data.result=="true"){
+                    //clear form
+                    $( "#changeRolesForm .username").val( "" );
+                    //remove options
+                    $('#existRoles').find('option').remove();
+                    $('#availableRoles').find('option').remove();
+                    selectedUser="";
+                    $.get(contextPath+"/user/manage?cmd=getUsersList",{ "_": $.now() }, function(data) {setUsers(data);});
+                }
+                else{
+                    alert("Ошибка");
+                }
+            }
+        });
+    });
+    //
 });
     
 function setUsers(data) { 
@@ -42,7 +84,7 @@ function setUsers(data) {
     //set data in table
     for (var i = 0; i < users.length; i++) { 
         newrow = tableUsers.insertRow(i+1);
-        newrow.id=users[i].id;
+        newrow.id=users[i].username;
         if (i%2>0) newrow.classList.add("even");
         else newrow.classList.add("odd");
         
@@ -62,14 +104,44 @@ function setUsers(data) {
            cell.innerHTML += users[i].userRole[j].role;
            comaFlag=true;
         }
-        //select
+        //select if user was selected before data update
         if (selectedUser==users[i].username){
-            selectCard( newrow );
+            selectUser( newrow );
         }
         newrow.onclick = function() {
-            //selectUser( this );
+            selectUser( this );
         };
     }
+}
+//set data for chosed card
+function selectUser(e){
+    selectedUser = e.id;
+    var user=null;
+    //remove options
+    $('#existRoles').find('option').remove();
+    $('#availableRoles').find('option').remove();
+    for (var i=0; i<userList.length; i++){
+        if (userList[i].username==selectedUser) user=userList[i];
+    }
+    if (user!=null){
+        $( "#changeRolesForm .username").val( user.username );
+        for (var i=0; i<userRoles.length; i++ ){
+            var hasRole=false;
+            for (var j=0; j<user.userRole.length; j++){
+                if (user.userRole[j].role==userRoles[i]){
+                    hasRole=true;
+                }
+            }
+            //if user has role
+            if (hasRole){
+                $("#existRoles").append($('<option></option>').val(i).html(userRoles[i])); 
+            }else{
+                $("#availableRoles").append($('<option></option>').val(i).html(userRoles[i])); 
+            }
+        }
+    }
+    $("#users .selected").removeClass("selected");
+    e.classList.add("selected");
 }
 
 

@@ -1,3 +1,21 @@
+#leftSide{
+    width: 300px;
+    float: left;
+}
+#rightSide{
+    width: 600px;
+    float: left;
+}
+#users_table{
+    width: 600px;
+    margin-bottom: 40px;
+}
+#newUser{
+    width: 200px;
+}
+#changePassword{
+    width: 200px;
+}
 #users{
     border-collapse: collapse;
     text-align: center;
@@ -21,10 +39,14 @@
     width: 20px;
 }
 #users .login {
-    width: 80px;
-}
-#cards .roles {
     width: 150px;
+}
+#users .roles {
+    width: 400px;
+    text-align: left;
+}
+#users .selected td{
+        background: #95f300 ;
 }
 p {
     margin:0;
@@ -33,21 +55,42 @@ div p:first-child{
     font-weight: bold;
 }
 
-
 #setRoles SELECT,#setRoles INPUT[type="text"] {
-    width: 160px;
+    width: 180px;
     box-sizing: border-box;
 }
 #setRoles {
     padding: 8px;
-    background-color: #f0f0f0;
     overflow: auto;
+    width: 430px;
+    
 }
-#setRoles > DIV {
+#setRoles .roles{
+    display:  inline-flex;
+    margin: 10px 0 10px 0;
+    height: 90px;
+    width: 400px;
+}
+#setRoles .roles .exist{
+    width: 40%;
+    height: 100%;
     float: left;
-    padding: 4px;
+    margin-right: 25px;
 }
-#setRoles > DIV + DIV {
-    width: 40px;
+#setRoles .roles .exist select{
+    height: 100%;
+}
+#setRoles .roles .moveBtns{
+    width: 10%;
     text-align: center;
+    padding-top: 20px;
 }
+#setRoles .roles .available{
+    margin-left: 5px;
+    width: 40%;
+}
+
+
+
+
+

@@ -16,6 +16,7 @@
           <li><a href="${pageContext.request.contextPath}/queue">Просмотр очередей</a></li>
           <li><a href="${pageContext.request.contextPath}/dock/manage">Управление доками</a></li>
           <li><a href="${pageContext.request.contextPath}/archive">Архив</a></li>
+          <li><a href="${pageContext.request.contextPath}/user/manage">Управление пользователями</a></li>
         </ul>
     </div>
     <div id="user">

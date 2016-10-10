@@ -26,7 +26,7 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
-    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany( mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
     public User() {

@@ -28,72 +28,79 @@
                 <th class="users_header">Логин </th>
                 <th class="users_header">Роли</th>
             </table>
-	</div>
-        <div id="newUser">
-            <p>
-                Новый пользователь
-            </p>
-            <form  action="${pageContext.request.contextPath}/user?cmd=newUser" method="post">       
-                <p>
-                    <label for="username">Логин</label>
-                    <input type="text" id="username" name="username"/>	
-                </p>
-                <p>
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password"/>	
-                </p>
-                <p>
-                    <label for="passwordRepeat">Повторите пароль</label>
-                    <input type="password" id="passwordRepeat" name="passwordRepeat"/>	
-                </p>
-                <button type="submit" class="btn">Создать</button>
-            </form>
         </div>
-        <div id="changePassword">
-            <p>
-                Изменить пароль
-            </p>
-            <form  action="${pageContext.request.contextPath}/user?cmd=changePassword" method="post">       
+        <div id="leftSide">
+            <div id="newUser">
                 <p>
-                    <label for="username">Логин</label>
-                    <input type="text" id="username" name="username"/>	
+                    Новый пользователь
                 </p>
+                <form id="newUserForm" action="${pageContext.request.contextPath}/user?cmd=newUser" method="post">       
+                    <p>
+                        <label for="username">Логин</label>
+                        <input type="text" class="username" name="username"/>	
+                    </p>
+                    <p>
+                        <label for="password">Пароль</label>
+                        <input type="password" class="password" name="password"/>	
+                    </p>
+                    <p>
+                        <label for="passwordRepeat">Повторите пароль</label>
+                        <input type="password" class="passwordRepeat" name="passwordRepeat"/>	
+                    </p>
+                    <button type="submit" class="btn">Создать</button>
+                </form>
+            </div>
+            <div id="changePassword">
                 <p>
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password"/>	
+                    Изменить пароль
                 </p>
-                <p>
-                    <label for="newPassword">Новый пароль</label>
-                    <input type="password" id="password" name="newPassword"/>	
-                </p>
-                <p>
-                    <label for="newPasswordRepeat">Повторите пароль</label>
-                    <input type="password" id="passwordRepeat" name="newPasswordRepeat"/>	
-                </p>
-                <button type="submit" class="btn">Изменить пароль</button>
-            </form>
+                <form id="changePasswordForm" action="${pageContext.request.contextPath}/user?cmd=changePassword" method="post">       
+                    <p>
+                        <label for="username">Логин</label>
+                        <input type="text" class="username" name="username"/>	
+                    </p>
+                    <p>
+                        <label for="password">Пароль</label>
+                        <input type="password" class="password" name="password"/>	
+                    </p>
+                    <p>
+                        <label for="newPassword">Новый пароль</label>
+                        <input type="password" class="password" name="newPassword"/>	
+                    </p>
+                    <p>
+                        <label for="newPasswordRepeat">Повторите пароль</label>
+                        <input type="password" class="passwordRepeat" name="newPasswordRepeat"/>	
+                    </p>
+                    <button type="submit" class="btn">Изменить пароль</button>
+                </form>
+            </div>
         </div>
-        <div id="setRoles">
-            <form  action="${pageContext.request.contextPath}/user?cmd=newUser" method="post">       
-                <p>
-                    <label for="username">Логин</label>
-                    <input type="text" id="username" name="username"/>	
-                </p>
-                <div>
-                    <select id="leftValues" size="5" multiple></select>
-                </div>
-                <div>
-                    <input type="button" id="btnLeft" value="&lt;&lt;" />
-                    <input type="button" id="btnRight" value="&gt;&gt;" />
-                </div>
-                <div>
-                    <select id="rightValues" size="4" multiple></select>
-                    <div>
-                        <input type="text" id="txtRight" />
+        <div id="rightSide">       
+            <div id="setRoles">
+                <form id="changeRolesForm" action="${pageContext.request.contextPath}/user?cmd=changeRoles" method="post">       
+                    <p>
+                        <label for="username">Логин</label>
+                        <input type="text" class="username" name="username"/>	
+                    </p>
+                    <div class="roles">
+                        <div class="exist">
+                            <select id="existRoles" size="5" multiple></select>
+                        </div>
+                        <div class ="moveBtns">
+                            <input type="button" id="toExist" value="&lt;&lt;" />
+                            <input type="button" id="toAvailable" value="&gt;&gt;" />
+                        </div>
+                        <div class="available">
+                            <select id="availableRoles" size="4" multiple></select>
+                            <input type="text" id="txtAvailable" />
+                        </div>
                     </div>
-                </div>
-                <button type="submit" class="btn">Применить</button>
-            </form>
+                    <div class="buttons">
+                        <button name="action" value="remove" type="submit" class="btn">Удалить</button>
+                        <button name="action" value="accept" type="submit" class="btn">Применить</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>

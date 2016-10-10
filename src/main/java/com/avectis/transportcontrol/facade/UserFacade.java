@@ -50,7 +50,7 @@ public class UserFacade {
     public void update(UserRoleView userRole) {
         userDAO.update(userRoleFromView(userRole));
     }
-
+    
     @Transactional(readOnly = true)
     public UserView getUserByName(String username) {
         return new UserView(userDAO.getUserByName(username));
@@ -101,8 +101,8 @@ public class UserFacade {
         }
         user.setEnabled(userV.isEnabled());
         user.setUsername(userV.getUsername());
-        user.setPassword(userV.getPassword());
-        Set<UserRole> roleSet=new HashSet();
+        Set<UserRole> roleSet=user.getUserRole();
+        roleSet.clear();
         for (UserRoleView rv:userV.getUserRole()){
             UserRole r =null;
             if (rv.getUserRoleId()!=null && rv.getUserRoleId()>0){
@@ -115,7 +115,6 @@ public class UserFacade {
             r.setUser(user);
             roleSet.add(r);
         }
-        user.setUserRole(roleSet);
         return user;
     }
     private UserRole userRoleFromView(UserRoleView userRoleV){
