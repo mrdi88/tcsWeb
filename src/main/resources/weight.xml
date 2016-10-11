@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p = "http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       
+        <!-- scales IN -->
+        <bean id="scalesAdapterIn" 
+              class="com.avectis.transportcontrol.control.scales.ScalesAdapterTest" init-method="init">
+        </bean>
+        <bean id="scalesIn" class="com.avectis.transportcontrol.control.scales.Scales">
+            <property name="name" value="In"> </property>
+            <property name="scalesAdapter" ref="scalesAdapterIn"> </property>
+        </bean>
+        <!-- scales OUT -->
+        <bean id="scalesAdapterOut" 
+              class="com.avectis.transportcontrol.control.scales.ScalesAdapterTest" init-method="init">
+        </bean>
+        <bean id="scalesOut" class="com.avectis.transportcontrol.control.scales.Scales">
+            <property name="name" value="Out"> </property>
+            <property name="scalesAdapter" ref="scalesAdapterOut"> </property>
+        </bean>
+        <!-- weighing module -->
+        <bean id="weighingModule" 
+              class="com.avectis.transportcontrol.module.WeighingModule" init-method="init">
+            <property name="cardFacade" ref="cardFacade"> </property>
+            <property name="weightInScales" ref="scalesIn"> </property>
+            <property name="weightOutScales" ref="scalesOut"> </property>
+            <property name="weightInScanner" ref="scannerWeightIn"> </property>
+            <property name="weightOutScanner" ref="scannerWeightOut"> </property>
+        </bean>
+</beans>

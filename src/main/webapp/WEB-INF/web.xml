@@ -14,6 +14,7 @@
                 /WEB-INF/classes/barrier.xml,
                 /WEB-INF/classes/infotable.xml,
                 /WEB-INF/classes/security.xml,
+                /WEB-INF/classes/weight.xml,
                 <!--/WEB-INF/classes/trafficLight.xml,
                 -->
                 /WEB-INF/classes/mvc.xml,

@@ -43,14 +43,5 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
         <authentication-provider user-service-ref="myUserDetailsService" >
             <password-encoder hash="bcrypt" />
         </authentication-provider>
-        <!--
-        <authentication-provider>
-                <user-service>
-                    <user name="dima" password="dim" authorities="ROLE_USER, ROLE_ADMIN" />
-                    <user name="bob" password="bobspassword" authorities="ROLE_USER" />
-                    <user name="vitalik" password="winccgod" authorities="ROLE_USER" />
-                    <user name="ivan" password="proadapterdesigner" authorities="ROLE_USER" />
-                </user-service>
-        </authentication-provider>-->
     </authentication-manager>
 </beans:beans>

@@ -84,6 +84,12 @@ public class UserController extends AbstractController {
         ModelAndView model = new ModelAndView();
         //set users list
         String username= arg0.getParameter("username");
+        //prevent alter root user
+        if ("root".equals(username)){
+            model.addObject("result", "false");
+            model.setViewName("user/json/resultJSON");
+            return model;
+        }
         String roles=arg0.getParameter("roles");
         UserView user=userFacade.getUserByName(username);
         if (user!=null){
@@ -157,10 +163,15 @@ public class UserController extends AbstractController {
         return model;
     }
     private ModelAndView doDeleteUserCmd(HttpServletRequest arg0) throws JsonProcessingException{
-        ModelAndView model = new ModelAndView();
+        ModelAndView model = new ModelAndView();        
         //set users list
         try{
             String username= arg0.getParameter("username");
+            if ("root".equals(username)){
+                model.addObject("result", "false");
+                model.setViewName("user/json/resultJSON");
+                return model;
+            }
             UserView user= userFacade.getUserByName(username);
             userFacade.deleteUser(user);
             model.addObject("result", "true");

@@ -174,6 +174,7 @@ function changeRoles(form){
             if (data.result=="true"){
                 //clear form
                 $( "#changeRolesForm .username").val( "" );
+                $("#txtAvailable").val("");
                 //remove options
                 $('#existRoles').find('option').remove();
                 $('#availableRoles').find('option').remove();
