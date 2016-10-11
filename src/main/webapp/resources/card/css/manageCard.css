@@ -27,6 +27,10 @@ p {
 }
 #existCard .submit{
     float: right;
+    
+}
+#existCard .submit input{
+    width: 100px;
 }
 div p:first-child{
     font-weight: bold;

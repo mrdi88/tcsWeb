@@ -101,6 +101,7 @@ public class UserFacade {
         }
         user.setEnabled(userV.isEnabled());
         user.setUsername(userV.getUsername());
+        user.setPassword(userV.getPassword());
         Set<UserRole> roleSet=user.getUserRole();
         roleSet.clear();
         for (UserRoleView rv:userV.getUserRole()){

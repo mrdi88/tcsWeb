@@ -34,18 +34,18 @@
                 <p>
                     Новый пользователь
                 </p>
-                <form id="newUserForm" action="${pageContext.request.contextPath}/user?cmd=newUser" method="post">       
+                <form id="newUserForm" autocomplete="off" action="${pageContext.request.contextPath}/user?cmd=newUser" method="post" >       
                     <p>
                         <label for="username">Логин</label>
-                        <input type="text" class="username" name="username"/>	
+                        <input type="text" class="username" name="username" value=""/>	
                     </p>
                     <p>
                         <label for="password">Пароль</label>
-                        <input type="password" class="password" name="password"/>	
+                        <input type="password" class="password" name="password" value=""/>	
                     </p>
                     <p>
                         <label for="passwordRepeat">Повторите пароль</label>
-                        <input type="password" class="passwordRepeat" name="passwordRepeat"/>	
+                        <input type="password" class="passwordRepeat" name="passwordRepeat" value=""/>	
                     </p>
                     <button type="submit" class="btn">Создать</button>
                 </form>
@@ -54,22 +54,18 @@
                 <p>
                     Изменить пароль
                 </p>
-                <form id="changePasswordForm" action="${pageContext.request.contextPath}/user?cmd=changePassword" method="post">       
+                <form id="changePasswordForm" action="${pageContext.request.contextPath}/user?cmd=changePassword" method="post"  autocomplete="off">       
                     <p>
                         <label for="username">Логин</label>
-                        <input type="text" class="username" name="username"/>	
-                    </p>
-                    <p>
-                        <label for="password">Пароль</label>
-                        <input type="password" class="password" name="password"/>	
+                        <input type="text" class="username" name="username" />	
                     </p>
                     <p>
                         <label for="newPassword">Новый пароль</label>
-                        <input type="password" class="password" name="newPassword"/>	
+                        <input type="password" class="newPassword" name="newPassword" />	
                     </p>
                     <p>
                         <label for="newPasswordRepeat">Повторите пароль</label>
-                        <input type="password" class="passwordRepeat" name="newPasswordRepeat"/>	
+                        <input type="password" class="newPasswordRepeat" name="newPasswordRepeat" />	
                     </p>
                     <button type="submit" class="btn">Изменить пароль</button>
                 </form>
@@ -77,10 +73,10 @@
         </div>
         <div id="rightSide">       
             <div id="setRoles">
-                <form id="changeRolesForm" action="${pageContext.request.contextPath}/user?cmd=changeRoles" method="post">       
+                <form id="changeRolesForm" action="${pageContext.request.contextPath}/user?cmd=changeRoles" method="post"  autocomplete="off">       
                     <p>
                         <label for="username">Логин</label>
-                        <input type="text" class="username" name="username"/>	
+                        <input type="text" class="username" name="username" readonly/>	
                     </p>
                     <div class="roles">
                         <div class="exist">
@@ -96,8 +92,8 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <button name="action" value="remove" type="submit" class="btn">Удалить</button>
-                        <button name="action" value="accept" type="submit" class="btn">Применить</button>
+                        <input class= "btn" type="button" value="Удалить" onclick="deleteUser(this.form.username.value);">
+                        <button type="submit" class="btn">Применить</button>
                     </div>
                 </form>
             </div>

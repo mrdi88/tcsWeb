@@ -1,6 +1,7 @@
 package com.avectis.transportcontrol.web.controller.user;
 
 import com.avectis.transportcontrol.facade.UserFacade;
+import com.avectis.transportcontrol.util.Password;
 import com.avectis.transportcontrol.util.Role;
 import com.avectis.transportcontrol.view.UserRoleView;
 import com.avectis.transportcontrol.view.UserView;
@@ -36,6 +37,12 @@ public class UserController extends AbstractController {
                     return doGetUsersListCmd(arg0);
                 case "changeRoles": 
                     return doChangeRolesCmd(arg0);
+                case "newUser": 
+                    return doNewUserCmd(arg0);
+                case "changePassword": 
+                    return doChangePasswordCmd(arg0);
+                case "deleteUser": 
+                    return doDeleteUserCmd(arg0);
                 default:
                     Map<String,String>  data;
                     data = new HashMap<>();
@@ -125,6 +132,57 @@ public class UserController extends AbstractController {
             userFacade.update(user);
             model.addObject("result", "true");
         }else{
+            model.addObject("result", "false");
+        }
+        model.setViewName("user/json/resultJSON");
+        return model;
+    }
+    private ModelAndView doNewUserCmd(HttpServletRequest arg0) throws JsonProcessingException{
+        ModelAndView model = new ModelAndView();
+        //set users list
+        try{
+            String username= arg0.getParameter("username");
+            String password=arg0.getParameter("password");
+            UserView user= new UserView();
+            user.setUsername(username);
+            user.setPassword(Password.hashPassword(password));
+            user.setEnabled(true);
+            userFacade.addUser(user);
+            model.addObject("result", "true");
+        }catch(Exception e){
+            e.printStackTrace();
+            model.addObject("result", "false");
+        }
+        model.setViewName("user/json/resultJSON");
+        return model;
+    }
+    private ModelAndView doDeleteUserCmd(HttpServletRequest arg0) throws JsonProcessingException{
+        ModelAndView model = new ModelAndView();
+        //set users list
+        try{
+            String username= arg0.getParameter("username");
+            UserView user= userFacade.getUserByName(username);
+            userFacade.deleteUser(user);
+            model.addObject("result", "true");
+        }catch(Exception e){
+            e.printStackTrace();
+            model.addObject("result", "false");
+        }
+        model.setViewName("user/json/resultJSON");
+        return model;
+    }
+    private ModelAndView doChangePasswordCmd(HttpServletRequest arg0) throws JsonProcessingException{
+        ModelAndView model = new ModelAndView();
+        //set users list
+        try{
+            String username= arg0.getParameter("username");
+            String newPassword=arg0.getParameter("newPassword");
+            UserView user= userFacade.getUserByName(username);
+            user.setPassword(Password.hashPassword(newPassword));
+            userFacade.update(user);
+            model.addObject("result", "true");
+        }catch(Exception e){
+            e.printStackTrace();
             model.addObject("result", "false");
         }
         model.setViewName("user/json/resultJSON");
