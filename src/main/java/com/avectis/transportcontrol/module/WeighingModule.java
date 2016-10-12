@@ -10,6 +10,7 @@ import com.avectis.transportcontrol.control.scanner.CardScanner;
 import com.avectis.transportcontrol.control.scanner.CardScannerListener;
 import com.avectis.transportcontrol.exception.ConnectionFailException;
 import com.avectis.transportcontrol.facade.CardFacade;
+import com.avectis.transportcontrol.facade.TrafficLightFacade;
 import com.avectis.transportcontrol.view.CardView;
 
 /**
@@ -24,8 +25,24 @@ public class WeighingModule {
     private Scales weightOutScales;
     private CardScanner weightInScanner;
     private CardScanner weightOutScanner;
+    //light
+    private TrafficLightFacade lightFacade;
+    private String inScalesOutLightName;
+    private String outScalesOutLightName;
 
     public WeighingModule() {
+    }
+
+    public void setLightFacade(TrafficLightFacade lightFacade) {
+        this.lightFacade = lightFacade;
+    }
+
+    public void setInScalesOutLightName(String inScalesOutLightName) {
+        this.inScalesOutLightName = inScalesOutLightName;
+    }
+
+    public void setOutScalesOutLightName(String outScalesOutLightName) {
+        this.outScalesOutLightName = outScalesOutLightName;
     }
 
     public void setCardFacade(CardFacade cardFacade) {

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
  *
- * @author ASaburov
+ * @author Dima
  */
 public class QueueController extends AbstractController {
     

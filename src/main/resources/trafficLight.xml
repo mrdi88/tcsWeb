@@ -4,38 +4,71 @@
        xmlns:p = "http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="AdapterTrafficLightSetting" class="com.avectis.transportcontrol.control.traffic_light.TrafficLightAdapterCOM"
-          p:baudRate="9600"
-          p:dataBits="8"
-          p:stopBits="1"
-          p:parity="0">
+    <!-- inScalesInLight -->
+    <bean id="inScalesInLightAdapter" 
+          class="com.avectis.transportcontrol.control.trafficLight.TrafficLightAdapterTest">
     </bean>
-
-    <bean id="TL1Adapter"  parent="AdapterTrafficLightSetting">
-        <constructor-arg value="COM1" index="0"/>
-
+    <bean id="inScalesInLight" 
+        class="com.avectis.transportcontrol.control.trafficLight.TrafficLight">
+        <property name="name" value="inScalesInLight"> </property>
+        <property name="trafficLightAdapter" ref="inScalesInLightAdapter"> </property>
     </bean>
-    <bean id="TL2Adapter" parent="AdapterTrafficLightSetting">
-        <constructor-arg value="COM2" index="0"/>
+    <!-- inScalesOutLight -->
+    <bean id="inScalesOutLightAdapter" 
+          class="com.avectis.transportcontrol.control.trafficLight.TrafficLightAdapterTest">
     </bean>
-
-    <bean id="TL1" class="com.avectis.transportcontrol.control.traffic_light.TrafficLight">
-        <constructor-arg index="0" value="traffic_light1"/>
-        <constructor-arg index="1" ref="TL1Adapter"/>
+    <bean id="inScalesOutLight" 
+        class="com.avectis.transportcontrol.control.trafficLight.TrafficLight">
+        <property name="name" value="inScalesOutLight"> </property>
+        <property name="trafficLightAdapter" ref="inScalesOutLightAdapter"> </property>
     </bean>
-    <bean id="TL2" class="com.avectis.transportcontrol.control.traffic_light.TrafficLight">
-        <constructor-arg index="0" value="traffic_light2"/>
-        <constructor-arg index="1" ref="TL2Adapter"/>
+    <!-- outScalesOutLight -->
+    <bean id="outScalesOutLightAdapter" 
+          class="com.avectis.transportcontrol.control.trafficLight.TrafficLightAdapterTest">
     </bean>
-
-
-    <bean id="trafficLightCollection" class="com.avectis.transportcontrol.facade.TrafficLightFacade">
+    <bean id="outScalesOutLight" 
+        class="com.avectis.transportcontrol.control.trafficLight.TrafficLight">
+        <property name="name" value="outScalesOutLight"> </property>
+        <property name="trafficLightAdapter" ref="outScalesOutLightAdapter"> </property>
+    </bean>
+    <!-- dock1OutLight -->
+    <bean id="dock1OutLightAdapter" 
+          class="com.avectis.transportcontrol.control.trafficLight.TrafficLightAdapterTest">
+    </bean>
+    <bean id="dock1OutLight" 
+        class="com.avectis.transportcontrol.control.trafficLight.TrafficLight">
+        <property name="name" value="dock1OutLight"> </property>
+        <property name="trafficLightAdapter" ref="dock1OutLightAdapter"> </property>
+    </bean>
+    <!-- dock2OutLight -->
+    <bean id="dock2OutLightAdapter" 
+          class="com.avectis.transportcontrol.control.trafficLight.TrafficLightAdapterTest">
+    </bean>
+    <bean id="dock2OutLight" 
+        class="com.avectis.transportcontrol.control.trafficLight.TrafficLight">
+        <property name="name" value="dock2OutLight"> </property>
+        <property name="trafficLightAdapter" ref="dock2OutLightAdapter"> </property>
+    </bean>
+    <!-- crossRoadLight -->
+    <bean id="crossRoadLightAdapter" 
+          class="com.avectis.transportcontrol.control.trafficLight.TrafficLightAdapterTest">
+    </bean>
+    <bean id="crossRoadLight" 
+        class="com.avectis.transportcontrol.control.trafficLight.TrafficLight">
+        <property name="name" value="crossRoadLight"> </property>
+        <property name="trafficLightAdapter" ref="crossRoadLightAdapter"> </property>
+    </bean>
+    <!-- trafficLightCollection -->
+    <bean id="lightFacade" class="com.avectis.transportcontrol.facade.TrafficLightFacade">
         <property name="trafficLightsCollection">
             <list>
-                <ref bean="TL1"/>
-                <ref bean="TL2"/>
+                <ref bean="inScalesInLight"/>
+                <ref bean="inScalesOutLight"/>
+                <ref bean="outScalesOutLight"/>
+                <ref bean="dock1OutLight"/>
+                <ref bean="dock2OutLight"/>
+                <ref bean="crossRoadLight"/>
             </list>
-
         </property>
     </bean>
 

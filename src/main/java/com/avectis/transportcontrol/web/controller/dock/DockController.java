@@ -6,6 +6,7 @@ import com.avectis.transportcontrol.facade.BarrierFacade;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.InfoTableFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
+import com.avectis.transportcontrol.facade.TrafficLightFacade;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
 import com.avectis.transportcontrol.view.QueueView;
@@ -24,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
  *
- * @author ASaburov
+ * @author Dima
  */
 public class DockController extends AbstractController {
     
@@ -32,14 +33,23 @@ public class DockController extends AbstractController {
     private CardFacade cardFacade;
     private InfoTableFacade infoTableFacade;
     private BarrierFacade barrierFacade;
-    String firstQueueName;
-    String secondQueueName;
+    private String firstQueueName;
+    private String secondQueueName;
     //infodisplay
-    String firstQueueinfoTableName;
-    String secondQueueinfoTableName;
+    private String firstQueueinfoTableName;
+    private String secondQueueinfoTableName;
     //control barrier
-    String firstQueuebarrierName;
-    String secondQueuebarrierName;
+    private String firstQueuebarrierName;
+    private String secondQueuebarrierName;
+    //light
+    private TrafficLightFacade lightFacade;
+    private String dock1OutLightName;
+    private String dock2OutLightName;
+    private String crossRoadLightName;
+
+    public void setLightFacade(TrafficLightFacade lightFacade) {
+        this.lightFacade = lightFacade;
+    }
 
     public void setCardFacade(CardFacade cardFacade) {
         this.cardFacade = cardFacade;
@@ -79,6 +89,18 @@ public class DockController extends AbstractController {
 
     public void setSecondQueuebarrierName(String secondQueuebarrierName) {
         this.secondQueuebarrierName = secondQueuebarrierName;
+    }
+
+    public void setDock1OutLightName(String dock1OutLightName) {
+        this.dock1OutLightName = dock1OutLightName;
+    }
+
+    public void setDock2OutLightName(String dock2OutLightName) {
+        this.dock2OutLightName = dock2OutLightName;
+    }
+
+    public void setCrossRoadLightName(String crossRoadLightName) {
+        this.crossRoadLightName = crossRoadLightName;
     }
 
     @Override

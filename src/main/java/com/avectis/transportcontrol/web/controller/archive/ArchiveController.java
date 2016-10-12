@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
  *
- * @author ASaburov
+ * @author Dima
  */
 public class ArchiveController extends AbstractController {
 

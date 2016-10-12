@@ -4,6 +4,7 @@
        xmlns:p = "http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- infoTableR01 -->
     <bean id="infoTableAdapterR01" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTest">
         <property name="ipAddr" value="192.168.1.111"> </property>
         <property name="port" value="5000"> </property>
@@ -13,10 +14,32 @@
         <property name="name" value="infoTableR01"> </property>
         <property name="infoTableAdapter" ref="infoTableAdapterR01"> </property>
     </bean>
+    <!-- infoTableR02 -->
+    <bean id="infoTableAdapterR02" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTest">
+        <property name="ipAddr" value="192.168.1.112"> </property>
+        <property name="port" value="5000"> </property>
+        <property name="InfoTableAddress" value="9999"> </property>
+    </bean>
+    <bean id="infoTableR02" class="com.avectis.transportcontrol.control.infotable.InfoTable">
+        <property name="name" value="infoTableR02"> </property>
+        <property name="infoTableAdapter" ref="infoTableAdapterR02"> </property>
+    </bean>
+    <!-- infoTableMain -->
+    <bean id="infoTableAdapterMain" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTest">
+        <property name="ipAddr" value="192.168.1.113"> </property>
+        <property name="port" value="5000"> </property>
+        <property name="InfoTableAddress" value="9999"> </property>
+    </bean>
+    <bean id="infoTableMain" class="com.avectis.transportcontrol.control.infotable.InfoTable">
+        <property name="name" value="infoTableMain"> </property>
+        <property name="infoTableAdapter" ref="infoTableAdapterMain"> </property>
+    </bean>
     <bean id="infoTableFacade" class="com.avectis.transportcontrol.facade.InfoTableFacade">
         <property name="infoTableCollection">
             <list>
                 <ref bean="infoTableR01"/>
+                <ref bean="infoTableR02"/>
+                <ref bean="infoTableMain"/>
             </list>
         </property>
     </bean>

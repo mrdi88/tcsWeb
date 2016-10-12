@@ -28,5 +28,8 @@
             <property name="weightOutScales" ref="scalesOut"> </property>
             <property name="weightInScanner" ref="scannerWeightIn"> </property>
             <property name="weightOutScanner" ref="scannerWeightOut"> </property>
+            <property name="lightFacade" ref="lightFacade" />
+            <property name="inScalesOutLightName" value="inScalesOutLight" />
+            <property name="outScalesOutLightName" value="outScalesOutLight" />
         </bean>
 </beans>

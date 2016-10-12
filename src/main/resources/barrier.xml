@@ -6,7 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-
+    <!-- barrierR01 -->
     <bean id="barrierAdapterR01" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" init-method="init" destroy-method="onDestroy">
         <property name="ipAddr" value="192.168.1.13"> </property>
     </bean>
@@ -15,11 +15,51 @@
         <property name="name" value="barrierR01"> </property>
         <property name="barrierAdapter" ref="barrierAdapterR01"> </property>
     </bean>
+    <!-- barrierR02 -->
+    <bean id="barrierAdapterR02" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" init-method="init" destroy-method="onDestroy">
+        <property name="ipAddr" value="192.168.1.14"> </property>
+    </bean>
 
+    <bean id="barrierR02" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <property name="name" value="barrierR02"> </property>
+        <property name="barrierAdapter" ref="barrierAdapterR02"> </property>
+    </bean>
+    <!-- entranceBarrier -->
+    <bean id="barrierAdapterEntrance" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" init-method="init" destroy-method="onDestroy">
+        <property name="ipAddr" value="192.168.1.14"> </property>
+    </bean>
+
+    <bean id="entranceBarrier" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <property name="name" value="entranceBarrier"> </property>
+        <property name="barrierAdapter" ref="barrierAdapterEntrance"> </property>
+    </bean>
+    <!-- exitBarrier -->
+    <bean id="barrierAdapterExit" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" init-method="init" destroy-method="onDestroy">
+        <property name="ipAddr" value="192.168.1.15"> </property>
+    </bean>
+
+    <bean id="exitBarrier" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <property name="name" value="exitBarrier"> </property>
+        <property name="barrierAdapter" ref="barrierAdapterExit"> </property>
+    </bean>
+    <!-- secondExitBarrier -->
+    <bean id="barrierAdapterSecondExit" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" init-method="init" destroy-method="onDestroy">
+        <property name="ipAddr" value="192.168.1.16"> </property>
+    </bean>
+
+    <bean id="secondExitBarrier" class="com.avectis.transportcontrol.control.barrier.Barrier">
+        <property name="name" value="secondExitBarrier"> </property>
+        <property name="barrierAdapter" ref="barrierAdapterSecondExit"> </property>
+    </bean>
+    <!-- barrierFacade -->
     <bean id="barrierFacade" class="com.avectis.transportcontrol.facade.BarrierFacade">
         <property name="barrierCollection">
             <list>
                <ref bean="barrierR01"/>
+               <ref bean="barrierR02"/>
+               <ref bean="entranceBarrier"/>
+               <ref bean="exitBarrier"/>
+               <ref bean="secondExitBarrier"/>
             </list>
         </property>
     </bean>

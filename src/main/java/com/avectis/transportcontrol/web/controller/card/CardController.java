@@ -1,10 +1,12 @@
 package com.avectis.transportcontrol.web.controller.card;
 
 import com.avectis.transportcontrol.control.scanner.CardScannerListener;
+import com.avectis.transportcontrol.facade.BarrierFacade;
 import com.avectis.transportcontrol.facade.CarFacade;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.facade.ScannerFacade;
+import com.avectis.transportcontrol.facade.TrafficLightFacade;
 import com.avectis.transportcontrol.view.CarView;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
@@ -24,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
  *
- * @author ASaburov
+ * @author Dima
  */
 public class CardController extends AbstractController {
 
@@ -33,6 +35,33 @@ public class CardController extends AbstractController {
     private QueueFacade queueFacade;
     private ScannerFacade scannerFacade;
     private String cardScannerName;
+    //control barrier
+    private BarrierFacade barrierFacade;
+    private String entranceBarrierName;
+    private String exitBarrierName;
+    //light
+    private TrafficLightFacade lightFacade;
+    private String inScalesInLightName;
+
+    public void setLightFacade(TrafficLightFacade lightFacade) {
+        this.lightFacade = lightFacade;
+    }
+
+    public void setInScalesInLightName(String inScalesInLightName) {
+        this.inScalesInLightName = inScalesInLightName;
+    }
+
+    public void setBarrierFacade(BarrierFacade barrierFacade) {
+        this.barrierFacade = barrierFacade;
+    }
+
+    public void setEntranceBarrierName(String entranceBarrierName) {
+        this.entranceBarrierName = entranceBarrierName;
+    }
+
+    public void setExitBarrierName(String exitBarrierName) {
+        this.exitBarrierName = exitBarrierName;
+    }
 
     public void setQueueFacade(QueueFacade queueFacade) {
         this.queueFacade = queueFacade;

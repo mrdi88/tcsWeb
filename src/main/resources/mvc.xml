@@ -49,16 +49,25 @@
         <property name="firstQueueName" value="R01" />
         <property name="secondQueueName" value="R02" />
         <property name="firstQueueinfoTableName" value="infoTableR01" />
-        <property name="secondQueueinfoTableName" value="infoTableR01" />
+        <property name="secondQueueinfoTableName" value="infoTableR02" />
         <property name="firstQueuebarrierName" value="barrierR01" />
-        <property name="secondQueuebarrierName" value="barrierR01" />
+        <property name="secondQueuebarrierName" value="barrierR02" />
+        <property name="lightFacade" ref="lightFacade" />
+        <property name="dock1OutLightName" value="dock1OutLight" />
+        <property name="dock2OutLightName" value="dock2OutLight" />
+        <property name="crossRoadLightName" value="crossRoadLight" />
     </bean>
     <bean id="cardController" class="com.avectis.transportcontrol.web.controller.card.CardController">
         <property name="carFacade" ref="carFacade" />
         <property name="cardFacade" ref="cardFacade" />
         <property name="queueFacade" ref="queueFacade" />
         <property name="scannerFacade" ref="scannerFacade" />
+        <property name="barrierFacade" ref="barrierFacade" />
         <property name="cardScannerName" value="scannerEntrance" />
+        <property name="entranceBarrierName" value="entranceBarrier" />
+        <property name="exitBarrierName" value="exitBarrier" />
+        <property name="lightFacade" ref="lightFacade" />
+        <property name="inScalesInLightName" value="inScalesInLight" />
     </bean>
     <bean id="queueController" class="com.avectis.transportcontrol.web.controller.queue.QueueController">
         <property name="queueFacade" ref="queueFacade" /> 
