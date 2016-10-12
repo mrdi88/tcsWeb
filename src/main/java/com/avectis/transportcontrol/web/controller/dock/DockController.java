@@ -209,8 +209,8 @@ public class DockController extends AbstractController {
                 if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
                     CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
                     //display on infotable
-                    String[] textArray=new String[1];
-                    textArray[0]=card.getCar().getCarNumber();
+                    List<String> textArray=new ArrayList();
+                    textArray.add(card.getCar().getCarNumber());
                     InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
                     infoTable.SendData(textArray);
                     //set brightness level
@@ -223,8 +223,8 @@ public class DockController extends AbstractController {
                 if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
                     CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
                     //display on infotable
-                    String[] textArray=new String[1];
-                    textArray[0]=card.getCar().getCarNumber();
+                    List<String> textArray=new ArrayList();
+                    textArray.add(card.getCar().getCarNumber());
                     InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
                     infoTable.SendData(textArray);
                     //set brightness level
@@ -247,8 +247,8 @@ public class DockController extends AbstractController {
             if (arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
                 if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
                     //display on infotable
-                    String[] textArray=new String[1];
-                    textArray[0]=" ";
+                    List<String> textArray=new ArrayList();
+                    textArray.add(" ");
                     InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
                     infoTable.SendData(textArray);
                     //set brightness level
@@ -260,8 +260,8 @@ public class DockController extends AbstractController {
                 }else
                 if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
                     //display on infotable
-                    String[] textArray=new String[1];
-                    textArray[0]=" ";
+                    List<String> textArray=new ArrayList();
+                    textArray.add(" ");
                     InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
                     infoTable.SendData(textArray);
                     //set brightness level

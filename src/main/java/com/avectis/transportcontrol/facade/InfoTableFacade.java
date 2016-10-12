@@ -3,8 +3,8 @@ package com.avectis.transportcontrol.facade;
 import com.avectis.transportcontrol.control.infotable.InfoTable;
 import com.avectis.transportcontrol.exception.ConnectionFailException;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by vitaly on 06.09.2016.
@@ -22,7 +22,7 @@ public class InfoTableFacade {
     }
 
     /*Отправка данных на табло по ID*/
-    public void SendData(String [] data, String id) throws ConnectionFailException{
+    public void SendData(List<String> data, String id) throws ConnectionFailException{
         InfoTable infotable = GetElementById(id);
         if(null != infotable) infotable.SendData(data);
         else {

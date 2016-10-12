@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import java.util.Random;
 
@@ -32,9 +33,9 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
     }
     
     @Override
-    public void SendData(String[] data) throws ConnectionFailException{    
+    public void SendData(List<String> data) throws ConnectionFailException{    
         try{
-            for(int i = 0; i < data.length; i++)
+            for(String row:data)
             {
                 InetAddress ipAddress = InetAddress.getByName(this.ipAddr);
                 this.socket = new Socket(ipAddress,this.port);
@@ -43,7 +44,7 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
                 InputStream sin = socket.getInputStream();
                 OutputStream sout = socket.getOutputStream();
                         
-                byte[] displayRequest = makeDisplayRequest(data[0]); 
+                byte[] displayRequest = makeDisplayRequest(row); 
                 byte[] L2_package = makeL2pack(displayRequest, 9999, (byte)0x05); 
                 byte[] CRC = countCS(L2_package,L2_package.length);
                 int length = L2_package.length;

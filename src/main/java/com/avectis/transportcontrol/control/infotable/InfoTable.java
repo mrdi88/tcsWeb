@@ -1,6 +1,7 @@
 package com.avectis.transportcontrol.control.infotable;
 
 import com.avectis.transportcontrol.exception.ConnectionFailException;
+import java.util.List;
 
 
 /**
@@ -17,7 +18,7 @@ public class InfoTable {
         this.infoTableAdapter = adapter;
     }
     
-    public void SendData(String[] textArray) throws ConnectionFailException{
+    public void SendData(List<String> textArray) throws ConnectionFailException{
         infoTableAdapter.SendData(textArray);
     }
     public void SetBrightness(int bv) throws ConnectionFailException{

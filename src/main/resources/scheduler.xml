@@ -44,9 +44,23 @@
             </list>
         </property>
     </bean>
-    <!-- job --> 
+    <!-- Info Table -->
+    <bean id="mainInfoTable" class="com.avectis.transportcontrol.scheduler.MainInfoTableProcess">
+        <property name="queueFacade" ref="queueFacade"/>
+        <property name="infoTableFacade" ref="infoTableFacade"/>
+        <property name="infoTableName" value="infoTableMain"/>
+        <property name="infoQueueName" value="MainTable"/>
+        <property name="rowCount" value="5"/>
+    </bean>
+    <!-- job -->
+    <!-- queue job -->
     <bean id="queueJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="queueProcess"/>
+        <property name="targetMethod" value="doJob"/>
+    </bean>
+    <!-- MaininfoTable job -->
+    <bean id="mainInfoTableJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="mainInfoTable"/>
         <property name="targetMethod" value="doJob"/>
     </bean>
     <!-- trigger --> 
@@ -57,11 +71,19 @@
         <!-- repeat every 5 seconds -->
         <property name="repeatInterval" value="5000"/>
     </bean>
+    <bean id="infoTableTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="mainInfoTableJob"/>
+        <!-- 10 seconds -->
+        <property name="startDelay" value="10000"/>
+        <!-- repeat every 5 seconds -->
+        <property name="repeatInterval" value="15000"/>
+    </bean>
     <!-- SchedulerFactory -->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="queueTrigger"/>
+                <ref bean="infoTableTrigger"/>
             </list>
         </property>
     </bean>

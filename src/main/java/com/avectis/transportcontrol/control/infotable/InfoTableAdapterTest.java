@@ -1,5 +1,6 @@
 package com.avectis.transportcontrol.control.infotable;
 import java.net.*;
+import java.util.List;
 
 /**
  *
@@ -15,7 +16,8 @@ public class InfoTableAdapterTest implements InfoTableAdapter {
     public InfoTableAdapterTest(){} 
     public InfoTableAdapterTest(String IP, int port, int address){}
     @Override
-    public void SendData(String[] data) {            
+    public void SendData(List<String> data) {   
+        return;
     }
     @Override
     public void SetBrightness(int brightness){
