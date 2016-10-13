@@ -1,10 +1,12 @@
 package com.avectis.transportcontrol.web.controller.laboratory;
 
 import com.avectis.transportcontrol.control.scanner.CardScannerListener;
+import com.avectis.transportcontrol.control.trafficLight.TrafficLight;
 import com.avectis.transportcontrol.util.QueueType;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.facade.ScannerFacade;
+import com.avectis.transportcontrol.facade.TrafficLightFacade;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.QueueNameView;
 import com.avectis.transportcontrol.view.QueueView;
@@ -34,6 +36,17 @@ public class LaboratoryController extends AbstractController {
     private ScannerFacade scannerFacade;
     private String cardScannerName;
     private String bufferQueue="Buffer";
+    //light
+    private TrafficLightFacade lightFacade;
+    private String inScalesInLightName;
+
+    public void setLightFacade(TrafficLightFacade lightFacade) {
+        this.lightFacade = lightFacade;
+    }
+
+    public void setInScalesInLightName(String inScalesInLightName) {
+        this.inScalesInLightName = inScalesInLightName;
+    }
 
     public void setQueueFacade(QueueFacade queueFacade) {
         this.queueFacade = queueFacade;
@@ -102,6 +115,7 @@ public class LaboratoryController extends AbstractController {
                 card.getCar().getCargo().setSample(sample);
                 cardFacade.update(card);
                 data.put("result", "true");
+                turnGreeLightWeight(); // show green light in weight module
             }
         } else {
             data.put("result", "false");
@@ -238,6 +252,10 @@ public class LaboratoryController extends AbstractController {
                 }
         }
         return false;
+    }
+    private void turnGreeLightWeight(){
+        TrafficLight light = lightFacade.GetElementById(inScalesInLightName);
+        light.TurnGreen();
     }
     private String getAction(String url){
         String action="";

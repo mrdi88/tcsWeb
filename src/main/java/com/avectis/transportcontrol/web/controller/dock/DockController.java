@@ -2,6 +2,8 @@ package com.avectis.transportcontrol.web.controller.dock;
 
 import com.avectis.transportcontrol.control.barrier.Barrier;
 import com.avectis.transportcontrol.control.infotable.InfoTable;
+import com.avectis.transportcontrol.control.trafficLight.TrafficLight;
+import com.avectis.transportcontrol.exception.ConnectionFailException;
 import com.avectis.transportcontrol.facade.BarrierFacade;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.InfoTableFacade;
@@ -19,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -115,9 +119,9 @@ public class DockController extends AbstractController {
                 case "resetCall": //clear info table amd close barrier
                     return doResetCallCmd(arg0);
                 case "acceptCar":
-                    return doReleaseCarCmd(arg0);
+                    return doAcceptCarCmd(arg0);
                 case "releaseCar":
-                    return doManageAction(arg0);
+                    return doReleaseCarCmd(arg0);
                 default:
                     Map<String,String>  data;
                     data = new HashMap<>();
@@ -218,6 +222,9 @@ public class DockController extends AbstractController {
                     //open barier
                     Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
                     barrier.Open();
+                    //turn red light on exit
+                    TrafficLight dockLight = lightFacade.GetElementById(dock1OutLightName);
+                    dockLight.TurnRed();
                     return true;
                 }else
                 if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
@@ -232,6 +239,9 @@ public class DockController extends AbstractController {
                     //open barier
                     Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
                     barrier.Open();
+                    //turn red light on exit
+                    TrafficLight dockLight = lightFacade.GetElementById(dock2OutLightName);
+                    dockLight.TurnRed();
                     return true;
                 }
             }
@@ -293,10 +303,35 @@ public class DockController extends AbstractController {
     }
     private boolean releaseCar(HttpServletRequest arg0){
         if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty()){
-            CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
-            QueueView queue = queueFacade.getQueueByName(arg0.getParameter("queueName"));
-            queueFacade.deleteCardFromQueue(queue, card);
-            return true;
+            if (arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
+                if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
+                    //turn green light on exit
+                    TrafficLight dockLight = lightFacade.GetElementById(dock1OutLightName);
+                    dockLight.TurnGreen();
+                }else
+                if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
+                    //turn green light on exit
+                    TrafficLight dockLight = lightFacade.GetElementById(dock2OutLightName);
+                    dockLight.TurnGreen();
+                }
+                //turn red crossroad for 3 min
+                int time=180000; //3 min
+                TrafficLight crossLight = lightFacade.GetElementById(crossRoadLightName);
+                crossLight.TurnRed();
+                TimerTask timerTask=new TimerTask(){
+                    @Override
+                    public void run() 
+                    {   
+                        TrafficLight crossLight = lightFacade.GetElementById(crossRoadLightName);
+                        crossLight.TurnGreen();
+                    }
+                };
+                new Timer().schedule(timerTask, time);
+                //delete card from queues
+                CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+                queueFacade.deleteCardFromQueues(card);
+                return true;
+            }
         }
         return false;
     }

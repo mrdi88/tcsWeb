@@ -9,9 +9,11 @@
           class="com.avectis.transportcontrol.control.trafficLight.TrafficLightAdapterTest">
     </bean>
     <bean id="inScalesInLight" 
-        class="com.avectis.transportcontrol.control.trafficLight.TrafficLight">
+        class="com.avectis.transportcontrol.control.trafficLight.ScalesRestrictedTrafficLight">
         <property name="name" value="inScalesInLight"> </property>
         <property name="trafficLightAdapter" ref="inScalesInLightAdapter"> </property>
+        <property name="scales" ref="scalesIn"> </property>
+        <property name="restrictionValue" value="100"> </property>
     </bean>
     <!-- inScalesOutLight -->
     <bean id="inScalesOutLightAdapter" 

@@ -1,12 +1,13 @@
 package com.avectis.transportcontrol.web.controller.card;
 
+import com.avectis.transportcontrol.control.barrier.Barrier;
 import com.avectis.transportcontrol.control.scanner.CardScannerListener;
+import com.avectis.transportcontrol.exception.ConnectionFailException;
 import com.avectis.transportcontrol.facade.BarrierFacade;
 import com.avectis.transportcontrol.facade.CarFacade;
 import com.avectis.transportcontrol.facade.CardFacade;
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.facade.ScannerFacade;
-import com.avectis.transportcontrol.facade.TrafficLightFacade;
 import com.avectis.transportcontrol.view.CarView;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
@@ -39,17 +40,6 @@ public class CardController extends AbstractController {
     private BarrierFacade barrierFacade;
     private String entranceBarrierName;
     private String exitBarrierName;
-    //light
-    private TrafficLightFacade lightFacade;
-    private String inScalesInLightName;
-
-    public void setLightFacade(TrafficLightFacade lightFacade) {
-        this.lightFacade = lightFacade;
-    }
-
-    public void setInScalesInLightName(String inScalesInLightName) {
-        this.inScalesInLightName = inScalesInLightName;
-    }
 
     public void setBarrierFacade(BarrierFacade barrierFacade) {
         this.barrierFacade = barrierFacade;
@@ -182,6 +172,8 @@ public class CardController extends AbstractController {
             queueFacade.deleteCardFromQueues(card);
             cardFacade.delete(card);
         }
+        //open exit badrrier
+        openExitBarrier();
     }
     private void addNewCard(HttpServletRequest arg0){
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
@@ -206,6 +198,8 @@ public class CardController extends AbstractController {
         card.setAccessLevel(1);
         card.setCreateDate(new Date());
         cardFacade.add(card);
+        //open entrance badrrier
+        openEnranceBarrier();
     }
     private boolean validNewCardData(HttpServletRequest arg0){
         if (arg0.getParameter("cardNumber")==null || arg0.getParameter("cardNumber").length()<1){
@@ -263,5 +257,23 @@ public class CardController extends AbstractController {
             }
         }
         return cardNumber;
+    }
+    private void openEnranceBarrier(){
+        Barrier barrier=barrierFacade.GetElementById(entranceBarrierName);
+        try {
+            barrier.Open();
+        } catch (ConnectionFailException ex) {
+            ex.printStackTrace();
+            //Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void openExitBarrier(){
+        Barrier barrier=barrierFacade.GetElementById(exitBarrierName);
+        try {
+            barrier.Open();
+        } catch (ConnectionFailException ex) {
+            ex.printStackTrace();
+            //Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

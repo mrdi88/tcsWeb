@@ -66,8 +66,6 @@
         <property name="cardScannerName" value="scannerEntrance" />
         <property name="entranceBarrierName" value="entranceBarrier" />
         <property name="exitBarrierName" value="exitBarrier" />
-        <property name="lightFacade" ref="lightFacade" />
-        <property name="inScalesInLightName" value="inScalesInLight" />
     </bean>
     <bean id="queueController" class="com.avectis.transportcontrol.web.controller.queue.QueueController">
         <property name="queueFacade" ref="queueFacade" /> 
@@ -77,5 +75,7 @@
         <property name="queueFacade" ref="queueFacade" />
         <property name="scannerFacade" ref="scannerFacade" />
         <property name="cardScannerName" value="scannerSample" />
+        <property name="lightFacade" ref="lightFacade" />
+        <property name="inScalesInLightName" value="inScalesInLight" />
     </bean>
 </beans>

@@ -18,7 +18,7 @@ public class TrafficLightFacade {
     }
 
     /*Поиск светофора по ID*/
-    private TrafficLight GetElementById( String id){
+    public TrafficLight GetElementById( String id){
         for (TrafficLight trafficLight: trafficLightCollection) {
             if(id.equals(trafficLight.name)){
                 return trafficLight;

@@ -76,6 +76,8 @@ public class WeighingModule {
                     int weight=weightInScales.getWeight();
                     card.getCar().getCargo().setWeightIn(weight);
                     cardFacade.update(card);
+                    //set green light
+                    lightFacade.GetElementById(inScalesOutLightName).TurnGreen();
                 } catch (ConnectionFailException ex) {
                     ex.printStackTrace();
                     //Logger.getLogger(WeighingModule.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,6 +94,8 @@ public class WeighingModule {
                     int weight=weightOutScales.getWeight();
                     card.getCar().getCargo().setWeightOut(weight);
                     cardFacade.update(card);
+                    //set green light
+                    lightFacade.GetElementById(outScalesOutLightName).TurnGreen();
                 } catch (ConnectionFailException ex) {
                     ex.printStackTrace();
                     //Logger.getLogger(WeighingModule.class.getName()).log(Level.SEVERE, null, ex);
