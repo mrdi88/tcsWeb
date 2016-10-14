@@ -259,12 +259,12 @@ public class DockController extends AbstractController {
                     //display on infotable
                     List<String> textArray=new ArrayList();
                     textArray.add(" ");
-                    InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                    InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
                     infoTable.SendData(textArray);
                     //set brightness level
                     infoTable.SetBrightness(1);
                     //open barier
-                    Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                    Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
                     barrier.Close();
                     return true;
                 }else
@@ -315,7 +315,7 @@ public class DockController extends AbstractController {
                     dockLight.TurnGreen();
                 }
                 //turn red crossroad for 3 min
-                int time=180000; //3 min
+                int time=1800; //3 min
                 TrafficLight crossLight = lightFacade.GetElementById(crossRoadLightName);
                 crossLight.TurnRed();
                 TimerTask timerTask=new TimerTask(){

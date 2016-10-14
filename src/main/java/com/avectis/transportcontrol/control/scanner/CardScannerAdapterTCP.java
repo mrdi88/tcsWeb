@@ -38,7 +38,7 @@ public class CardScannerAdapterTCP implements CardScannerAdapter{
             ex.printStackTrace();
         }
     }
-    private void init() throws ConnectionFailException{    
+    public void init() throws ConnectionFailException{    
         try{
             InetAddress ipAddress = InetAddress.getByName(this.ipAddr);
             this.socket = new Socket(ipAddress,this.port);

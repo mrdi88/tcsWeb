@@ -115,7 +115,7 @@ public class LaboratoryController extends AbstractController {
                 card.getCar().getCargo().setSample(sample);
                 cardFacade.update(card);
                 data.put("result", "true");
-                turnGreeLightWeight(); // show green light in weight module
+                turnGreenLightWeight(); // show green light in weight module
             }
         } else {
             data.put("result", "false");
@@ -253,7 +253,7 @@ public class LaboratoryController extends AbstractController {
         }
         return false;
     }
-    private void turnGreeLightWeight(){
+    private void turnGreenLightWeight(){
         TrafficLight light = lightFacade.GetElementById(inScalesInLightName);
         light.TurnGreen();
     }

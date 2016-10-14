@@ -46,7 +46,7 @@ public class ScalesRestrictedTrafficLight extends TrafficLight{
                 resetRestrinction();
             }
         };
-        thread1.run();
+        thread1.start();
         //Turn Green
         Thread thread2 = new Thread(){
             @Override
@@ -68,7 +68,7 @@ public class ScalesRestrictedTrafficLight extends TrafficLight{
                 }
             }
         };
-        thread2.run();
+        thread2.start();
     }
     private void nativeTrurnGreen(){
         super.TurnGreen();
