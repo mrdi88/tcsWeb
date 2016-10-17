@@ -12,17 +12,15 @@ import com.avectis.transportcontrol.view.CarView;
 import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
 import com.avectis.transportcontrol.view.DriverView;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
@@ -30,6 +28,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Dima
  */
 public class CardController extends AbstractController {
+    static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(CardController.class.getName());
 
     private CarFacade carFacade;
     private CardFacade cardFacade;
@@ -96,7 +95,7 @@ public class CardController extends AbstractController {
             }
         }
         //do action
-        String action = getAction(arg0.getRequestURI().toString());
+        String action = getAction(arg0.getRequestURI());
         switch(action){
             case "manage":
                 return doManageAction(arg0);
@@ -107,51 +106,73 @@ public class CardController extends AbstractController {
         return null;
     }
     private ModelAndView doAddCmd(HttpServletRequest arg0){
-        Map<String,String>  addData = new HashMap<>();
-        if (validNewCardData(arg0)){ //check parameters
-            addNewCard(arg0);
-            addData.put("result", "true");
-        } else {
-            addData.put("result", "false");
+        Map<String,String>  result = new HashMap<>();
+        try{
+            if (validNewCardData(arg0)){ //check parameters
+                addNewCard(arg0);
+                result.put("result", "true");
+            } else {
+                result.put("result", "false");
+            }
+        }catch(Exception ex){
+            result.put("result", "false");
+            logger.error("doAddCmd: "+ex.getMessage());
         }
-        return new ModelAndView("card/json/resultJSON", addData);
+        return new ModelAndView("card/json/resultJSON", result);
     }
     private ModelAndView doDeleteCmd(HttpServletRequest arg0){
-        Map<String,String>  deleteData = new HashMap<>();
-        if (arg0.getParameter("cardId")!=null){
-            deleteCard(Long.decode(arg0.getParameter("cardId")));
-            deleteData.put("result", "true");
-        }else {
-            deleteData.put("result", "false");
+        Map<String,String>  result = new HashMap<>();
+        try{
+            if (arg0.getParameter("cardId")!=null){
+                deleteCard(Long.decode(arg0.getParameter("cardId")));
+                result.put("result", "true");
+            }else {
+                result.put("result", "false");
+            }
+        }catch(Exception ex){
+            result.put("result", "false");
+            logger.error("doDeleteCmd: "+ex.getMessage());
         }
-        return new ModelAndView("card/json/resultJSON", deleteData);
+        return new ModelAndView("card/json/resultJSON", result);
     }
     private ModelAndView doGetNewCardNumberCmd(HttpServletRequest arg0){
-        CardNumberClass ncn = getCardNumber();
-        if (cardFacade.getCardByNumber(ncn.getCardNumber())!=null){
-            ncn.setCardNumber("0");
-        }
         Map<String,String>  data = new HashMap<>();
-        data.put("cardNumber", ncn.getCardNumber());
+        try{
+            CardNumberClass ncn = getCardNumber();
+            if (cardFacade.getCardByNumber(ncn.getCardNumber())!=null){
+                ncn.setCardNumber("0");
+            }
+            data.put("cardNumber", ncn.getCardNumber());
+        }catch(Exception ex){
+            logger.error("doGetNewCardNumberCmd: "+ex.getMessage());
+        }
         return new ModelAndView("card/json/newCardNumberJSON", data);
     }
-    private ModelAndView doGetExistCardDataCmd(HttpServletRequest arg0) throws JsonProcessingException{
-        Map<String,String>  edata = new HashMap<>();
-        CardNumberClass ecn = getCardNumber();
-        CardView card = cardFacade.getCardByNumber(ecn.getCardNumber());
-        ObjectMapper mapper = new ObjectMapper();
-        String cardJson = mapper.writeValueAsString(card);
-        edata.put("card", cardJson);
-        return new ModelAndView("card/json/existCardDataJSON", edata);
+    private ModelAndView doGetExistCardDataCmd(HttpServletRequest arg0){
+        Map<String,String>  data = new HashMap<>();
+        try{
+            CardNumberClass ecn = getCardNumber();
+            CardView card = cardFacade.getCardByNumber(ecn.getCardNumber());
+            ObjectMapper mapper = new ObjectMapper();
+            String cardJson = mapper.writeValueAsString(card);
+            data.put("card", cardJson);
+        }catch(Exception ex){
+            logger.error("doGetExistCardDataCmd: "+ex.getMessage());
+        }
+        return new ModelAndView("card/json/existCardDataJSON", data);
     }
     private ModelAndView doManageAction(HttpServletRequest arg0){
         Map<String,List<CardView>>  data = new HashMap<>();
         return new ModelAndView("card/manageCard", data);
     }
     private ModelAndView doListAction(HttpServletRequest arg0){
-        List<CardView> cardList = cardFacade.getList();
         Map<String,List<CardView>>  data = new HashMap<>();
-        data.put("cardList", cardList);
+        try{
+            List<CardView> cardList = cardFacade.getList();
+            data.put("cardList", cardList);
+        }catch(Exception ex){
+            logger.error("doListAction: "+ex.getMessage());
+        }
         return new ModelAndView("card/listCard", data);
     }
     private String getAction(String url){
@@ -162,7 +183,7 @@ public class CardController extends AbstractController {
         }
         return action;
     }
-    private void deleteCard(Long id){
+    private void deleteCard(Long id) throws ConnectionFailException{
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         CardView card;
         card=cardFacade.getCard(id);
@@ -175,7 +196,7 @@ public class CardController extends AbstractController {
         //open exit badrrier
         openExitBarrier();
     }
-    private void addNewCard(HttpServletRequest arg0){
+    private void addNewCard(HttpServletRequest arg0) throws ConnectionFailException{
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         CarView carv= new CarView();
         DriverView dv=new DriverView();
@@ -253,27 +274,17 @@ public class CardController extends AbstractController {
                 cardNumber.wait(60000);
                 scannerFacade.getElementById(cardScannerName).removeListener(cardListener);
             } catch (InterruptedException ex) {
-                Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("getCardNumber error msg: "+ex.getMessage());
             }
         }
         return cardNumber;
     }
-    private void openEnranceBarrier(){
+    private void openEnranceBarrier() throws ConnectionFailException{
         Barrier barrier=barrierFacade.GetElementById(entranceBarrierName);
-        try {
-            barrier.Open();
-        } catch (ConnectionFailException ex) {
-            ex.printStackTrace();
-            //Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        barrier.Open();
     }
-    private void openExitBarrier(){
+    private void openExitBarrier() throws ConnectionFailException{
         Barrier barrier=barrierFacade.GetElementById(exitBarrierName);
-        try {
-            barrier.Open();
-        } catch (ConnectionFailException ex) {
-            ex.printStackTrace();
-            //Logger.getLogger(CardController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        barrier.Open();
     }
 }

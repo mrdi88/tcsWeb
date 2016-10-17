@@ -25,6 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
@@ -32,6 +33,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Dima
  */
 public class DockController extends AbstractController {
+    static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(DockController.class.getName());
     
     private QueueFacade queueFacade;
     private CardFacade cardFacade;
@@ -130,7 +132,7 @@ public class DockController extends AbstractController {
             }
         }
         //do action 
-        String action = getAction(arg0.getRequestURI().toString());
+        String action = getAction(arg0.getRequestURI());
         switch(action){
             case "manage":
                 return doManageAction(arg0);
@@ -139,55 +141,74 @@ public class DockController extends AbstractController {
         return null;
     }
     private ModelAndView doGetDocksDataCmd(HttpServletRequest arg0) throws JsonProcessingException{
-        Map<String,String>  data;
-        data = new HashMap<>();
+        Map<String,String>  data = new HashMap<>();
         List<QueueView> ql = new ArrayList<>();
-        //get docks queue
-        ql.add(getDockQueue(firstQueueName));
-        ql.add(getDockQueue(secondQueueName));
-        //put to JSON
-        ObjectMapper mapper = new ObjectMapper();
-        String queueJson = mapper.writeValueAsString(ql);
-        data.put("queues", queueJson);
+        try{
+            //get docks queue
+            ql.add(getDockQueue(firstQueueName));
+            ql.add(getDockQueue(secondQueueName));
+            //put to JSON
+            ObjectMapper mapper = new ObjectMapper();
+            String queueJson = mapper.writeValueAsString(ql);
+            data.put("queues", queueJson);
+        }catch(Exception ex){
+            logger.error("doGetDocksDataCmd: "+ex.getMessage());
+        }
         return new ModelAndView("dock/json/docksQueueDataJSON", data);
     }
     private ModelAndView doCallCarCmd(HttpServletRequest arg0){
-        Map<String,String>  data;
-        data = new HashMap<>();
-        if (callCar(arg0)){
-            data.put("result", "true");
-        }else{
+        Map<String,String>  data = new HashMap<>();
+        try{
+            if (callCar(arg0)){
+                data.put("result", "true");
+            }else{
+                data.put("result", "false");
+            }
+        }catch(Exception ex){
             data.put("result", "false");
+            logger.error("doCallCarCmd: "+ex.getMessage());
         }
         return new ModelAndView("queue/json/resultJSON", data);
     }
     private ModelAndView doResetCallCmd(HttpServletRequest arg0){
-        Map<String,String>  data;
-        data = new HashMap<>();
-        if (resetCall(arg0)){
-            data.put("result", "true");
-        }else{
+        Map<String,String>  data = new HashMap<>();
+        try{
+            if (resetCall(arg0)){
+                data.put("result", "true");
+            }else{
+                data.put("result", "false");
+            }
+        }catch(Exception ex){
             data.put("result", "false");
+            logger.error("doResetCallCmd: "+ex.getMessage());
         }
         return new ModelAndView("queue/json/resultJSON", data);    
     }
     private ModelAndView doAcceptCarCmd(HttpServletRequest arg0){
-        Map<String,String>  data;
-        data = new HashMap<>();
-        if (acceptCar(arg0)){
-            data.put("result", "true");
-        }else{
+        Map<String,String>  data = new HashMap<>();
+        try{
+            if (acceptCar(arg0)){
+                data.put("result", "true");
+            }else{
+                data.put("result", "false");
+            }
+        }catch(Exception ex){
             data.put("result", "false");
+            logger.error("doAcceptCarCmd: "+ex.getMessage());
         }
         return new ModelAndView("queue/json/resultJSON", data);
     }
     private ModelAndView doReleaseCarCmd(HttpServletRequest arg0){
-        Map<String,String>  data;
-        data = new HashMap<>();
-        if (releaseCar(arg0)){
-            data.put("result", "true");
-        }else{
+        Map<String,String>  data = new HashMap<>();
+        try{
+            if (releaseCar(arg0)){
+                data.put("result", "true");
+            }else{
+                data.put("result", "false");
+            }
+        }catch(Exception ex){
             data.put("result", "false");
+            logger.error("doReleaseCarCmd: "+ex.getMessage());
         }
         return new ModelAndView("queue/json/resultJSON", data);
     }
@@ -206,87 +227,75 @@ public class DockController extends AbstractController {
         QueueView qv = queueFacade.getQueueByName(name);
         return qv;
     }
-    private boolean callCar(HttpServletRequest arg0){
-        try {
-            if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty() &&
-                arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
-                if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
-                    CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
-                    //display on infotable
-                    List<String> textArray=new ArrayList();
-                    textArray.add(card.getCar().getCarNumber());
-                    InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
-                    infoTable.SendData(textArray);
-                    //set brightness level
-                    infoTable.SetBrightness(1);
-                    //open barier
-                    Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
-                    barrier.Open();
-                    //turn red light on exit
-                    TrafficLight dockLight = lightFacade.GetElementById(dock1OutLightName);
-                    dockLight.TurnRed();
-                    return true;
-                }else
-                if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
-                    CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
-                    //display on infotable
-                    List<String> textArray=new ArrayList();
-                    textArray.add(card.getCar().getCarNumber());
-                    InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
-                    infoTable.SendData(textArray);
-                    //set brightness level
-                    infoTable.SetBrightness(1);
-                    //open barier
-                    Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
-                    barrier.Open();
-                    //turn red light on exit
-                    TrafficLight dockLight = lightFacade.GetElementById(dock2OutLightName);
-                    dockLight.TurnRed();
-                    return true;
-                }
+    private boolean callCar(HttpServletRequest arg0) throws ConnectionFailException{
+        if (arg0.getParameter("cardId")!=null && !arg0.getParameter("cardId").isEmpty() &&
+            arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
+            if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
+                CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+                //display on infotable
+                List<String> textArray=new ArrayList();
+                textArray.add(card.getCar().getCarNumber());
+                InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
+                barrier.Open();
+                //turn red light on exit
+                TrafficLight dockLight = lightFacade.GetElementById(dock1OutLightName);
+                dockLight.TurnRed();
+                return true;
+            }else
+            if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
+                CardView card=cardFacade.getCard(Long.parseLong(arg0.getParameter("cardId")));
+                //display on infotable
+                List<String> textArray=new ArrayList();
+                textArray.add(card.getCar().getCarNumber());
+                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                barrier.Open();
+                //turn red light on exit
+                TrafficLight dockLight = lightFacade.GetElementById(dock2OutLightName);
+                dockLight.TurnRed();
+                return true;
             }
-        }
-        catch(Exception e){
-            System.out.println(e);
-            return false;
-        }    
+        }  
         return false;
     }
-    private boolean resetCall(HttpServletRequest arg0){
-        try{
-            if (arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
-                if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
-                    //display on infotable
-                    List<String> textArray=new ArrayList();
-                    textArray.add(" ");
-                    InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
-                    infoTable.SendData(textArray);
-                    //set brightness level
-                    infoTable.SetBrightness(1);
-                    //open barier
-                    Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
-                    barrier.Close();
-                    return true;
-                }else
-                if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
-                    //display on infotable
-                    List<String> textArray=new ArrayList();
-                    textArray.add(" ");
-                    InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
-                    infoTable.SendData(textArray);
-                    //set brightness level
-                    infoTable.SetBrightness(1);
-                    //open barier
-                    Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
-                    barrier.Close();
-                    return true;
-                }
+    private boolean resetCall(HttpServletRequest arg0) throws ConnectionFailException{
+        if (arg0.getParameter("queueName")!=null && !arg0.getParameter("queueName").isEmpty()){
+            if (Objects.equals(arg0.getParameter("queueName"),firstQueueName)){
+                //display on infotable
+                List<String> textArray=new ArrayList();
+                textArray.add(" ");
+                InfoTable infoTable = infoTableFacade.GetElementById(firstQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(firstQueuebarrierName);
+                barrier.Close();
+                return true;
+            }else
+            if (Objects.equals(arg0.getParameter("queueName"),secondQueueName)){
+                //display on infotable
+                List<String> textArray=new ArrayList();
+                textArray.add(" ");
+                InfoTable infoTable = infoTableFacade.GetElementById(secondQueueinfoTableName);
+                infoTable.SendData(textArray);
+                //set brightness level
+                infoTable.SetBrightness(1);
+                //open barier
+                Barrier barrier=barrierFacade.GetElementById(secondQueuebarrierName);
+                barrier.Close();
+                return true;
             }
         }
-        catch(Exception e){
-            System.out.println(e);
-            return false;
-        } 
         return false;
     }
     private boolean acceptCar(HttpServletRequest arg0){
@@ -315,7 +324,7 @@ public class DockController extends AbstractController {
                     dockLight.TurnGreen();
                 }
                 //turn red crossroad for 3 min
-                int time=1800; //3 min
+                int time = 1800; //3 min
                 TrafficLight crossLight = lightFacade.GetElementById(crossRoadLightName);
                 crossLight.TurnRed();
                 TimerTask timerTask=new TimerTask(){

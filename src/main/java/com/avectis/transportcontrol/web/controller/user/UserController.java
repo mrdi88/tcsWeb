@@ -5,6 +5,7 @@ import com.avectis.transportcontrol.util.Password;
 import com.avectis.transportcontrol.util.Role;
 import com.avectis.transportcontrol.view.UserRoleView;
 import com.avectis.transportcontrol.view.UserView;
+import com.avectis.transportcontrol.web.controller.laboratory.LaboratoryController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Dima
  */
 public class UserController extends AbstractController {
+    static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(LaboratoryController.class.getName());
     
     private UserFacade userFacade;
 
@@ -64,82 +67,91 @@ public class UserController extends AbstractController {
         return null;
     }
     private ModelAndView doGetUsersListCmd(HttpServletRequest arg0) throws JsonProcessingException{
-        //set users list
-        List<UserView> usersList = userFacade.getUsers();
-        ObjectMapper mapper = new ObjectMapper();
-        String usersJson = mapper.writeValueAsString(usersList);
         ModelAndView model = new ModelAndView();
-        model.addObject("users", usersJson);
-        //set roles list
-        List<String> roleList = new ArrayList();
-        for (Role role:Role.values()){
-            roleList.add(role.toString());
+        try{
+            //set users list
+            List<UserView> usersList = userFacade.getUsers();
+            ObjectMapper mapper = new ObjectMapper();
+            String usersJson = mapper.writeValueAsString(usersList);
+            model.addObject("users", usersJson);
+            //set roles list
+            List<String> roleList = new ArrayList();
+            for (Role role:Role.values()){
+                roleList.add(role.toString());
+            }
+            String rolesJson = mapper.writeValueAsString(roleList);
+            model.addObject("roles", rolesJson);
+        }catch(Exception ex){
+            logger.error("doGetUsersListCmd: "+ex.getMessage());
         }
-        String rolesJson = mapper.writeValueAsString(roleList);
-        model.addObject("roles", rolesJson);
         model.setViewName("user/json/userListJSON");
         return model;
     }
     private ModelAndView doChangeRolesCmd(HttpServletRequest arg0) throws JsonProcessingException{
         ModelAndView model = new ModelAndView();
-        //set users list
-        String username= arg0.getParameter("username");
-        //prevent alter root user
-        if ("root".equals(username)){
-            model.addObject("result", "false");
-            model.setViewName("user/json/resultJSON");
-            return model;
-        }
-        String roles=arg0.getParameter("roles");
-        UserView user=userFacade.getUserByName(username);
-        if (user!=null){
-            Set<UserRoleView> userRoles=user.getUserRole();
+        try{
+            //set users list
+            String username= arg0.getParameter("username");
+            //prevent alter root user
+            if ("root".equals(username)){
+                model.addObject("result", "false");
+                model.setViewName("user/json/resultJSON");
+                return model;
+            }
+            String roles=arg0.getParameter("roles");
+            UserView user=userFacade.getUserByName(username);
+            if (user!=null){
+                Set<UserRoleView> userRoles=user.getUserRole();
 
-            String[] rolesList=null;
-            if (!roles.isEmpty()){
-                rolesList = roles.split(",");
-            }else{
-                rolesList = new String[0];
-            }
-            //add new roles
-            for (String role:rolesList){
-                boolean existFlag=false;
-                for (UserRoleView rolev:userRoles){
-                    if (rolev.getRole().equals(Role.valueOf(role))){
-                        existFlag=true;
-                    }
+                String[] rolesList=null;
+                if (!roles.isEmpty()){
+                    rolesList = roles.split(",");
+                }else{
+                    rolesList = new String[0];
                 }
-                if (!existFlag){
-                    //add new role if not exist
-                    UserRoleView roleView=new UserRoleView();
-                    roleView.setUser(user.getUsername());
-                    roleView.setRole(Role.valueOf(role));
-                    userRoles.add(roleView);
-                }
-            }
-            //delete not assigned roles
-            Set<UserRoleView> notAssignedRoles=new HashSet();
-            for (UserRoleView rolev:userRoles){
-                boolean existFlag=false;
+                //add new roles
                 for (String role:rolesList){
-                    if (rolev.getRole().equals(Role.valueOf(role))){
-                        existFlag=true;
+                    boolean existFlag=false;
+                    for (UserRoleView rolev:userRoles){
+                        if (rolev.getRole().equals(Role.valueOf(role))){
+                            existFlag=true;
+                        }
+                    }
+                    if (!existFlag){
+                        //add new role if not exist
+                        UserRoleView roleView=new UserRoleView();
+                        roleView.setUser(user.getUsername());
+                        roleView.setRole(Role.valueOf(role));
+                        userRoles.add(roleView);
                     }
                 }
-                if (!existFlag){
-                    //add new role if not exist
-                    notAssignedRoles.add(rolev);
+                //delete not assigned roles
+                Set<UserRoleView> notAssignedRoles=new HashSet();
+                for (UserRoleView rolev:userRoles){
+                    boolean existFlag=false;
+                    for (String role:rolesList){
+                        if (rolev.getRole().equals(Role.valueOf(role))){
+                            existFlag=true;
+                        }
+                    }
+                    if (!existFlag){
+                        //add new role if not exist
+                        notAssignedRoles.add(rolev);
+                    }
                 }
+                for (UserRoleView naRole:notAssignedRoles){
+                    userRoles.remove(naRole);
+                }
+
+                userFacade.update(user);
+                model.addObject("result", "true");
+            }else{
+                model.addObject("result", "false");
             }
-            for (UserRoleView naRole:notAssignedRoles){
-                userRoles.remove(naRole);
-            }
-            
-            userFacade.update(user);
-            model.addObject("result", "true");
-        }else{
+        }catch(Exception ex){
             model.addObject("result", "false");
-        }
+            logger.error("doChangeRolesCmd: "+ex.getMessage());
+        }    
         model.setViewName("user/json/resultJSON");
         return model;
     }
@@ -155,9 +167,9 @@ public class UserController extends AbstractController {
             user.setEnabled(true);
             userFacade.addUser(user);
             model.addObject("result", "true");
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception ex){
             model.addObject("result", "false");
+            logger.error("doNewUserCmd: "+ex.getMessage());
         }
         model.setViewName("user/json/resultJSON");
         return model;
@@ -175,9 +187,9 @@ public class UserController extends AbstractController {
             UserView user= userFacade.getUserByName(username);
             userFacade.deleteUser(user);
             model.addObject("result", "true");
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception ex){
             model.addObject("result", "false");
+            logger.error("doDeleteUserCmd: "+ex.getMessage());
         }
         model.setViewName("user/json/resultJSON");
         return model;
@@ -192,9 +204,9 @@ public class UserController extends AbstractController {
             user.setPassword(Password.hashPassword(newPassword));
             userFacade.update(user);
             model.addObject("result", "true");
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception ex){
             model.addObject("result", "false");
+            logger.error("doChangePasswordCmd: "+ex.getMessage());
         }
         model.setViewName("user/json/resultJSON");
         return model;

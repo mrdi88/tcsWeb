@@ -2,6 +2,7 @@ package com.avectis.transportcontrol.web.controller.queue;
 
 import com.avectis.transportcontrol.facade.QueueFacade;
 import com.avectis.transportcontrol.view.QueueView;
+import com.avectis.transportcontrol.web.controller.laboratory.LaboratoryController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 /**
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @author Dima
  */
 public class QueueController extends AbstractController {
+    static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(LaboratoryController.class.getName());
     
     private QueueFacade queueFacade;
 
@@ -47,12 +50,15 @@ public class QueueController extends AbstractController {
         return null;
     }
     private ModelAndView doGetQueueListCmd(HttpServletRequest arg0) throws JsonProcessingException{
-        Map<String,String>  data;
-        data = new HashMap<>();
-        List<QueueView> ql = queueFacade.getQueueList();
-        ObjectMapper mapper = new ObjectMapper();
-        String queueJson = mapper.writeValueAsString(ql);
-        data.put("queues", queueJson);
+        Map<String,String>  data = new HashMap<>();
+        try{
+            List<QueueView> ql = queueFacade.getQueueList();
+            ObjectMapper mapper = new ObjectMapper();
+            String queueJson = mapper.writeValueAsString(ql);
+            data.put("queues", queueJson);
+        }catch(Exception ex){
+            logger.error("doGetQueueListCmd: "+ex.getMessage());
+        }
         return new ModelAndView("queue/json/queueListJSON", data);
     }
     private ModelAndView doQueueListAction(HttpServletRequest arg0){

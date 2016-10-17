@@ -8,23 +8,25 @@ package test;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 /**
  *
  * @author Dima
  */
 public class socketTest {
+    static final Logger logger = LogManager.getLogger(socketTest.class.getName());
+    
     private String ipAddr="192.168.1.101";
     private int port = 1000;
     private Socket socket1;
@@ -54,6 +56,18 @@ public class socketTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
+    public void s1() throws UnknownHostException {
+        logger.debug("test debug msg");
+        logger.error("test error msg");
+        try{
+            long k=0;
+            long res=10/0;
+        }catch(Exception e){
+            logger.error("test exc error msg "+e.getMessage());
+        }
+        
+    }
+    //@Test
     public void socket() throws UnknownHostException {
 //        Thread serverThread= new Thread(){
 //            @Override
