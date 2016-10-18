@@ -1,37 +1,87 @@
 p {
     margin:0;
 }
-#newCard{
+#newCard {
+    width:230px;
+    background-color: #ececec;
+    padding: 20px;
+    height: 500px;
     float:left;
 }
-#newCard .submit{
-    float:right;
+#newCard .tittle{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+#newCard input{
+    width:100%;
+    margin-bottom: 16px;
+}
+#newCard .cardNumber{
+    width: 120px;
+    float: right;
+    text-align: center;
+}    
+#newCard .newCardNumber{
+    margin-bottom: 20px;
+}
+#newCard .newCardNumber p{
+    display:inline;
+}
+#addForm .submit{
+    width: 40%;
+    float: right;
+}
+#addForm .submit input{
+    width: 100%;
+    height: 30px;
 }
 #existCard{
-    float:left;
-    padding-left: 50px;
-    width: 400px;
-    max-width: 400px;
-}
-#existCard .driver{
-    float:left;
-}
-#existCard .cargo{
-    float:right;
-}
-#existCard .car{
-    float:right;
-}
-#existCard .sample{
-    float:left;
-}
-#existCard .submit{
+    width:630px;
+    background-color: #ececec;
+    padding: 20px;
     float: right;
-    
+    height: 500px;
+}
+#existCard .tittle{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+#existCard input{
+    float:right;
+    width: 165px;
+}
+span{
+    width: 100%;
+    display:inline-table;
+}
+#existCard .existCardNumber span{
+
+}
+#existCard .cardNumber{
+    float: right;
+    text-align: center;
+} 
+#existCard .block1{
+    width: 300px;
+    float: left;
+    margin-right: 30px;
+} 
+#existCard .block2{
+    width: 300px;
+    float: left;
+} 
+#existCard .block1 p, #existCard .block2 p{
+    font-weight: bold;
+    margin-bottom: 8px;
+} 
+#existCard span{
+    margin-bottom: 15px;
+}
+
+#existCard .submit{
+    margin-top: 27px;
+    float: right;
 }
 #existCard .submit input{
-    width: 100px;
-}
-div p:first-child{
-    font-weight: bold;
+    height: 30px;
 }

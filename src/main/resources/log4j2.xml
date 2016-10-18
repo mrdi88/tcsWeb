@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="trace">
-    <Properties>
-        <Property name="filename">c:\logs\tcs.log</Property>
-    </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L - %msg%n"/>
         </Console>
-        <File name="File" fileName="${filename}">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L - %msg%n"/>
-        </File>
         <RollingFile name="Roller" 
-                     fileName="${filename}" 
+                     fileName="c:\logs\tcs.log" 
                      filePattern="c:\logs\tcs-%i.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L - %msg%n"/>
             <Policies>
