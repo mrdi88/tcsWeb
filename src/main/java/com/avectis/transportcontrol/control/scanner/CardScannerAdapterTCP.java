@@ -8,7 +8,6 @@ import com.avectis.transportcontrol.exception.ConnectionFailException;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
@@ -23,9 +22,11 @@ public class CardScannerAdapterTCP implements CardScannerAdapter{
     private int port;
     
     private Socket socket; 
+    private Socket watchDogSocket; 
     private DataListener externalDataListener;
     private Thread socketThread;
     private boolean socketThreadRun = true;
+    private InetAddress ipAddress;
             
     public CardScannerAdapterTCP(){
     }
@@ -40,26 +41,34 @@ public class CardScannerAdapterTCP implements CardScannerAdapter{
     }
     public void init() throws ConnectionFailException{    
         try{
-            InetAddress ipAddress = InetAddress.getByName(this.ipAddr);
+            this.ipAddress = InetAddress.getByName(this.ipAddr);
             this.socket = new Socket(ipAddress,this.port);
-            this.socket.setSoTimeout(0);
+            this.socket.setSoTimeout(1000);
 
             socketThread = new Thread(){
                 @Override
                 public void run(){
-                    try{
-                        InputStream sin = socket.getInputStream();
-                        OutputStream sout = socket.getOutputStream();
-                        DataInputStream in = new DataInputStream(sin);
-
-                        while(socketThreadRun){
+                    while(socketThreadRun){
+                        try{
+                            InputStream sin = socket.getInputStream();
+                            DataInputStream in = new DataInputStream(sin);
                             String line = in.readLine();
-                            externalDataListener.onDataReceive(line);
+                            externalDataListener.onDataReceive(line);                                
                         }
-                    }
-                    catch(IOException ex)
-                    {
-                        ex.printStackTrace();
+                        catch(IOException ex){
+                            try{
+                                if (!ipAddress.isReachable(100)){
+                                    System.out.println("UNABLE TO CONNECT REMOTE SERVER");
+                                };
+                                watchDogSocket = new Socket(ipAddress,port);
+                                watchDogSocket.setSoTimeout(1000);
+                                System.out.println("RECONNECTING");
+                                watchDogSocket.close();
+                                socket=watchDogSocket;
+                            }
+                            catch(Exception e){
+                            }
+                        }
                     }
                 }
             };
