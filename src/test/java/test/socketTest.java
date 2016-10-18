@@ -57,6 +57,10 @@ public class socketTest {
     //
     @Test
     public void s1() throws UnknownHostException {
+        for(int i=100; i>0;i--){
+            logger.error("test debug msg");
+        }
+        logger.error("test error msg");
         logger.debug("test debug msg");
         logger.error("test error msg");
         try{

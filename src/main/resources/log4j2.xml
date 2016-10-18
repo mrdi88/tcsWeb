@@ -10,18 +10,18 @@
         <File name="File" fileName="${filename}">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L - %msg%n"/>
         </File>
-        <RollingFile name="roller" 
-                     fileName="c:\logs\roll.log" 
-                     filePattern="c:\logs\roll-%d{yyyy-MM-dd}.log">
+        <RollingFile name="Roller" 
+                     fileName="${filename}" 
+                     filePattern="c:\logs\tcs-%i.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L - %msg%n"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="1 MB" />
             </Policies>
         </RollingFile>
     </Appenders>
     <Loggers>
         <Root level="ERROR">
-            <AppenderRef ref="File"/>
+            <AppenderRef ref="Roller"/>
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
