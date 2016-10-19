@@ -5,8 +5,9 @@ p {
     width:230px;
     background-color: #ececec;
     padding: 20px;
-    height: 500px;
+    height: 580px;
     float:left;
+    margin-right: 20px;
 }
 #newCard .tittle{
     font-weight: bold;
@@ -39,8 +40,8 @@ p {
     width:630px;
     background-color: #ececec;
     padding: 20px;
-    float: right;
-    height: 500px;
+    float: left;
+    height: 580px;
 }
 #existCard .tittle{
     font-weight: bold;
