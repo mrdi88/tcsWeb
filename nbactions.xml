@@ -48,7 +48,8 @@
                 <goal>install</goal>
             </goals>
             <properties>
-                <test>suit.TcsSuitTest</test>
+                <skipTests>true</skipTests>
+                
             </properties>
         </action>
         <action>

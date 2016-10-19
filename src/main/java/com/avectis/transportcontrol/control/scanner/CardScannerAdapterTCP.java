@@ -12,12 +12,16 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
  * @author Ivan
  */
 public class CardScannerAdapterTCP implements CardScannerAdapter{
+    
+    static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(CardScannerAdapterTCP.class.getName());
+    
     private String ipAddr;
     private int port;
     
@@ -76,15 +80,15 @@ public class CardScannerAdapterTCP implements CardScannerAdapter{
         }
         catch(UnknownHostException ex)
         {
-            throw new ConnectionFailException("Unable to find remote host ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+            logger.error("init: "+ex.getMessage());
         }
         catch(SocketException ex)
         {
-            throw new ConnectionFailException("Unable to create remote host connection ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+            logger.error("init: "+ex.getMessage());
         }
         catch(IOException ex)
         {
-            throw new ConnectionFailException("Unable to connect remote host ("+this.ipAddr+":"+this.port+").\n" + ex.getMessage());
+            logger.error("init: "+ex.getMessage());
         }                        
     } 
           
