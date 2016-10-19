@@ -18,8 +18,9 @@
         <script src="${pageContext.request.contextPath}/resources/card/javascript/manageCard.js"></script>	
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/card/css/manageCard.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
     </head>
-    <body>
+    <body style="font-family: 'Cuprum', sans-serif;">
         <jsp:include page="../header.jsp"/>
         <div id="content">
             <div id="newCard">
