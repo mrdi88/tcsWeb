@@ -1,33 +1,56 @@
 p {
     margin:0;
 }
-#newCard{
-    float:left;
+#card{
+    width:630px;
+    background-color: #ececec;
+    padding: 20px;
+    float: left;
+    height: 325px;
 }
-#newCard .submit{
+#card .tittle{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+#card input{
     float:right;
+    width: 165px;
 }
-#existCard{
-    float:left;
-    padding-left: 50px;
-    width: 400px;
-    max-width: 400px;
+#card span{
+    width: 100%;
+    display:inline-table;
+    margin-bottom: 15px;
 }
-#existCard .driver{
-    float:left;
-}
-#existCard .cargo{
-    float:right;
-}
-#existCard .car{
-    float:right;
-}
-#existCard .sample{
-    float:left;
-}
-#existCard .submit{
+#card .block1{
+    width: 300px;
+    float: left;
+    margin-right: 30px;
+} 
+#card .block2{
+    width: 300px;
+    float: left;
+} 
+#card .block1 p, #card .block2 p{
+    font-weight: bold;
+    margin-bottom: 8px;
+} 
+#card .submit{
+    margin-top: 10px;
     float: right;
 }
-div p:first-child{
-    font-weight: bold;
+#card .submit input{
+    height: 30px;
 }
+#card .cardNumber{
+    float: right;
+    text-align: center;
+}   
+#card .existCardNumber p{
+    display:inline;
+}
+#card .assignField{
+    width:300px;
+    margin-top: 10px;
+    font-weight:bold;
+}
+

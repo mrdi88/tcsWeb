@@ -14,6 +14,8 @@
         <meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
         <title>Привязать карту</title>
+        <link href="${pageContext.request.contextPath}/resources/css/font/Roboto.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/general.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/laboratory/css/assignSample.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>
@@ -21,30 +23,39 @@
     </head>
     <body>
         <jsp:include page="../header.jsp"/>
-        <form id="assignForm" action="${pageContext.request.contextPath}/laboratory?cmd=assignSample" method="post" autocomplete="off">
-            <div class="cardNumber">
-                <p>Номер карты:</p><input class="cardNumber" type="text" name="" value="" readonly><br><br>
+        <div id="content">
+            <div id="card">
+                <p class="tittle">Привязка имени пробы</p>
+                <form id="assignForm" action="${pageContext.request.contextPath}/laboratory?cmd=assignSample" method="post" autocomplete="off">
+                    <div class="existCardNumber">
+                        <span>Номер карты:<input class="cardNumber" type="text" name="" value="" readonly></span>
+                    </div>
+                    <hr style="width: 100%">
+                    <div class="block1">
+                        <p>Водитель</p>
+                        <span>Имя<input class="firstName" type="text" name="firstName" value="" readonly></span>
+                        <span>Фамилия<input class="lastName" type="text" name="lastName" value="" readonly></span>
+                        <span>Организация<input class="organization" type="text" name="organization" value="" readonly></span>
+                        <span>Номер телефона<input class="mobileNumber" type="text" name="mobileNumber" value="" readonly></span>
+                    </div>    
+                    <div class="block2">
+                        <p>Машина</p>
+                        <span>Номер машины<input class="carNumber" type="text" name="carNumber" value="" readonly></span>
+                        <span>Номер ТТН<input class="ttnNumber" type="text" name="ttnNumber" value="" readonly></span>
+                        <span>Культура<input class="culture" type="text" name="nomenclature" value="" readonly></span>
+                        <span>Время въезда<input class="createDate" type="text" name="createDate" value="" readonly></span>
+                    </div>
+                     <hr style="width: 100%">
+                    <span class="assignField">Имя пробы<input class="sampleName" type="text" name="sampleName" value="">
+                        
+                    </span>
+                    <input class="cardId" type="hidden" name="cardId" value="" readonly>
+                    <div class="submit">
+                        <input type="submit" value="Привязать">
+                    </div>
+                </form>
             </div>
-            <div class="driver">
-                <p>Водитель</p>
-                <p>Имя</p><input class="firstName" type="text" name="firstName" value="" readonly><br>
-                <p>Фамилия</p><input class="lastName" type="text" name="lastName" value="" readonly><br>
-                <p>Организация</p><input class="organization" type="text" name="organization" value="" readonly><br>
-                <p>Номер телефона</p><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br><br>
-            </div>    
-            <div class="car">
-                <p>Машина</p>
-                <p>Номер машины</p><input class="carNumber" type="text" name="carNumber" value="" readonly><br>
-                <p>Номер ТТН</p><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly><br>
-                <p>Культура</p><input class="culture" type="text" name="nomenclature" value="" readonly><br>
-                <p>Время въезда</p><input class="createDate" type="text" name="createDate" value="" readonly><br><br>
-                <p>имя пробы</p><input class="sampleName" type="text" name="sampleName" value=""><br><br>
-                <input class="cardId" type="hidden" name="cardId" value="" readonly>
-            </div>
-            <div class="sabmit">
-                <input type="submit" value="Привязать">
-            </div>
-        </form>
+        </div>
     </body>
 </html>
 <script>

@@ -5,7 +5,7 @@ p {
     width:230px;
     background-color: #ececec;
     padding: 20px;
-    height: 580px;
+    height: 525px;
     float:left;
     margin-right: 20px;
 }
@@ -18,7 +18,7 @@ p {
     margin-bottom: 16px;
 }
 #newCard .cardNumber{
-    width: 120px;
+    width: 115px;
     float: right;
     text-align: center;
 }    
@@ -41,7 +41,7 @@ p {
     background-color: #ececec;
     padding: 20px;
     float: left;
-    height: 580px;
+    height: 525px;
 }
 #existCard .tittle{
     font-weight: bold;

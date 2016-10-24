@@ -15,12 +15,13 @@
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
         <title>Manage card</title>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/card/javascript/manageCard.js"></script>	
+        <script src="${pageContext.request.contextPath}/resources/card/javascript/manageCard.js"></script>
+        <link href="${pageContext.request.contextPath}/resources/css/font/Roboto.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/general.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/card/css/manageCard.css" rel="stylesheet" type="text/css"/>
-        <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
     </head>
-    <body style="font-family: 'Cuprum', sans-serif;">
+    <body>
         <jsp:include page="../header.jsp"/>
         <div id="content">
             <div id="newCard">
@@ -62,7 +63,7 @@
                         <hr>
                         <p>Проба</p>
                         <span>Имя пробы<input class="sampleName" type="text" name="sampleName" value="" readonly></span>
-                        <span>лажность, %<input class="humidity" type="text" name="humidity" value="" readonly></span>
+                        <span>Влажность, %<input class="humidity" type="text" name="humidity" value="" readonly></span>
                         <span>Номенклатура<input class="nomenclature" type="text" name="nomenclature" value="" readonly></span>
                         <span>Класс<input class="class" type="text" name="class" value="" readonly></span>
                         <span>Точка выгрузки<input class="destination" type="text" name="destination" value="" readonly></span>
@@ -77,8 +78,8 @@
                         <span>Время въезда<input class="createDate" type="text" name="createDate" value="" readonly></span>
                         <hr>
                         <p>Груз</p>
-                        <span>Вес при въезде, кг<input class="weightIn" type="text" name="weightIn" value="" readonly></span>
-                        <span>Вес при выезде, кг<input class="weightOut" type="text" name="weightOut" value="" readonly></span>
+                        <span>Вес въезд, кг<input class="weightIn" type="text" name="weightIn" value="" readonly></span>
+                        <span>Вес выезд, кг<input class="weightOut" type="text" name="weightOut" value="" readonly></span>
                         <span>Место разгрузки<input class="dischargingPlace" type="text" name="dischargingPlace" value="" readonly></span>
                         <span>Время разгрузки<input class="dischargeDate" type="text" name="dischargeDate" value="" readonly></span>
                         <span class="submit"><input type="submit" value="Удалить"></span>
