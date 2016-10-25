@@ -15,6 +15,8 @@
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>
         <script src="${pageContext.request.contextPath}/resources/dock/javascript/manage.js"></script>
+        <link href="${pageContext.request.contextPath}/resources/css/font/Roboto.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/general.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/dock/css/manage.css" rel="stylesheet" type="text/css"/>
         <title>Управление доком</title>

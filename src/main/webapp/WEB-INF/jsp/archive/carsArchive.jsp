@@ -14,6 +14,8 @@
         <meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
         <title>Archive cars</title>
+        <link href="${pageContext.request.contextPath}/resources/css/font/Roboto.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/general.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/resources/css/style_pickdate.css" media="screen" rel="stylesheet" type="text/css">
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/archive/css/cars.css" rel="stylesheet" type="text/css"/>

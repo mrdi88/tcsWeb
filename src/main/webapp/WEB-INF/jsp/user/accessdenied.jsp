@@ -12,6 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Войти</title>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>
+        <link href="${pageContext.request.contextPath}/resources/css/font/Roboto.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/general.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>

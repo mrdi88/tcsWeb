@@ -14,7 +14,8 @@
         <meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
         <title>Mange users</title>
-
+        <link href="${pageContext.request.contextPath}/resources/css/font/Roboto.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/resources/css/general.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/user/css/manage.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery-1.11.3.js"></script>
