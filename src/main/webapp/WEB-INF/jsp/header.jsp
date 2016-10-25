@@ -8,14 +8,23 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div id="header">
-    <div id="menu">
-        <ul>
+    <div >
+        <ul id="menu">
           <li><a href="${pageContext.request.contextPath}/card/manage">Управление картами</a></li>
-          <li><a href="${pageContext.request.contextPath}/laboratory/assign">Привязка пробы</a></li>
-          <li><a href="${pageContext.request.contextPath}/laboratory/manage">Лаборатория</a></li>
-          <li><a href="${pageContext.request.contextPath}/queue">Просмотр очередей</a></li>
+          <li> <a href="#" title="Лаборатория">Лаборатория</a>
+              <ul>
+                  <li><a href="${pageContext.request.contextPath}/laboratory/assign">Привязка пробы</a></li>
+                  <li><a href="${pageContext.request.contextPath}/laboratory/manage">Установка параметров</a></li>
+              </ul>
+          </li>
+          <li><a href="#" title="Просмотр">Просмотр</a>
+              <ul>
+                  <li><a href="${pageContext.request.contextPath}/queue">Очереди</a></li>
+                  <li><a href="${pageContext.request.contextPath}/archive">Архив</a></li>
+              </ul>
+          </li>
           <li><a href="${pageContext.request.contextPath}/dock/manage">Управление доками</a></li>
-          <li><a href="${pageContext.request.contextPath}/archive">Архив</a></li>
+          
           <li><a href="${pageContext.request.contextPath}/user/manage">Управление пользователями</a></li>
         </ul>
     </div>
