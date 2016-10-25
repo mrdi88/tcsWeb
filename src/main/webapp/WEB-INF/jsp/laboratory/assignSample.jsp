@@ -46,7 +46,7 @@
                         <span>Время въезда<input class="createDate" type="text" name="createDate" value="" readonly></span>
                     </div>
                      <hr style="width: 100%">
-                    <span class="assignField">Имя пробы<input class="sampleName" type="text" name="sampleName" value="">
+                    <span class="assignField">Имя пробы<input class="sampleName" maxlength="10" type="text" name="sampleName" value="">
                         
                     </span>
                     <input class="cardId" type="hidden" name="cardId" value="" readonly>

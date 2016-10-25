@@ -1,63 +1,111 @@
 #selectCard{
-        margin-bottom: 10px;
-        width: 600px;
-        max-width: 600px;
-        float:left;
+    margin-bottom: 10px;
+    width: 920px;
+    float:left;
+    height: 320px;
+    padding-right: 20px;
+    padding-left: 20px;
+    
 }
-#params{
-    margin-left: 20px;
-    width: 172px;
-    float: left;
+#cardsHeader{
+    padding-right: 20px;
 }
-#cards{
+#cardsContent{
     border-collapse: collapse;
     text-align: center;
+    display: block;
+    overflow-y: scroll;
+    height: 260px;
 }
-#cards td{
-        border: 1px solid #BCBCBC; 	
+#cardsContent td{
+    border: 1px solid #BCBCBC; 	
 }
-#cards .even td{
-        background: #F9F9F9 ;
+#cardsContent .even td{
+    background: #F9F9F9 ;
 }
-#cards .odd td{
-        background: #EFEFEF ;
+#cardsContent .odd td{
+    background: #EFEFEF ;
 }
-#cards .selected td{
-        background: #95f300 ;
+#cardsContent .selected td{
+    background: #95f300 ;
 }
 .cards_header{
-        font-weight:bold;
+    font-weight:bold;
+    font-family: sans-serif;
 }
 #cards .rowNumber {
-    width: 20px;
+    width: 30px;
 }
 #cards .sampleName {
-    width: 40px;
+    width: 130px;
 }
 #cards .carNumber {
-    width: 60px;
+    width: 120px;
 }
 #cards .destination {
-    width: 30px;
+    width: 70px;
 }
-#cards .ttnNumber {
-    width: 60px;
-}
-#cards .weediness {
-    width: 30px;
-}
-#cards .gluten {
-    width: 30px;
+#cards .siloNumber {
+    width: 70px;
 }
 #cards .humidity {
-    width: 30px;
+    width: 70px;
+}
+#cards .nomenclature {
+    width: 150px;
+}
+#cards .class {
+    width: 60px;
 }
 #cards .createDate {
     width: 150px;
 }
+#params{
+    width: 920px;
+    padding:20px;
+    float: left;
+    
+}
+#params .submit{
+    float: right;
+    height: 30px;
+    margin-top: 15px;
+}
+#params .data{
+    width: 40%;
+    float:left;
+}
+#params .data span{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 7px;
+}
+#params .data span input{
+    float:right;
+}
+#params .sample{
+    float: right;
+    width: 50%;
+}
+#params .sample input, #params .sample select  {
+    width: 100%;
+}
+#params .sample .block1{
+    width: 42%;
+    float: left;
+}
+#params .sample .block2{
+    width: 42%;
+    float: right;
+}
 p {
     margin:0;
 }
-div p:first-child{
+input, select{
+    width: 170px;
+}
+.title{
     font-weight: bold;
+    margin-bottom: 10px;
+    font-family: sans-serif;
 }

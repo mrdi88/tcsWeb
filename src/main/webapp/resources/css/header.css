@@ -22,7 +22,7 @@
 
 /* Change the link color to #111 (black) on hover */
 #menu li a:hover {
-    background-color: #222;
+    background-color: #bfbe86;
 }
 #menu {
     float: left;
@@ -37,17 +37,24 @@
 #user p{
     font-weight: normal;
     float: right;
-    margin: 8px 0px 8px 0px;
+    margin: 6px 0px 6px 0px;
 }
 #user .submit{
     float: right;
 }
 #header #user{
-    background: crimson;
+    background: #ff3e00;
     float:right;
-    width: 250px;
+    width: 220px;
     height:60px;
+    margin-right: 15px;
+    padding-right: 10px;
 }
 #header #user .userName{
-    width: 120px;
+    width: 100px;
+    text-align: center;
+}
+#header #user input{
+    width: 104px;
+    
 }

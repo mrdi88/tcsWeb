@@ -68,17 +68,18 @@ $(window).load( function(){
 function setCards(data) { 
     var cards=data.cards;
     cardList=cards;
-    var tableCards = document.getElementById("cards");
+    var tableCards = document.getElementById("cardsContent");
     //clean table
-    for(var i = tableCards.rows.length-1; i > 0; i--){
+    for(var i = tableCards.rows.length; i > 0; i--){
         tableCards.deleteRow(i);
     }
     var newrow;
     var createDate;
     var cell;
     //set data in table
-    for (var i = 0; i < cards.length; i++) { 
-        newrow = tableCards.insertRow(i+1);
+    var i = 0;
+    for (;i < cards.length; i++) { 
+        newrow = tableCards.insertRow(i);
         newrow.id=cards[i].id;
         if (i%2>0) newrow.classList.add("even");
         else newrow.classList.add("odd");

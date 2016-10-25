@@ -3,7 +3,7 @@ p {
 }
 #newCard {
     width:230px;
-    background-color: #ececec;
+    
     padding: 20px;
     height: 525px;
     float:left;
@@ -12,6 +12,7 @@ p {
 #newCard .tittle{
     font-weight: bold;
     margin-bottom: 20px;
+    font-family: sans-serif;
 }
 #newCard input{
     width:100%;
@@ -38,7 +39,7 @@ p {
 }
 #existCard{
     width:630px;
-    background-color: #ececec;
+    
     padding: 20px;
     float: left;
     height: 525px;
@@ -46,6 +47,7 @@ p {
 #existCard .tittle{
     font-weight: bold;
     margin-bottom: 20px;
+    font-family: sans-serif;
 }
 #existCard input{
     float:right;
@@ -74,6 +76,7 @@ span{
 #existCard .block1 p, #existCard .block2 p{
     font-weight: bold;
     margin-bottom: 8px;
+    font-family: sans-serif;
 } 
 #existCard span{
     margin-bottom: 15px;
