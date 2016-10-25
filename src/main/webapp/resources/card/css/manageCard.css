@@ -24,7 +24,6 @@ p {
     text-align: center;
 }    
 #newCard .newCardNumber{
-    margin-bottom: 20px;
 }
 #newCard .newCardNumber p{
     display:inline;

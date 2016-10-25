@@ -28,7 +28,7 @@
                 <p class="tittle">Новая карта</p>
                 <form id="addForm" action="${pageContext.request.contextPath}/card?cmd=add" method="post" autocomplete="off">
                     <div class="newCardNumber">
-                        <p>Номер карты:</p><input class="cardNumber" type="text" name="cardNumber" value="" readonly><br>
+                        <span>Номер карты:<input class="cardNumber" type="text" name="cardNumber" value="" readonly></span>
                     </div>
                     <hr style="width: 100%">
                     <div class="driver">

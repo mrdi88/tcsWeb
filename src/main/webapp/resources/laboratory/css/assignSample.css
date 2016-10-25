@@ -37,11 +37,11 @@ p {
     font-family: sans-serif;
 } 
 #card .submit{
-    margin-top: 10px;
     float: right;
 }
 #card .submit input{
     height: 30px;
+    width: 169px;
 }
 #card .cardNumber{
     float: right;
@@ -51,7 +51,6 @@ p {
     display:inline;
 }
 #card .assignField{
-    width:300px;
     margin-top: 10px;
     font-weight:bold;
     font-family: sans-serif;

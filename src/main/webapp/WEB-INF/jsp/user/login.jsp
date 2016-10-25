@@ -15,13 +15,21 @@
         <script src="${pageContext.request.contextPath}/resources/user/javascript/login.js"></script>
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/user/css/login.css" rel="stylesheet" type="text/css"/>	
+        <style>
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Roboto'), local('Roboto-Regular'), url(${pageContext.request.contextPath}/resources/font/roboto.woff2) format('woff2');                
+              }
+        </style>
     </head>
     <body>
         <jsp:include page="../header.jsp"/>
         <c:url value="/login" var="loginUrl"/>
         <form action="${loginUrl}" method="post">       
             <c:if test="${param.error != null}">        
-                <p>
+                <p style="font-family: Roboto;">
                     Неверное имя пользователя или пароль.
                 </p>
             </c:if>
@@ -41,7 +49,9 @@
             <input type="hidden"                        
                 name="${_csrf.parameterName}"
                 value="${_csrf.token}"/>
-            <button type="submit" class="btn">Log in</button>
+            <p>
+                <button type="submit" class="btn">Log in</button>
+            </p>
         </form>
     </body>
 </html>
