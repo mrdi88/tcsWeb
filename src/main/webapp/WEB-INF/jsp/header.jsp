@@ -30,6 +30,7 @@
     </div>
     <div id="user">
         <form action="${pageContext.request.contextPath}/logout?${_csrf.parameterName}=${_csrf.token}" method="POST">
+            
             <p>Пользователь:&nbsp;
                 <sec:authorize access="isAuthenticated()">
                     <sec:authentication property="principal.username" var="username" />
