@@ -1,27 +1,32 @@
 p {
     margin:0;
+    font-family: 'Roboto';
+}
+hr{
+    margin: 3px 0px;
 }
 #newCard {
-    width:230px;
-    
-    padding: 20px;
+    width:230px;    
+    padding: 20px 20px 0px 20px;
     height: 525px;
     float:left;
     margin-right: 20px;
 }
 #newCard .tittle{
     font-weight: bold;
-    margin-bottom: 20px;
-    font-family: sans-serif;
+    margin-bottom: 15px;
 }
 #newCard input{
-    width:100%;
-    margin-bottom: 16px;
+    width:226px;
+    margin-bottom: 13px;
+    height: 23px;
+    font-size: 15px;
 }
 #newCard .cardNumber{
     width: 115px;
     float: right;
     text-align: center;
+    margin-bottom: 3px;
 }    
 #newCard .newCardNumber{
 }
@@ -33,25 +38,31 @@ p {
     float: right;
 }
 #addForm .submit input{
-    width: 100%;
+    border: 1px solid #444444;
     height: 30px;
+    width: 170px;
+    background: white !important;
+    margin: 0px;
+    cursor: pointer;
+    float: right;
 }
 #existCard{
     width:630px;
-    
-    padding: 20px;
+    padding: 20px 20px 0px 20px;
     float: left;
     height: 525px;
 }
 #existCard .tittle{
     font-weight: bold;
-    margin-bottom: 20px;
-    font-family: sans-serif;
+    margin-bottom: 15px;
 }
 #existCard input{
     float:right;
     width: 165px;
+    height: 23px;
+    font-size: 15px;
 }
+
 span{
     width: 100%;
     display:inline-table;
@@ -74,17 +85,28 @@ span{
 } 
 #existCard .block1 p, #existCard .block2 p{
     font-weight: bold;
-    margin-bottom: 8px;
-    font-family: sans-serif;
+    margin-bottom: 5px;
+} 
+#existCard .block1 span p, #existCard .block2 span p{
+    font-weight: normal;
+    width: 130px;
+    float: left;
+    margin: 6px 0px 0px 0px;
 } 
 #existCard span{
-    margin-bottom: 15px;
+    margin-bottom: 6.8px;
 }
 
 #existCard .submit{
-    margin-top: 27px;
+    margin-top: 61px;
     float: right;
 }
 #existCard .submit input{
+    border: 1px solid #444444;
     height: 30px;
+    width: 170px;
+    background: white !important;
+    margin: 12px 0px 0px 0px;
+    cursor: pointer;
+    float: right;
 }

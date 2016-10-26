@@ -28,7 +28,7 @@
                 <p class="tittle">Новая карта</p>
                 <form id="addForm" action="${pageContext.request.contextPath}/card?cmd=add" method="post" autocomplete="off">
                     <div class="newCardNumber">
-                        <span>Номер карты:<input class="cardNumber" type="text" name="cardNumber" value="" readonly></span>
+                        <span><p style="float:left;">Номер карты:</p><input class="cardNumber" type="text" name="cardNumber" value="" readonly></span>
                     </div>
                     <hr style="width: 100%">
                     <div class="driver">
@@ -51,37 +51,37 @@
                 <p class="tittle">Существующая карта</p>
                 <form id="deleteForm" action="${pageContext.request.contextPath}/card?cmd=delete" method="post" autocomplete="off">
                     <div class="existCardNumber">
-                        <span>Номер карты:<input class="cardNumber" type="text" name="" value="" readonly></span>
+                        <span><p style="float:left;">Номер карты:</p><input class="cardNumber" type="text" name="" value="" readonly></span>
                     </div>
                     <hr>
                     <div class="block1">
                         <p>Водитель</p>
-                        <span>Имя<input class="firstName" type="text" name="firstName" value="" readonly></span>
-                        <span>Фамилия<input class="lastName" type="text" name="lastName" value="" readonly></span>
-                        <span>Организация<input class="organization" type="text" name="organization" value="" readonly></span>
-                        <span>Номер телефон<input class="mobileNumber" type="text" name="mobileNumber" value="" readonly></span>
+                        <span><p>Имя</p><input class="firstName" type="text" name="firstName" value="" readonly></span>
+                        <span><p>Фамилия</p><input class="lastName" type="text" name="lastName" value="" readonly></span>
+                        <span><p>Организация</p><input class="organization" type="text" name="organization" value="" readonly></span>
+                        <span><p>Номер телефон</p><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly></span>
                         <hr>
                         <p>Проба</p>
-                        <span>Имя пробы<input class="sampleName" type="text" name="sampleName" value="" readonly></span>
-                        <span>Влажность, %<input class="humidity" type="text" name="humidity" value="" readonly></span>
-                        <span>Номенклатура<input class="nomenclature" type="text" name="nomenclature" value="" readonly></span>
-                        <span>Класс<input class="class" type="text" name="class" value="" readonly></span>
-                        <span>Точка выгрузки<input class="destination" type="text" name="destination" value="" readonly></span>
-                        <span>Номер силоса<input class="siloNumber" type="text" name="siloNumber" value="" readonly></span>
+                        <span><p>Имя пробы</p><input class="sampleName" type="text" name="sampleName" value="" readonly></span>
+                        <span><p>Влажность, %</p><input class="humidity" type="text" name="humidity" value="" readonly></span>
+                        <span><p>Номенклатура</p><input class="nomenclature" type="text" name="nomenclature" value="" readonly></span>
+                        <span><p>Класс</p><input class="class" type="text" name="class" value="" readonly></span>
+                        <span><p>Точка выгрузки</p><input class="destination" type="text" name="destination" value="" readonly></span>
+                        <span><p>Номер силоса</p><input class="siloNumber" type="text" name="siloNumber" value="" readonly></span>
                         <input class="cardId" type="hidden" name="cardId" value="" readonly>
                     </div>
                     <div class="block2">
                         <p>Машина</p>
-                        <span>Номер машины<input class="carNumber" type="text" name="carNumber" value="" readonly></span>
-                        <span>Номер ТТН<input class="ttnNumber" type="text" name="ttnNumber" value="" readonly></span>
-                        <span>Культура<input class="culture" type="text" name="nomenclature" value="" readonly></span>
-                        <span>Время въезда<input class="createDate" type="text" name="createDate" value="" readonly></span>
+                        <span><p>Номер машины</p><input class="carNumber" type="text" name="carNumber" value="" readonly></span>
+                        <span><p>Номер ТТН</p><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly></span>
+                        <span><p>Культура</p><input class="culture" type="text" name="nomenclature" value="" readonly></span>
+                        <span><p>Время въезда</p><input class="createDate" type="text" name="createDate" value="" readonly></span>
                         <hr>
                         <p>Груз</p>
-                        <span>Вес въезд, кг<input class="weightIn" type="text" name="weightIn" value="" readonly></span>
-                        <span>Вес выезд, кг<input class="weightOut" type="text" name="weightOut" value="" readonly></span>
-                        <span>Место разгрузки<input class="dischargingPlace" type="text" name="dischargingPlace" value="" readonly></span>
-                        <span>Время разгрузки<input class="dischargeDate" type="text" name="dischargeDate" value="" readonly></span>
+                        <span><p>Вес въезд, кг</p><input class="weightIn" type="text" name="weightIn" value="" readonly></span>
+                        <span><p>Вес выезд, кг</p><input class="weightOut" type="text" name="weightOut" value="" readonly></span>
+                        <span><p>Место разгрузки</p><input class="dischargingPlace" type="text" name="dischargingPlace" value="" readonly></span>
+                        <span><p>Время разгрузки</p><input class="dischargeDate" type="text" name="dischargeDate" value="" readonly></span>
                         <span class="submit"><input type="submit" value="Удалить"></span>
                     </div>
                 </form>

@@ -28,25 +28,25 @@
                 <p class="tittle">Привязка имени пробы</p>
                 <form id="assignForm" action="${pageContext.request.contextPath}/laboratory?cmd=assignSample" method="post" autocomplete="off">
                     <div class="existCardNumber">
-                        <span>Номер карты:<input class="cardNumber" type="text" name="" value="" readonly></span>
+                        <span><p style="float:left;">Номер карты:</p><input class="cardNumber" type="text" name="" value="" readonly></span>
                     </div>
                     <hr style="width: 100%">
                     <div class="block1">
                         <p>Водитель</p>
-                        <span>Имя<input class="firstName" type="text" name="firstName" value="" readonly></span>
-                        <span>Фамилия<input class="lastName" type="text" name="lastName" value="" readonly></span>
-                        <span>Организация<input class="organization" type="text" name="organization" value="" readonly></span>
-                        <span>Номер телефона<input class="mobileNumber" type="text" name="mobileNumber" value="" readonly></span>
+                        <span><p>Имя</p><input class="firstName" type="text" name="firstName" value="" readonly></span>
+                        <span><p>Фамилия</p><input class="lastName" type="text" name="lastName" value="" readonly></span>
+                        <span><p>Организация</p><input class="organization" type="text" name="organization" value="" readonly></span>
+                        <span><p>Номер телефона</p><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly></span>
                     </div>    
                     <div class="block2">
                         <p>Машина</p>
-                        <span>Номер машины<input class="carNumber" type="text" name="carNumber" value="" readonly></span>
-                        <span>Номер ТТН<input class="ttnNumber" type="text" name="ttnNumber" value="" readonly></span>
-                        <span>Культура<input class="culture" type="text" name="nomenclature" value="" readonly></span>
-                        <span>Время въезда<input class="createDate" type="text" name="createDate" value="" readonly></span>
+                        <span><p>Номер машины</p><input class="carNumber" type="text" name="carNumber" value="" readonly></span>
+                        <span><p>Номер ТТН</p><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly></span>
+                        <span><p>Культура</p><input class="culture" type="text" name="nomenclature" value="" readonly></span>
+                        <span><p>Время въезда</p><input class="createDate" type="text" name="createDate" value="" readonly></span>
                     </div>
                      <hr style="width: 100%">
-                    <span class="assignField">Имя пробы<input class="sampleName" maxlength="10" type="text" name="sampleName" value="">
+                    <span class="assignField"><p style="float:left;">Имя пробы</p><input class="sampleName" maxlength="10" type="text" name="sampleName" value="">
                         
                     </span>
                     <input class="cardId" type="hidden" name="cardId" value="" readonly>
