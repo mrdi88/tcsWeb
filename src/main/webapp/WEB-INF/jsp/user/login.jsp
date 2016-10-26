@@ -29,31 +29,33 @@
     <body>
         <jsp:include page="../header.jsp"/>
         <c:url value="/login" var="loginUrl"/>
-        <form action="${loginUrl}" method="post">       
-            <c:if test="${param.error != null}">        
-                <p style="font-family: Roboto;">
-                    Неверное имя пользователя или пароль.
-                </p>
-            </c:if>
-            <c:if test="${param.logout != null}">       
-                <p>
-                    Вы вышли из системы.
-                </p>
-            </c:if>
-            <p>
-                <label for="username">Логин</label>
+        <form action="${loginUrl}" method="post"> 
+            <div id="textField">
+                <c:if test="${param.error != null}">        
+                    <p style="font-family: Roboto;">
+                        Неверное имя пользователя или пароль.
+                    </p>
+                </c:if>
+                <c:if test="${param.logout != null}">       
+                    <p>
+                        Вы вышли из системы.
+                    </p>
+                </c:if>
+                </div>
+            <div id="userField">
+                <img src="${pageContext.request.contextPath}/resources/user.png">
                 <input type="text" id="username" name="username"/>	
-            </p>
-            <p>
-                <label for="password">Пароль</label>
+            </div>
+            <div id="passwordField">
+                <img src="${pageContext.request.contextPath}/resources/password.png">
                 <input type="password" id="password" name="password"/>	
-            </p>
+            </div>
             <input type="hidden"                        
                 name="${_csrf.parameterName}"
                 value="${_csrf.token}"/>
-            <p>
-                <button type="submit" class="btn">Log in</button>
-            </p>
+            <div id="buttonField">
+                <button type="submit" class="btn">ВОЙТИ</button>
+            </div>
         </form>
     </body>
 </html>

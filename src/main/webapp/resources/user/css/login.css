@@ -2,3 +2,51 @@
 p {
     text-align: center;
 }
+#textField{  
+    width: 210px;
+    margin: 90px auto 0px 38%;
+    height: 40px;
+    font-size: 15px;
+    color: #f00;
+}
+#userField{  
+    width: 210px;
+    margin: 0px auto 15px 38%;
+    border: 1px solid #444444;
+    height: 40px;
+}
+#passwordField{
+    width: 210px;
+    margin: 0px auto 20px 38%;
+    border: 1px solid #444444;
+    height: 40px;
+}
+#buttonField{
+    width: 210px;
+    margin: 0px auto 20px 38%;
+    border: none;
+    height: 40px;
+}
+#userField input, #passwordField input{
+    border: none;
+    position: absolute;
+    height: 40px;
+    width: 165px;
+    background: white !important;
+    padding: 0px 0px 0px 5px;
+    margin: 0px;
+}
+#userField img, #passwordField img{
+    border: none;
+    height: 40px;
+    background-color: #444;
+}
+#buttonField button{
+    border: 1px solid #444444;
+    position: absolute;
+    height: 40px;
+    width: 210px;
+    background: white !important;
+    margin: 0px;
+    cursor: pointer;
+}
