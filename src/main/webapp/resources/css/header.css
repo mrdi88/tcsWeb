@@ -80,18 +80,20 @@
 #user .submit{
     float: right;
     height: 40px;
+    width: 40px;
     margin-top: 6px;
     outline: 0 !important;
 }
 
 #header #user{
     background: #ff3e00;
-    background:#444;
-    float:right;
+    background: #444;
     width: auto;
-    height:60px;
+    height: 60px;
     margin-right: 15px;
     padding-right: 10px;
+    position: absolute;
+    right: 0px;
 }
 #header #user .userName{
 width: 110px;
@@ -107,6 +109,7 @@ width: 110px;
 
 #header #user img{
     height: 40px;
+    width: 40px;
     float: right;
     margin-top: 6px;
 }
