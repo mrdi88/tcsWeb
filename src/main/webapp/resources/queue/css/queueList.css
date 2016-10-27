@@ -1,43 +1,72 @@
+#content{
+    width: 940px;
+    height:560px;
+    margin: 20px;
+    margin-right: 0;
+}
+.queueBlock{
+    border: 1px solid;
+    width: 445px;
+    height: 256px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.queueBlock p{
+    padding-left: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+.queueTable_header{
+    border-collapse: collapse;
+    text-align: center;
+    display: block;
+    width: 403px;
+    margin-left: 10px;
+}
+.queueTable_header th{
+    border: 1px solid #BCBCBC; 	
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
 .queueTable{
     border-collapse: collapse;
     text-align: center;
+    display: block;
+    overflow-y: scroll;
+    height: 160px;
+    width: 425px;
+    margin-left: 10px;
 }
 .queueTable td{
-        border: 1px solid #BCBCBC; 	
+    border: 1px solid #BCBCBC; 	
 }
-.queueTable .even td{
-        background: #F9F9F9 ;
+.queueTable tr:first-child td{
+    border-top: none; 	
 }
-.queueTable .odd td{
-        background: #EFEFEF ;
+.queueTable .even{
+    background: #F9F9F9 ;
 }
-.queueTable .header{
-        font-weight:bold;
+.queueTable .odd{
+    background: #EFEFEF ;
 }
-.queueTable .rowNumber {
-    width: 20px;
+.rowNumber {
+    width: 19px;
 }
-.queueTable .carNumber {
+.carNumber {
     width: 70px;
 }
-.queueTable .humidity {
+.humidity {
     width: 50px;
 }
-.queueTable .nomenclature {
-    width: 120px;
+.nomenclature {
+    width: 122px;
 }
-.queueTable .class {
-    width: 60px;
+.class {
+    width: 43px;
 }
-.queueTable .destination {
-    width: 90px;
+.destination {
+    width: 68px;
 }
-.queueBlock{
-    width: 410px;
-    height: 240px;
-    float: left;
-    margin-right: 20px;
-}
-#queues{
-    width: 860px;
-}
+

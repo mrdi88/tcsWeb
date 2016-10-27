@@ -17,14 +17,6 @@
         <link href="${pageContext.request.contextPath}/resources/css/general.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/resources/css/header.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/resources/user/css/login.css" rel="stylesheet" type="text/css"/>	
-        <style>
-            @font-face {
-                font-family: 'Roboto';
-                font-style: normal;
-                font-weight: 400;
-                src: local('Roboto'), local('Roboto-Regular'), url(${pageContext.request.contextPath}/resources/font/roboto.woff2) format('woff2');                
-              }
-        </style>
     </head>
     <body>
         <jsp:include page="../header.jsp"/>

@@ -1,7 +1,7 @@
 #menu{
     font-family: sans-serif;
     float:left;
-    width:70%;
+    width:680px;
     list-style:none;
     font-weight:bold;
     margin:0;
@@ -80,7 +80,7 @@
 #header{
     display: table;
     width: 100%;
-    min-width: 980px;
+    min-width: 960px;
     height: 60px;
     background-color: #000;
 }

@@ -23,49 +23,57 @@
     </head>
     <body>
         <jsp:include page="../header.jsp"/>
-        <div id="queues">
+        <div id="content">
             <div class="queueBlock">
-                <p>buffer</p>
+                <p>Ожидание</p>
+                <table class="queueTable_header" width="100%" cellpadding="2" >
+                    <th class="rowNumber">№</th>
+                    <th class="carNumber">Номер авто</th>
+                    <th class="humidity">Влаж-ть,%</th>
+                    <th class="nomenclature">Номенклатура</th>
+                    <th class="class">Класс</th>
+                    <th class="destination">Точка выгрузки</th>
+                </table>
                 <table id="buffer" class="queueTable" width="100%" cellpadding="2" >
-                    <th class="header">№</th>
-                    <th class="header">Номер авто</th>
-                    <th class="header">Влаж-ть,%</th>
-                    <th class="header">Номенклатура</th>
-                    <th class="header">Класс</th>
-                    <th class="header">Точка выгрузки</th>
                 </table>
             </div>
             <div class="queueBlock">
-                <p>infoTable</p>
+                <p>Информационный экран</p>
+                <table class="queueTable_header" width="100%" cellpadding="2" >
+                    <th class="rowNumber">№</th>
+                    <th class="carNumber">Номер авто</th>
+                    <th class="humidity">Влаж-ть,%</th>
+                    <th class="nomenclature">Номенклатура</th>
+                    <th class="class">Класс</th>
+                    <th class="destination">Точка выгрузки</th>
+                </table>
                 <table id="infoTable" class="queueTable" width="100%" cellpadding="2" >
-                    <th class="header">№</th>
-                    <th class="header">Номер авто</th>
-                    <th class="header">Влаж-ть,%</th>
-                    <th class="header">Номенклатура</th>
-                    <th class="header">Класс</th>
-                    <th class="header">Точка выгрузки</th>
                 </table>
             </div>
             <div class="queueBlock">
-                <p>R01</p>
+                <p>Точка выгрузки №1</p>
+                <table class="queueTable_header" width="100%" cellpadding="2" >
+                    <th class="rowNumber">№</th>
+                    <th class="carNumber">Номер авто</th>
+                    <th class="humidity">Влаж-ть,%</th>
+                    <th class="nomenclature">Номенклатура</th>
+                    <th class="class">Класс</th>
+                    <th class="destination">Точка выгрузки</th>
+                </table>
                 <table id="R01" class="queueTable" width="100%" cellpadding="2" >
-                    <th class="header">№</th>
-                    <th class="header">Номер авто</th>
-                    <th class="header">Влаж-ть,%</th>
-                    <th class="header">Номенклатура</th>
-                    <th class="header">Класс</th>
-                    <th class="header">Точка выгрузки</th>
                 </table>
             </div>
             <div class="queueBlock">
-                <p>R02</p>
+                <p>Точка выгрузки №2</p>
+                <table class="queueTable_header" width="100%" cellpadding="2" >
+                    <th class="rowNumber">№</th>
+                    <th class="carNumber">Номер авто</th>
+                    <th class="humidity">Влаж-ть,%</th>
+                    <th class="nomenclature">Номенклатура</th>
+                    <th class="class">Класс</th>
+                    <th class="destination">Точка выгрузки</th>
+                </table>
                 <table id="R02" class="queueTable" width="100%" cellpadding="2" >
-                    <th class="header">№</th>
-                    <th class="header">Номер авто</th>
-                    <th class="header">Влаж-ть,%</th>
-                    <th class="header">Номенклатура</th>
-                    <th class="header">Класс</th>
-                    <th class="header">Точка выгрузки</th>
                 </table>
             </div>
         </div>

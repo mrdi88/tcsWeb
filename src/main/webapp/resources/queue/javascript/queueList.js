@@ -29,14 +29,14 @@ function setData(data) {
 function setQueueTableData(table, queue) { 
     //clean table
     for(var i = table.rows.length-1; i > 0; i--){
-            table.deleteRow(i);
+            table.deleteRow(i-1);
     }
     var newrow;
     var cell;
     var cards=queue.cards;
     //set data in table
     for (var i = 0; i < cards.length; i++) { 
-        newrow = table.insertRow(i+1);
+        newrow = table.insertRow(i);
         newrow.id=cards[i].id;
         if (i%2>0) newrow.classList.add("even");
         else newrow.classList.add("odd");

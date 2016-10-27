@@ -71,7 +71,7 @@ function setCards(data) {
     var tableCards = document.getElementById("cardsContent");
     //clean table
     for(var i = tableCards.rows.length; i > 0; i--){
-        tableCards.deleteRow(i);
+        tableCards.deleteRow(i-1);
     }
     var newrow;
     var createDate;

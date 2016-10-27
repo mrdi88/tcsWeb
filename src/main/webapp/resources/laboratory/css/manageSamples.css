@@ -28,18 +28,24 @@
 }
 #cardsContent td{
     border: 1px solid #BCBCBC; 	
+    cursor: pointer;
+}
+#cardsContent tr:hover{
+    background: linear-gradient(#f70,#f30);
+    color:white;
 }
 #cardsContent tr:first-child td{
     border-top: none; 	
 }
-#cardsContent .even td{
+#cardsContent .even{
     background: #F9F9F9 ;
 }
-#cardsContent .odd td{
+#cardsContent .odd{
     background: #EFEFEF ;
 }
 #cardsContent .selected td{
-    background: #95f300 ;
+    background: #444;/*#95f300 ;*/
+    color: white;
 }
 .cards_header{
     font-weight:bold;
