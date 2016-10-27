@@ -13,6 +13,7 @@ import com.avectis.transportcontrol.view.CardView;
 import com.avectis.transportcontrol.view.CargoView;
 import com.avectis.transportcontrol.view.DriverView;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -88,6 +89,8 @@ public class CardController extends AbstractController {
                     return doGetNewCardNumberCmd(arg0);
                 case "getExistCardData": //by scanner
                     return doGetExistCardDataCmd(arg0);
+                case "getCurrentCards": 
+                    return doGetCurrentCardsCmd(arg0);
                 default:
                     Map<String,String>  defData = new HashMap<>();
                     defData.put("result", "cmd not found");
@@ -161,19 +164,35 @@ public class CardController extends AbstractController {
         }
         return new ModelAndView("card/json/existCardDataJSON", data);
     }
+    private ModelAndView doGetCurrentCardsCmd(HttpServletRequest arg0){
+        Map<String,String>  data = new HashMap<>();
+        String carsJson =null;
+        try{
+            ObjectMapper mapper;
+            List<CardView> cards= cardFacade.getList();
+            List<CarView> cars= new ArrayList<CarView>();
+            long nowMS=new Date().getTime();
+            for (CardView card:cards){
+                //chose all cards not oldder than 3 days
+                if (card.getCreateDate().getTime()>(nowMS-3*24*60*60*1000)){ 
+                    cars.add(card.getCar());
+                }
+            }
+            mapper = new ObjectMapper();
+            carsJson = mapper.writeValueAsString(cars);
+        }catch(Exception ex){
+            logger.error("doGetCurrentCardsCmd: "+ex.getMessage());
+        }
+        data.put("cars", carsJson);
+        return new ModelAndView("card/json/carsJSON", data);
+    }
+    
     private ModelAndView doManageAction(HttpServletRequest arg0){
         Map<String,List<CardView>>  data = new HashMap<>();
         return new ModelAndView("card/manageCard", data);
     }
     private ModelAndView doListAction(HttpServletRequest arg0){
-        Map<String,List<CardView>>  data = new HashMap<>();
-        try{
-            List<CardView> cardList = cardFacade.getList();
-            data.put("cardList", cardList);
-        }catch(Exception ex){
-            logger.error("doListAction: "+ex.getMessage());
-        }
-        return new ModelAndView("card/listCard", data);
+        return new ModelAndView("card/listCard", null);
     }
     private String getAction(String url){
         String action="";

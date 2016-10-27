@@ -53,7 +53,6 @@ public class ArchiveController extends AbstractController {
     private ModelAndView doGetCarsCmd(HttpServletRequest arg0) throws JsonProcessingException{
         Map<String,String>  data = new HashMap<>();
         try{
-            logger.error("info from doGetCarsCmd");
             ObjectMapper mapper;
             List<CarView> cars= getCarsByPeriod(arg0);
             mapper = new ObjectMapper();

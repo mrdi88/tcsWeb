@@ -43,7 +43,7 @@
 #cardsContent .odd{
     background: #EFEFEF ;
 }
-#cardsContent .selected td{
+#cardsContent .selected{
     background: #444;/*#95f300 ;*/
     color: white;
 }

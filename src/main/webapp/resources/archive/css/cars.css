@@ -16,7 +16,7 @@ html{
     text-align: center;
 }
 #selectCar{
-    margin-top: -11px;
+    margin-top: -10px;
     min-width: 900px;
     max-width: 900px;
     min-height: 175px;
@@ -33,10 +33,18 @@ html{
     text-align: center;
     display: block;
     overflow-y: scroll;
-    min-height: 175px;
+    height: 176px;
 }
 #cars td{
     border: 1px solid #BCBCBC; 	
+    cursor: pointer;
+}
+#cars tr:first-child td{
+    border-top: none;
+}
+#cars tr:hover{
+    background: linear-gradient(#f70,#f30);
+    color:white;
 }
 #cars .even {
     background: #F9F9F9 ;
@@ -45,7 +53,8 @@ html{
     background: #EFEFEF ;
 }
 #cars .selected {
-    background: #95f300 ;
+    background: #444;/*#95f300 ;*/
+    color: white;
 }
 .cars_header{
     font-weight:bold;
@@ -127,14 +136,14 @@ p {
     text-align: center;
     font-size: 15px;
     font-family: Roboto;
-    border: 1px solid #444444;
+    border: 1px solid #BCBCBC;
 }
 #stop_time_display{
     height: 26px;
     text-align: center;
     font-size: 15px;
     font-family: Roboto;
-    border: 1px solid #444444;
+    border: 1px solid #BCBCBC;
 }
 #btn_period{
     border: 1px solid #444444;
@@ -156,8 +165,8 @@ p {
     margin-bottom: 6px;
 }
 #content_selectCar{
-    border: #444 solid 1px;
-    height: 230px;
+    border: 1px solid #BCBCBC;
+    height: 231px;
     margin-top: 10px;
 }
 #period{
