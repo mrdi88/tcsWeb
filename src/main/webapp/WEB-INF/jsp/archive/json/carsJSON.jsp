@@ -7,4 +7,4 @@
 <%@ page contentType="application/json; charset=UTF-8" %>
 <%@taglib uri="/WEB-INF/tld/c.tld" prefix="c" %>
 
-{"cars":${cars}}
+{"cars":${cars}} 

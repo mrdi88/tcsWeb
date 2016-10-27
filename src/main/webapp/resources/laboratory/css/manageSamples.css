@@ -1,3 +1,6 @@
+#content{
+    max-width: 980px;
+}
 #selectCard{
     margin-bottom: 10px;
     width: 920px;
@@ -88,11 +91,11 @@
     font-size: 15px;
 }
 #params input{
-    width: 190px;
+    width: 198px;
     height: 23px;
 }
 #params select{
-    width: 194px;
+    width: 202px;
     height: 29px;
 }
 #params .submit input{
@@ -100,7 +103,7 @@
     margin-top: 15px;
     border: 1px solid #444444;
     height: 30px !important;
-    width: 194px !important;
+    width: 202px !important;
     background: white !important;
     cursor: pointer;
     float: left;

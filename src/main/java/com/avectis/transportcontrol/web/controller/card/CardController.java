@@ -166,25 +166,25 @@ public class CardController extends AbstractController {
     }
     private ModelAndView doGetCurrentCardsCmd(HttpServletRequest arg0){
         Map<String,String>  data = new HashMap<>();
-        String carsJson =null;
+        String cardsJson =null;
         try{
             ObjectMapper mapper;
             List<CardView> cards= cardFacade.getList();
-            List<CarView> cars= new ArrayList<CarView>();
+            List<CardView> buf= new ArrayList<CardView>();
             long nowMS=new Date().getTime();
             for (CardView card:cards){
                 //chose all cards not oldder than 3 days
                 if (card.getCreateDate().getTime()>(nowMS-3*24*60*60*1000)){ 
-                    cars.add(card.getCar());
+                    buf.add(card);
                 }
             }
             mapper = new ObjectMapper();
-            carsJson = mapper.writeValueAsString(cars);
+            cardsJson = mapper.writeValueAsString(buf);
         }catch(Exception ex){
-            logger.error("doGetCurrentCardsCmd: "+ex.getMessage());
+            logger.error("doGetCurrentCarsCmd: "+ex.getMessage());
         }
-        data.put("cars", carsJson);
-        return new ModelAndView("card/json/carsJSON", data);
+        data.put("cards", cardsJson);
+        return new ModelAndView("card/json/cardsJSON", data);
     }
     
     private ModelAndView doManageAction(HttpServletRequest arg0){

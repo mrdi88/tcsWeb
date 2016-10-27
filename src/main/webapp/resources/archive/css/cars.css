@@ -169,4 +169,18 @@ p {
 .wpd{
    font-family: sans-serif; 
    margin-left: -9px;
+   border: 1px solid #BCBCBC;
+}
+.wpd .header .title, .wpd .previous, .wpd .next, .wpd .hour, .wpd .minutes, .wpd .seconds, .wpd .next{
+   border: 1px solid #BCBCBC !important;
+   border-radius: 0 !important;
+}
+.wpd .ok{
+    border: 1px solid #444444 !important;
+    border-radius: 0 !important;
+    box-shadow:none !important;
+}
+.wpd .ok:hover{
+    color:white !important;
+    background: #444 !important;
 }

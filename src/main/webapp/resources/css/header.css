@@ -12,10 +12,10 @@
     display:block;
 }
 #menu li a{
-    padding:5px;
+    padding:5px 15px;
     text-align: center;
     padding-top: 15px;
-    width: 120px;
+    width: 100px;
     height: 40px;
     display:block;
     color:#fff;
