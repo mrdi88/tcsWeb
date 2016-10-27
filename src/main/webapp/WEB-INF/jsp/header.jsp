@@ -20,7 +20,8 @@
           </li>
           <li><a href="#">Просмотр</a>
               <ul>
-                  <li><a href="${pageContext.request.contextPath}/queue">Очереди</a></li>
+                  <li><a href="${pageContext.request.contextPath}/card/list">Авто на территории</a></li>
+                  <li><a href="${pageContext.request.contextPath}/queue">Очереди</a></li>                  
                   <li><a href="${pageContext.request.contextPath}/archive">Архив</a></li>
               </ul>
           </li>

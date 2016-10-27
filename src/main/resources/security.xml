@@ -17,7 +17,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <http use-expressions="false">
         <!-- intercept -->
         <intercept-url pattern="/user/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        
         <intercept-url pattern="/user/accessdenied" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        
         <intercept-url pattern="/user/**" access="ROLE_ADMIN" />
         
         <intercept-url pattern="/queue/**" access="ROLE_USER,ROLE_OPERATOR,ROLE_ADMIN" />
@@ -26,7 +28,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
         
         <intercept-url pattern="/dock/**" access="ROLE_DOCKOPERATOR,ROLE_ADMIN" />
         
-        <intercept-url pattern="/card/list" access="ROLE_USER,ROLE_OPERATOR" />
+        <intercept-url pattern="/card/list" access="ROLE_USER,ROLE_OPERATOR,ROLE_ADMIN" />
+        
         <intercept-url pattern="/card/**" access="ROLE_OPERATOR,ROLE_ADMIN" />
         
         <intercept-url pattern="/laboratory/**" access="ROLE_OPERATOR,ROLE_ADMIN" />
