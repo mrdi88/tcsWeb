@@ -69,8 +69,8 @@ function setData(data) {
     var createDate;
     var cell;
     //set data in table
-    for (var i = 0; i < cars.length; i++) { 
-        newrow = tableCars.insertRow(i+1);
+    for (var i = 0; i < cars.length-1; i++) { 
+        newrow = tableCars.insertRow(i);
         newrow.id=cars[i].id;
         if (i%2>0) newrow.classList.add("even");
         else newrow.classList.add("odd");

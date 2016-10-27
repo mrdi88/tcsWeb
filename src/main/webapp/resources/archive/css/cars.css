@@ -1,87 +1,169 @@
-#selectCar{
-        margin-bottom: 10px;
-        width: 600px;
-        max-width: 600px;
-        float:left;
+html{
+    max-height: 630px;
+    min-height: 630px;
+    max-width: 960px;
+    min-width: 960px;
 }
-#params{
-    margin-left: 20px;
-    width: 172px;
+#header_selectCar{
+    margin: 10px 0px;
+    padding: 0px 10px;
+    min-width: 877px;
+    max-width: 877px;
     float: left;
+}
+#header_cars{
+    border-collapse: collapse;
+    text-align: center;
+}
+#selectCar{
+    margin-top: -11px;
+    min-width: 900px;
+    max-width: 900px;
+    min-height: 175px;
+    max-height: 175px;
+    padding: 0px 10px;
+    float:left;
+}
+#params{    
+    float: left;
+    padding: 20px 0px;
 }
 #cars{
     border-collapse: collapse;
     text-align: center;
+    display: block;
+    overflow-y: scroll;
+    min-height: 175px;
 }
 #cars td{
-        border: 1px solid #BCBCBC; 	
+    border: 1px solid #BCBCBC; 	
 }
-#cars .even td{
-        background: #F9F9F9 ;
+#cars .even {
+    background: #F9F9F9 ;
 }
-#cars .odd td{
-        background: #EFEFEF ;
+#cars .odd {
+    background: #EFEFEF ;
 }
-#cars .selected td{
-        background: #95f300 ;
+#cars .selected {
+    background: #95f300 ;
 }
 .cars_header{
-        font-weight:bold;
+    font-weight:bold;
+    border: 1px solid #BCBCBC;
+    font-family: sans-serif;
 }
-#cars .rowNumber {
-    width: 20px;
-}
-#cars .sampleName {
-    width: 40px;
-}
-#cars .carNumber {
-    width: 60px;
-}
-#cars .destination {
+table .rowNumber {
     width: 30px;
 }
-#cars .ttnNumber {
-    width: 60px;
+table .sampleName {
+    width: 77px;
 }
-#cars .weediness {
-    width: 30px;
+table .carNumber {
+    width: 148px;
 }
-#cars .gluten {
-    width: 30px;
+table .destination {
+    width: 90px;
 }
-#cars .humidity {
-    width: 30px;
+table .siloNumber {
+    width: 90px;
 }
-#cars .createDate {
+table .nomenclature {
+    width: 174px;
+}
+table .class {
+    width: 77px;
+}
+table .humidity {
+    width: 77px;
+}
+table .createDate {
     width: 150px;
 }
+
 #start_time {
     width: 200px;
 }
 #stop_time {
     width: 200px;
 }
-#params{
-    float:left;
-    padding-left: 50px;
-    width: 400px;
-    max-width: 400px;
-}
+
 #params .driver{
     float:left;
+    margin-right: 20px;
 }
 #params .cargo{
-    float:right;
+    float:left;
+    margin-right: 20px;
 }
 #params .car{
-    float:right;
-}
-#params .sample{
     float:left;
+    margin-right: 20px;
+}
+#params .sample_1{
+    float:left;
+    margin-right: 20px;
+}
+#params .sample_2{
+    float:left;
+    margin-top: 8px;
 }
 div p:first-child{
     font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 10px;
 }
 p {
     margin:0;
+}
+#content{
+    max-width: 920px;
+    min-width: 920px;
+    max-height: 530px;
+    min-height: 530px;
+    margin: 20px;
+}
+#start_time_display{
+    height: 26px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Roboto;
+    border: 1px solid #444444;
+}
+#stop_time_display{
+    height: 26px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Roboto;
+    border: 1px solid #444444;
+}
+#btn_period{
+    border: 1px solid #444444;
+    height: 30px;
+    width: 170px;
+    background: white !important;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 15px;
+    float: right;
+}
+#btn_period:hover{
+    color:white;
+    background: #444 !important;
+}
+#params input{
+    width: 164px;
+    height: 24px;
+    margin-bottom: 6px;
+}
+#content_selectCar{
+    border: #444 solid 1px;
+    height: 230px;
+    margin-top: 10px;
+}
+#period{
+    font-size: 15px;
+}
+.wpd{
+   font-family: sans-serif; 
+   margin-left: -9px;
 }

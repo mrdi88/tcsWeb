@@ -60,4 +60,9 @@ p {
     background: white !important;
     margin: 0px;
     cursor: pointer;
+    outline: 0 !important;
+}
+#buttonField button:hover{
+    color:white;
+    background: #444 !important;
 }
