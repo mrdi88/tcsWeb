@@ -29,28 +29,25 @@ p {
 }
 #userField input, #passwordField input{
     border: none;
-    position: absolute;
-    height: 40px;
-    width: 165px;
+    padding-left: 10px;
+    height: 38px;
+    width: 160px;
     background: white !important;
-    padding: 0px 0px 0px 5px;
-    margin: 0px;
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
    #userField input, #passwordField input {
         border: none;
-        position: absolute;
-        height: 40px;
-        width: 160px;
+        padding-left: 10px;
+        height: 38px;
+        width: 155px;
         background: white !important;
-        padding: 0px 0px 0px 5px;
-        margin: 0px;
    }
 }
 #userField img, #passwordField img{
     border: none;
     height: 40px;
     background-color: #444;
+    float: left;
 }
 #buttonField button{
     border: 1px solid #444444;
