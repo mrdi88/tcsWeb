@@ -43,13 +43,18 @@
         <div id="params">
             <form id="paramForm" action="${pageContext.request.contextPath}/laboratory/manage?cmd=assignParams" method="post" autocomplete="off">
                 <div class="data">
-                    <span>Имя<input class="firstName" type="text" name="firstName" value="" readonly></span>
-                    <span>Фамилия<input class="lastName" type="text" name="lastName" value="" readonly></span>
-                    <span>Организация<input class="organization" type="text" name="organization" value="" readonly></span>
-                    <span>Номер телефона<input class="mobileNumber" type="text" name="mobileNumber" value="" readonly></span>
-                    <span>Номер машины<input class="carNumber" type="text" name="carNumber" value="" readonly></span>
-                    <span>Номер ТТН<input class="ttnNumber" type="text" name="ttnNumber" value="" readonly></span>
-                    <span>Культура<input class="culture" type="text" name="culture" value="" readonly></span>
+                    <p class="title">Машина</p>
+                    <div class="block1">
+                        <p>Имя</p><input class="firstName" type="text" name="firstName" value="" readonly><br>
+                        <p>Фамилия</p><input class="lastName" type="text" name="lastName" value="" readonly><br>
+                        <p>Организация</p><input class="organization" type="text" name="organization" value="" readonly><br>
+                        <p>Номер телефона</p><input class="mobileNumber" type="text" name="mobileNumber" value="" readonly><br>
+                    </div>
+                    <div class="block2">
+                        <p>Номер машины</p><input class="carNumber" type="text" name="carNumber" value="" readonly><br>
+                        <p>Номер ТТН</p><input class="ttnNumber" type="text" name="ttnNumber" value="" readonly><br>
+                        <p>Культура</p><input class="culture" type="text" name="culture" value="" readonly><br>
+                    </div>
                 </div>
                 <div class="sample">
                     <p class="title">Проба</p>
@@ -69,7 +74,9 @@
                             </c:forEach>       
                         </select>
                         <p>Номер силуса</p><input class="siloNumber" maxlength="5" type="text" name="siloNumber" value="" ><br>
-                        <input class="submit" type="submit" value="Применить">
+                        <div class="submit">
+                            <input type="submit" value="Применить">
+                        </div>
                     </div>
                 </div>
                 <input class="cardId" type="hidden" name="cardId" value="" readonly>

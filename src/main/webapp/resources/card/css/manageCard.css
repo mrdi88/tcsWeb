@@ -1,6 +1,8 @@
 p {
     margin:0;
-    font-family: 'Roboto';
+}
+#content{
+    min-width: 980px;
 }
 hr{
     margin: 3px 0px;
@@ -14,6 +16,7 @@ hr{
 }
 #newCard .tittle{
     font-weight: bold;
+    font-family: sans-serif;
     margin-bottom: 15px;
 }
 #newCard input{
@@ -46,6 +49,10 @@ hr{
     cursor: pointer;
     float: right;
 }
+#addForm .submit input:hover{
+    color:white;
+    background: #444 !important;
+}
 #existCard{
     width:630px;
     padding: 20px 20px 0px 20px;
@@ -54,6 +61,7 @@ hr{
 }
 #existCard .tittle{
     font-weight: bold;
+    font-family: sans-serif;
     margin-bottom: 15px;
 }
 #existCard input{
@@ -85,6 +93,7 @@ span{
 } 
 #existCard .block1 p, #existCard .block2 p{
     font-weight: bold;
+    font-family: sans-serif;
     margin-bottom: 5px;
 } 
 #existCard .block1 span p, #existCard .block2 span p{
@@ -109,4 +118,8 @@ span{
     margin: 12px 0px 0px 0px;
     cursor: pointer;
     float: right;
+}
+#existCard .submit input:hover{
+    color:white;
+    background: #444 !important;
 }

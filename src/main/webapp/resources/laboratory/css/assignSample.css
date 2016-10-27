@@ -1,16 +1,15 @@
 p {
     margin:0;
-    font-family: 'Roboto';
 }
 #card{
     width:630px;
-    
     padding: 20px;
     float: left;
     height: 325px;
 }
 #card .tittle{
     font-weight: bold;
+    font-family: sans-serif;
     margin-bottom: 20px;
 }
 #card input{
@@ -35,6 +34,7 @@ p {
 } 
 #card .block1 p, #card .block2 p{
     font-weight: bold;
+    font-family: sans-serif;
     margin-bottom: 8px;    
 } 
 #card .block1 span p, #card .block2 span p{
@@ -54,6 +54,10 @@ p {
     cursor: pointer;
     float: right;
 }
+#card .submit input:hover{
+    color:white;
+    background: #444 !important;
+}
 #card .cardNumber{
     float: right;
     text-align: center;
@@ -67,5 +71,6 @@ p {
 #card .assignField{
     margin-top: 10px;
     font-weight:bold;
+    font-family: sans-serif;
 }
 
