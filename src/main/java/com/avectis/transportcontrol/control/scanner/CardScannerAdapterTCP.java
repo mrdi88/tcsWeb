@@ -71,6 +71,7 @@ public class CardScannerAdapterTCP implements CardScannerAdapter{
                                 socket=watchDogSocket;
                             }
                             catch(Exception e){
+                                continue;
                             }
                         }
                     }
