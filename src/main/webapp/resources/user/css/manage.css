@@ -3,22 +3,37 @@
     float: left;
 }
 #rightSide{
-    width: 600px;
+    width: 430px;
     float: left;
 }
 #users_table{
-    width: 600px;
-    margin-bottom: 40px;
+    width: 670px;
+    float: left;
+    padding: 10px;
+    border: 1px solid #BCBCBC;
+    margin: 0px 20px 20px 0px;
 }
 #newUser{
     width: 200px;
+    float: left;
 }
 #changePassword{
     width: 200px;
+    float: left;
+    margin-right: 20px;
+}
+#header_users{
+    border-collapse: collapse;
+    text-align: center;
+    width: 646px;
 }
 #users{
     border-collapse: collapse;
     text-align: center;
+    display: block;
+    overflow-y: scroll;
+    width: 672px;
+    height: 181px;
 }
 #users td{
         border: 1px solid #BCBCBC; 	
@@ -33,64 +48,148 @@
         background: #95f300 ;
 }
 .users_header{
-        font-weight:bold;
+    font-weight:bold;
+    border: 1px solid #BCBCBC;
+    font-family: sans-serif;
 }
-#users .rowNumber {
-    width: 20px;
+#users .rowNumber, #header_users .rowNumber {
+    width: 30px;
 }
-#users .login {
+#users .login, #header_users .login {
     width: 150px;
 }
-#users .roles {
-    width: 400px;
+#users .roles, #header_users .roles {
+    width: 450px;
     text-align: left;
 }
 #users .selected td{
     background: #95f300 ;
 }
+#users tr:first-child td{
+    border-top: none;
+}
 p {
     margin:0;
 }
-div p:first-child{
+#lable_newUser{
+    font-family: sans-serif;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 #setRoles SELECT,#setRoles INPUT[type="text"] {
-    width: 180px;
+    width: 100%;
+    height: 100%;
     box-sizing: border-box;
 }
-#setRoles {
+/*#setRoles {
     padding: 8px;
     overflow: auto;
-    width: 430px;
-    
-}
+    width: 430px;    
+}*/
 #setRoles .roles{
     display:  inline-flex;
-    margin: 10px 0 10px 0;
+    margin: 6px 0 10px 0;
     height: 90px;
-    width: 400px;
+    width: 472px;
 }
 #setRoles .roles .exist{
-    width: 40%;
+    width: 210px;
     height: 100%;
     float: left;
-    margin-right: 25px;
 }
 #setRoles .roles .exist select{
     height: 100%;
+    width: 100%;
 }
 #setRoles .roles .moveBtns{
-    width: 10%;
+    width: 50px;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 #setRoles .roles .available{
-    margin-left: 5px;
-    width: 40%;
+    width: 210px;
 }
-
-
-
-
-
+#content{
+    max-width: 920px;
+    min-width: 920px;
+    max-height: 530px;
+    min-height: 530px;
+    margin: 20px;
+}
+input{
+    height: 24px;
+    width: 180px;
+    margin-bottom: 6px;
+}
+input[type=button]{
+    height: 30px;
+    width: 31px;
+}
+.btn{
+    border: 1px solid #444444 !important;
+    height: 30px !important;
+    width: 184px !important;
+    background: white !important;
+    margin: 10px 0px 0px 0px !important;
+    cursor: pointer !important;
+    font-size: 15px !important;
+}
+#btn{
+    float: right;
+}
+button{
+    border: 1px solid #444444;
+    height: 30px;
+    width: 184px;
+    background: white !important;
+    margin: 10px 0px 0px 0px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.btn:hover{
+    color:white;
+    background: #444 !important;
+}
+button:hover{
+    color:white;
+    background: #444 !important;
+}
+#changePassword .username{
+    display: none;
+}
+#setRoles .username{
+    display: none;
+}
+#setRoles{
+    float: left;
+    width: 472px;
+}
+#userLable{
+    float:left;
+    width: 692px;
+    margin-right: 228px;
+}
+#userLable input{
+    float: right;
+    margin-right: 10px;
+    width: 255px;
+}
+#userLable input[type=button]{
+    float: right;
+    margin: 0px 0px 0px 20px !important;
+}
+#lable_password{
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+#lable_roles{
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+#userLable label{
+    font-weight: bold;
+    font-family: sans-serif;
+}

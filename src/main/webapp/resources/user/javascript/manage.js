@@ -82,7 +82,7 @@ function setUsers(data) {
     userRoles=data.roles
     var tableUsers = document.getElementById("users");
     //clean table
-    for(var i = tableUsers.rows.length-1; i > 0; i--){
+    for(var i = tableUsers.rows.length-1; i >= 0; i--){
         tableUsers.deleteRow(i);
     }
     var newrow;
@@ -90,7 +90,7 @@ function setUsers(data) {
     var cell;
     //set data in table
     for (var i = 0; i < users.length; i++) { 
-        newrow = tableUsers.insertRow(i+1);
+        newrow = tableUsers.insertRow(i);
         newrow.id=users[i].username;
         if (i%2>0) newrow.classList.add("even");
         else newrow.classList.add("odd");
@@ -131,6 +131,8 @@ function selectUser(e){
         if (userList[i].username==selectedUser) user=userList[i];
     }
     if (user!=null){
+        $( "#userLable .username").val( user.username );
+        $( "#changePasswordForm .username").val( user.username );
         $( "#changeRolesForm .username").val( user.username );
         for (var i=0; i<userRoles.length; i++ ){
             var hasRole=false;
