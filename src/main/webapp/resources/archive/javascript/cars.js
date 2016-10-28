@@ -62,14 +62,14 @@ function setData(data) {
     carList=cars;
     var tableCars = document.getElementById("cars");
     //clean table
-    for(var i = tableCars.rows.length-1; i > 0; i--){
+    for(var i = tableCars.rows.length-1; i >= 0; i--){
         tableCars.deleteRow(i);
     }
     var newrow;
     var createDate;
     var cell;
     //set data in table
-    for (var i = 0; i < cars.length-1; i++) { 
+    for (var i = 0; i < cars.length; i++) { 
         newrow = tableCars.insertRow(i);
         newrow.id=cars[i].id;
         if (i%2>0) newrow.classList.add("even");

@@ -1,0 +1,129 @@
+#header_selectCard{
+    margin: 10px 0px;
+    padding: 0px 10px;
+    min-width: 877px;
+    max-width: 877px;
+    float: left;
+}
+#header_cards{
+    border-collapse: collapse;
+    text-align: center;
+}
+#header_cards th{
+    font-weight:bold;
+    border: 1px solid #BCBCBC;
+    font-family: sans-serif;
+}
+#selectCard{
+    margin-top: -10px;
+    min-width: 900px;
+    max-width: 900px;
+    min-height: 175px;
+    max-height: 175px;
+    padding: 0px 10px;
+    float:left;
+}
+#params{    
+    float: left;
+    padding: 20px 0px;
+}
+#cards{
+    border-collapse: collapse;
+    text-align: center;
+    display: block;
+    overflow-y: scroll;
+    height: 176px;
+}
+#cards td{
+    border: 1px solid #BCBCBC; 	
+    cursor: pointer;
+}
+#cards tr:first-child td{
+    border-top: none;
+}
+#cards tr:hover{
+    background: linear-gradient(#f70,#f30);
+    color:white;
+}
+#cards .even {
+    background: #F9F9F9 ;
+}
+#cards .odd {
+    background: #EFEFEF ;
+}
+#cards .selected {
+    background: #444;/*#95f300 ;*/
+    color: white;
+}
+table .rowNumber {
+    width: 30px;
+}
+table .sampleName {
+    width: 77px;
+}
+table .carNumber {
+    width: 148px;
+}
+table .destination {
+    width: 90px;
+}
+table .siloNumber {
+    width: 90px;
+}
+table .nomenclature {
+    width: 174px;
+}
+table .class {
+    width: 77px;
+}
+table .humidity {
+    width: 77px;
+}
+table .createDate {
+    width: 150px;
+}
+#params .driver{
+    float:left;
+    margin-right: 20px;
+}
+#params .cargo{
+    float:left;
+    margin-right: 20px;
+}
+#params .car{
+    float:left;
+    margin-right: 20px;
+}
+#params .sample_1{
+    float:left;
+    margin-right: 20px;
+}
+#params .sample_2{
+    float:left;
+    margin-top: 8px;
+}
+div p:first-child{
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+p {
+    margin:0;
+}
+#content{
+    max-width: 920px;
+    min-width: 920px;
+    max-height: 530px;
+    min-height: 530px;
+    margin: 20px;
+}
+#params input{
+    width: 164px;
+    height: 24px;
+    margin-bottom: 6px;
+}
+#content_selectCard{
+    border: 1px solid #BCBCBC;
+    height: 231px;
+    margin-top: 10px;
+}

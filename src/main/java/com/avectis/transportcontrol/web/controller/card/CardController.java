@@ -171,10 +171,13 @@ public class CardController extends AbstractController {
             ObjectMapper mapper;
             List<CardView> cards= cardFacade.getList();
             List<CardView> buf= new ArrayList<CardView>();
-            long nowMS=new Date().getTime();
+            long date=new Date().getTime();
+            long period = 30*24*60*60;
+            long outDate=date-period*1000;
             for (CardView card:cards){
                 //chose all cards not oldder than 3 days
-                if (card.getCreateDate().getTime()>(nowMS-3*24*60*60*1000)){ 
+                long cardDate=card.getCreateDate().getTime();
+                if (cardDate>outDate){ 
                     buf.add(card);
                 }
             }
@@ -192,7 +195,7 @@ public class CardController extends AbstractController {
         return new ModelAndView("card/manageCard", data);
     }
     private ModelAndView doListAction(HttpServletRequest arg0){
-        return new ModelAndView("card/listCard", null);
+        return new ModelAndView("card/cards", null);
     }
     private String getAction(String url){
         String action="";
