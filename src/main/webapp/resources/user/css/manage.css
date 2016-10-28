@@ -36,16 +36,22 @@
     height: 181px;
 }
 #users td{
-        border: 1px solid #BCBCBC; 	
+    border: 1px solid #BCBCBC;
+    cursor: pointer;    
 }
-#users .even td{
-        background: #F9F9F9 ;
+#users tr:hover{
+    background: linear-gradient(#f70,#f30);
+    color:white;
 }
-#users .odd td{
-        background: #EFEFEF ;
+#users .even{
+    background: #F9F9F9 ;
 }
-#users .selected td{
-        background: #95f300 ;
+#users .odd{
+    background: #EFEFEF ;
+}
+#users .selected{
+    background: #444;/*#95f300 ;*/
+    color: white;
 }
 .users_header{
     font-weight:bold;
@@ -61,9 +67,6 @@
 #users .roles, #header_users .roles {
     width: 450px;
     text-align: left;
-}
-#users .selected td{
-    background: #95f300 ;
 }
 #users tr:first-child td{
     border-top: none;
@@ -125,6 +128,13 @@ input{
 input[type=button]{
     height: 30px;
     width: 31px;
+    border: 1px solid #444444 !important;
+    background: white !important;
+    cursor: pointer !important;
+}
+input[type=button]:hover{
+    color:white;
+    background: #444 !important;
 }
 .btn{
     border: 1px solid #444444 !important;

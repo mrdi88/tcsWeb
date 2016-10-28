@@ -23,7 +23,7 @@
     </head>
     <body>
         <jsp:include page="../header.jsp"/>
-        <div class="docks">
+        <div id="docks">
             <div class="dock" id="dock1">
                 <p>R01</p>
                 <div class="screen listScreen">

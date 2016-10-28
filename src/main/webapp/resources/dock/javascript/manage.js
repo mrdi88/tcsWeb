@@ -169,7 +169,8 @@ function setDockData(dockId, queue) {
     //save dock cards
     dockQueues[dockId]=queue;
     //set data in table
-    for (var i = 0; i < cards.length; i++) { 
+    var i = 0;
+    for (; i < cards.length; i++) { 
         newrow = table.insertRow(i+1);
         newrow.id=cards[i].id;
         if (i%2>0) newrow.classList.add("even");
@@ -197,6 +198,31 @@ function setDockData(dockId, queue) {
             selectCard( this );
         };
     }
+    //add empty rows to fill count
+    for (; i < 2; i++) { 
+        newrow = table.insertRow(i+1);
+        if (i%2>0) newrow.classList.add("even");
+        else newrow.classList.add("odd");
+        cell=newrow.insertCell(-1);
+        cell.classList.add("rowNumber");
+        cell.innerHTML = " ";
+        cell=newrow.insertCell(-1);
+        cell.classList.add("carNumber");
+        cell.innerHTML = " ";
+        cell=newrow.insertCell(-1);
+        cell.classList.add("humidity");
+        cell.innerHTML = " ";
+        cell=newrow.insertCell(-1);
+        cell.classList.add("nomenclature");
+        cell.innerHTML = " ";
+        cell=newrow.insertCell(-1);
+        cell.classList.add("class");
+        cell.innerHTML = " ";
+        cell=newrow.insertCell(-1);
+        cell.classList.add("siloNumber");
+        cell.innerHTML = " ";
+    }
+    
 }
 //set next step for choosed card
 function selectCard(e){
