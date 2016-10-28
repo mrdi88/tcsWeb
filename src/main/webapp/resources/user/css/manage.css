@@ -178,7 +178,7 @@ button:hover{
 #userLable{
     float:left;
     width: 692px;
-    margin-right: 228px;
+    margin: 0px 228px 15px 0px;
 }
 #userLable input{
     float: right;
