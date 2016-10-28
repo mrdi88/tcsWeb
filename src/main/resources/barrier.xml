@@ -8,7 +8,7 @@
 
     <!-- barrierR01 -->
     <!--<bean id="barrierAdapterR01" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" init-method="init" destroy-method="onDestroy">-->
-    <bean id="barrierAdapterR01" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTCP" destroy-method="onDestroy">   
+    <bean id="barrierAdapterR01" class="com.avectis.transportcontrol.control.barrier.BarrierAdapterTest" destroy-method="onDestroy">   
         <property name="ipAddr" value="192.168.1.13"> </property>
     </bean>
 

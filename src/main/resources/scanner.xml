@@ -6,7 +6,7 @@
        
         <!-- entrance card scanner -->
         <!--<bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">-->
-        <bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
+        <bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
             <property name="ipAddr" value="192.168.1.100"> </property>
             <property name="port" value="1000"> </property>
         </bean>
@@ -16,7 +16,7 @@
         </bean>
         <!-- sample scanner -->
         <!--<bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">-->
-        <bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
+        <bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
             <property name="ipAddr" value="192.168.1.101"> </property>
             <property name="port" value="1000"> </property>
         </bean>

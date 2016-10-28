@@ -12,10 +12,20 @@ public class CardScannerAdapterTest implements CardScannerAdapter, SerialPortEve
     private int dataBits;
     private int stopBits;
     private int parity;
+    private String ipAddr;
+    private int port;
     
     private SerialPort serialPort; //COM порт сканера карт
     private DataListener externalDataListener;
-        
+
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+   
     public CardScannerAdapterTest(){
     }
     public CardScannerAdapterTest(String portName){
