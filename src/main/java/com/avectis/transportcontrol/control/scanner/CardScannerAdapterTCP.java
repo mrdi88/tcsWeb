@@ -67,7 +67,7 @@ public class CardScannerAdapterTCP implements CardScannerAdapter{
                                 watchDogSocket = new Socket(ipAddress,port);
                                 watchDogSocket.setSoTimeout(1000);
                                 System.out.println("RECONNECTING");
-                                watchDogSocket.close();
+                                socket.close();
                                 socket=watchDogSocket;
                             }
                             catch(Exception e){
