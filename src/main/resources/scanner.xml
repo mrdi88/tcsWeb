@@ -6,7 +6,7 @@
        
         <!-- entrance card scanner -->
         <!--<bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">-->
-        <bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
+        <bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
             <property name="ipAddr" value="192.168.1.100"> </property>
             <property name="port" value="1000"> </property>
         </bean>
@@ -16,9 +16,9 @@
         </bean>
         <!-- sample scanner -->
         <!--<bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">-->
-        <bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
-            <property name="ipAddr" value="192.168.1.101"> </property>
-            <property name="port" value="1000"> </property>
+        <bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
+            <property name="ipAddr" value="192.168.1.100"> </property>
+            <property name="port" value="1001"> </property>
         </bean>
         <bean id="scannerSample" class="com.avectis.transportcontrol.control.scanner.CardScanner">
             <property name="name" value="scannerSample"> </property>
@@ -26,11 +26,8 @@
         </bean>
         <!-- weight IN scanner -->
         <bean id="cardScannerAdapterWeightIn" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
-            <property name="portName" value="COM8"> </property>
-            <property name="baudRate" value="9600"> </property>
-            <property name="dataBits" value="8"> </property>
-            <property name="stopBits" value="1"> </property>
-            <property name="parity" value="0"> </property>
+            <property name="ipAddr" value="192.168.1.103"> </property>
+            <property name="port" value="1000"> </property>
         </bean>
         <bean id="scannerWeightIn" class="com.avectis.transportcontrol.control.scanner.CardScanner">
             <property name="name" value="scannerWeightIn"> </property>
@@ -38,15 +35,21 @@
         </bean>
         <!-- weight OUT scanner -->
         <bean id="cardScannerAdapterWeightOut" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
-            <property name="portName" value="COM8"> </property>
-            <property name="baudRate" value="9600"> </property>
-            <property name="dataBits" value="8"> </property>
-            <property name="stopBits" value="1"> </property>
-            <property name="parity" value="0"> </property>
+            <property name="ipAddr" value="192.168.1.104"> </property>
+            <property name="port" value="1000"> </property>
         </bean>
         <bean id="scannerWeightOut" class="com.avectis.transportcontrol.control.scanner.CardScanner">
             <property name="name" value="scannerWeightOut"> </property>
             <property name="scannerAdapter" ref="cardScannerAdapterWeightOut"> </property>
+        </bean>
+        <!-- cardreciver scanner -->
+        <bean id="cardScannerAdapterReciver" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
+            <property name="ipAddr" value="192.168.1.101"> </property>
+            <property name="port" value="1000"> </property>
+        </bean>
+        <bean id="scannerCardReciver" class="com.avectis.transportcontrol.control.scanner.CardScanner">
+            <property name="name" value="scannerCardReciver"> </property>
+            <property name="scannerAdapter" ref="cardScannerAdapterReciver"> </property>
         </bean>
         <!-- scanner facade -->
         <bean id="scannerFacade" class="com.avectis.transportcontrol.facade.ScannerFacade">
@@ -56,6 +59,7 @@
                     <ref bean="scannerSample"/>
                     <ref bean="scannerWeightIn"/>
                     <ref bean="scannerWeightOut"/>
+                    <ref bean="scannerCardReciver"/>
                 </list>
             </property>
         </bean>

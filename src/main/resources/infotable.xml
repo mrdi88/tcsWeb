@@ -6,7 +6,7 @@
 
     <!-- infoTableR01 -->
     <!--<bean id="infoTableAdapterR01" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTest">-->
-    <bean id="infoTableAdapterR01" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTest">
+    <bean id="infoTableAdapterR01" class="com.avectis.transportcontrol.control.infotable.InfoTableAdapterTCP">
         <property name="ipAddr" value="192.168.1.111"> </property>
         <property name="port" value="5000"> </property>
         <property name="InfoTableAddress" value="9999"> </property>

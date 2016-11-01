@@ -4,6 +4,7 @@
        xmlns:p = "http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
        
+    <!-- weighing-->
         <!-- scales IN -->
         <bean id="scalesAdapterIn" 
               class="com.avectis.transportcontrol.control.scales.ScalesAdapterTest" init-method="init">
@@ -31,5 +32,23 @@
             <property name="lightFacade" ref="lightFacade" />
             <property name="inScalesOutLightName" value="inScalesOutLight" />
             <property name="outScalesOutLightName" value="outScalesOutLight" />
+        </bean>
+    <!-- card reciver-->    
+        <!-- relay-->    
+        <bean id="acceptRelayAdapter" class="com.avectis.transportcontrol.control.relay.RelayAdapterTCP" destroy-method="onDestroy">   
+            <property name="ipAddr" value="192.168.1.13"> </property>
+        </bean>
+        <bean id="acceptRelay" class="com.avectis.transportcontrol.control.relay.Relay">
+            <property name="name" value="acceptRelay"> </property>
+            <property name="relayAdapter" ref="acceptRelayAdapter"> </property>
+        </bean>
+        
+        <bean id="cardReciverModule" 
+              class="com.avectis.transportcontrol.module.CardReciverModule" init-method="init">
+            <property name="cardFacade" ref="cardFacade"> </property>
+            <property name="queueFacade" ref="queueFacade"> </property>
+            <property name="exitBarrier" ref="exitBarrier"> </property>
+            <property name="acceptRelay" ref="acceptRelay"> </property>
+            <property name="cardReciverScanner" ref="scannerCardReciver"> </property>
         </bean>
 </beans>
