@@ -44,8 +44,8 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
                 InputStream sin = socket.getInputStream();
                 OutputStream sout = socket.getOutputStream();
                         
-                byte[] displayRequest = makeDisplayRequest(row); 
-                byte[] L2_package = makeL2pack(displayRequest, 9999, (byte)0x05); 
+                byte[] displayRequest = makeDisplayRequest(data.indexOf(row),row); 
+                byte[] L2_package = makeL2pack(displayRequest, InfoTableAddress, (byte)0x05); 
                 byte[] CRC = countCS(L2_package,L2_package.length);
                 int length = L2_package.length;
             
@@ -161,12 +161,12 @@ public class InfoTableAdapterTCP implements InfoTableAdapter {
         }                  
     }    
     //Создание запроса на вывод текста
-    private byte[] makeDisplayRequest(String text ){
+    private byte[] makeDisplayRequest(int displayNumber, String text){
         byte[] request = new byte[text.length() + 9];
         
         try{
             byte[] textAsByteArray = text.getBytes("windows-1251");
-            request[0] = 0x00;
+            request[0] = (byte)displayNumber;
             request[1] = 0x05;
             request[2] = 0x02;
             request[3] = (byte)0x80;
