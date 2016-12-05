@@ -18,5 +18,6 @@ public interface CarDAO {
     public void update(Car car);
     public Car getCar(Long id);
     public List<Car> getCars(Date startDate, Date endDate);
+    public List<Car> getCars(Date startDate, Date endDate, String carNumber);
     public void deleteCar(Car car);
 }

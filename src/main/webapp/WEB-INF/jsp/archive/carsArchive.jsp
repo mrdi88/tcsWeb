@@ -29,9 +29,9 @@
         <div id="content">
             <div id="period">
                 <form id="periodForm" action="${pageContext.request.contextPath}/archive?cmd=getCars" method="post" autocomplete="off">
-
-                    с <input type="text" name="from" size="20" style="display: inline-block;" id="start_time"/><input id="setup_start_time" type="text" size="40" style="display: none;"/>
-                    по <input type="text" name="to" size="20" style="display: inline-block;" id="stop_time"/><input id="setup_stop_time" type="text" size="40" style="display: none;"/>       
+                    с <input class="pickDate" type="text" name="from" size="20" style="display: inline-block;" id="start_time"/><input id="setup_start_time" type="text" size="40" style="display: none;"/>
+                    по <input class="pickDate" type="text" name="to" size="20" style="display: inline-block;" id="stop_time"/><input id="setup_stop_time" type="text" size="40" style="display: none;"/>   
+                    номер авто <input id="select_card_number" type="text" name="carNumber" size="10" maxlength="10" style="display: inline-block;"/>
                     <input id="btn_period" type="submit" value="Период">
                 </form>
             </div>

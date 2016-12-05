@@ -89,7 +89,6 @@ table .createDate {
 #stop_time {
     width: 200px;
 }
-
 #params .driver{
     float:left;
     margin-right: 20px;
@@ -133,6 +132,14 @@ p {
     border: 1px solid #BCBCBC;
 }
 #stop_time_display{
+    margin-right: 20px; 
+    height: 26px;
+    text-align: center;
+    font-size: 15px;
+    font-family: Roboto;
+    border: 1px solid #BCBCBC;
+}
+#select_card_number {
     height: 26px;
     text-align: center;
     font-size: 15px;

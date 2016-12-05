@@ -77,7 +77,13 @@ public class ArchiveController extends AbstractController {
     private List<CarView> getCarsByPeriod(HttpServletRequest arg0){
         Date from = new Date(arg0.getParameter("from"));
         Date to = new Date(arg0.getParameter("to"));
-        List<CarView> cars = carFacade.getList(from, to);
+        String carNumber=arg0.getParameter("carNumber");
+        List<CarView> cars = null;
+        if (carNumber == null || carNumber.length()==0 ) {
+            cars = carFacade.getList(from, to);
+        } else {
+            cars = carFacade.getList(from, to, carNumber);
+        }
         return cars;
     }
 }

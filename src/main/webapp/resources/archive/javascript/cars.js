@@ -10,7 +10,7 @@ $(window).load( function(){
         xhr.setRequestHeader(header, token);
     });
     $(function(){
-        $('#periodForm input[type="text"]').will_pickdate({ 
+        $('#periodForm .pickDate').will_pickdate({ 
             format: 'Y/m/d H:i:s', 
             inputOutputFormat: 'Y/m/d H:i:s',
             days: ['Вс','Пн', 'Вт', 'Ср', 'Чт','Пт', 'Сб'],
@@ -38,6 +38,7 @@ $(window).load( function(){
         event.preventDefault();
         var from=new Date(this["start_time"].value);
         var to=new Date(this["stop_time"].value);
+        var carNumber = this["carNumber"].value ;
         //format: 'Y/m/d H:i:s', 
         var from_UTCstr=from.getUTCDate();
         var from_str=""+from.getUTCFullYear()+"/"+(from.getUTCMonth()+1)+"/"+from.getUTCDate()+" "+
@@ -50,7 +51,7 @@ $(window).load( function(){
             type     : "POST",
             cache    : false,
             url      : $(this).attr('action'),
-            data     : {"from":from_str,"to":to_str},
+            data     : {"from":from_str,"to":to_str, "carNumber":carNumber},
             success  : function(data) {
                 setData(data);
             }

@@ -35,7 +35,8 @@
         </bean>
     <!-- card reciver-->    
         <!-- relay-->    
-        <bean id="acceptRelayAdapter" class="com.avectis.transportcontrol.control.relay.RelayAdapterTCP" destroy-method="onDestroy">   
+        <!--<bean id="acceptRelayAdapter" class="com.avectis.transportcontrol.control.relay.RelayAdapterTCP" destroy-method="onDestroy">  -->  
+        <bean id="acceptRelayAdapter" class="com.avectis.transportcontrol.control.relay.RelayAdapterTest" destroy-method="onDestroy">   
             <property name="ipAddr" value="192.168.1.13"> </property>
         </bean>
         <bean id="acceptRelay" class="com.avectis.transportcontrol.control.relay.Relay">

@@ -71,6 +71,32 @@ public class CarHibernateDAO extends BaseHibernateDAO implements CarDAO{
         return (List<Car>)criteria.list();
     }
     /**
+     * get Cars for period from DB using Hibernate
+     * 
+     * @param startDate Date - from date
+     * @param endDate Date - to date
+     * @param endDate String - filter on carNumber
+     * @return List of Car objects
+     */
+    @Override
+    public List<Car> getCars(Date startDate, Date endDate, String carNumber){
+        Session session=sessionFactory.getCurrentSession();
+        Criteria criteria=session.createCriteria(Car.class);
+        if(startDate != null) {
+            criteria.add(Restrictions.ge("createDate", startDate));
+        }
+        if(endDate != null) {
+            criteria.add(Restrictions.le("createDate", endDate));
+        }
+        if(carNumber != null) {
+            StringBuffer sb=new StringBuffer();
+            sb.append("%").append(carNumber).append("%");
+            criteria.add(Restrictions.like("carNumber", sb.toString()));
+        }
+        criteria.addOrder(Order.asc("createDate"));
+        return (List<Car>)criteria.list();
+    }
+    /**
      * delete Car object from DB using Hibernate
      * 
      * @param car Car - car object to delete

@@ -56,6 +56,15 @@ public class CarFacade {
         }
         return carsView;
     }
+    @Transactional(readOnly = true)
+    public List<CarView> getList(Date from, Date to, String carNumber){
+        List<Car> cars=carDAO.getCars(from, to, carNumber);
+        List<CarView> carsView= new ArrayList<>();
+        for (Car car:cars){
+            carsView.add(new CarView(car));
+        }
+        return carsView;
+    }
     @Transactional
     public void delete(CarView car){
         carDAO.deleteCar(carFromView(car));

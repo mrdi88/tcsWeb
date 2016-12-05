@@ -140,7 +140,7 @@ public class DockController extends AbstractController {
         arg1.sendRedirect("dock/manage");
         return null;
     }
-    private ModelAndView doGetDocksDataCmd(HttpServletRequest arg0) throws JsonProcessingException{
+    private ModelAndView doGetDocksDataCmd(HttpServletRequest arg0) throws JsonProcessingException {
         Map<String,String>  data = new HashMap<>();
         List<QueueView> ql = new ArrayList<>();
         try{
@@ -156,7 +156,7 @@ public class DockController extends AbstractController {
         }
         return new ModelAndView("dock/json/docksQueueDataJSON", data);
     }
-    private ModelAndView doCallCarCmd(HttpServletRequest arg0){
+    private ModelAndView doCallCarCmd(HttpServletRequest arg0) {
         Map<String,String>  data = new HashMap<>();
         try{
             if (callCar(arg0)){
@@ -170,7 +170,7 @@ public class DockController extends AbstractController {
         }
         return new ModelAndView("queue/json/resultJSON", data);
     }
-    private ModelAndView doResetCallCmd(HttpServletRequest arg0){
+    private ModelAndView doResetCallCmd(HttpServletRequest arg0) {
         Map<String,String>  data = new HashMap<>();
         try{
             if (resetCall(arg0)){
@@ -184,7 +184,7 @@ public class DockController extends AbstractController {
         }
         return new ModelAndView("queue/json/resultJSON", data);    
     }
-    private ModelAndView doAcceptCarCmd(HttpServletRequest arg0){
+    private ModelAndView doAcceptCarCmd(HttpServletRequest arg0) {
         Map<String,String>  data = new HashMap<>();
         try{
             if (acceptCar(arg0)){

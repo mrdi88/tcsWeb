@@ -5,8 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
        
         <!-- entrance card scanner -->
-        <!--<bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">-->
-        <bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
+        <bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
+        <!--<bean id="cardScannerAdapterEntrance" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">-->
             <property name="ipAddr" value="192.168.1.100"> </property>
             <property name="port" value="1000"> </property>
         </bean>
@@ -15,8 +15,8 @@
             <property name="scannerAdapter" ref="cardScannerAdapterEntrance"> </property>
         </bean>
         <!-- sample scanner -->
-        <!--<bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">-->
-        <bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
+        <bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
+        <!--<bean id="cardScannerAdapterSample" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">-->
             <property name="ipAddr" value="192.168.1.100"> </property>
             <property name="port" value="1001"> </property>
         </bean>
@@ -43,7 +43,8 @@
             <property name="scannerAdapter" ref="cardScannerAdapterWeightOut"> </property>
         </bean>
         <!-- cardreciver scanner -->
-        <bean id="cardScannerAdapterReciver" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">
+        <!--<bean id="cardScannerAdapterReciver" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTCP" init-method="init" destroy-method="onDestroy">-->
+        <bean id="cardScannerAdapterReciver" class="com.avectis.transportcontrol.control.scanner.CardScannerAdapterTest" init-method="init" destroy-method="onDestroy">
             <property name="ipAddr" value="192.168.1.101"> </property>
             <property name="port" value="1000"> </property>
         </bean>
